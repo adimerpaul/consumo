@@ -52,7 +52,7 @@
               <q-item-label caption>Ingresar al sistema</q-item-label>
             </q-item-section>
           </q-item>
-          <q-item to="user"  exact clickable v-ripple v-if="$store.getters['login/isLoggedIn']">
+          <q-item to="user"  exact clickable v-ripple v-if="$store.state.login.booluser">
             <q-item-section avatar>
               <q-icon name="people" />
             </q-item-section>
@@ -61,7 +61,7 @@
               <q-item-label caption>Control de usuarios</q-item-label>
             </q-item-section>
           </q-item>
-          <q-item to="regtramite"  exact clickable v-ripple v-if="$store.getters['login/isLoggedIn']">
+          <q-item to="regtramite"  exact clickable v-ripple v-if="$store.state.login.boolregtramite">
             <q-item-section avatar>
               <q-icon name="login" />
             </q-item-section>
@@ -70,7 +70,7 @@
               <q-item-label caption>Iniscio de tramite</q-item-label>
             </q-item-section>
           </q-item>
-          <q-item to="form19"  exact clickable v-ripple v-if="$store.getters['login/isLoggedIn']">
+          <q-item to="form19"  exact clickable v-ripple v-if="$store.state.login.boolform19">
             <q-item-section avatar>
               <q-icon name="list" />
             </q-item-section>
@@ -79,7 +79,7 @@
               <q-item-label caption>Registro de datos</q-item-label>
             </q-item-section>
           </q-item>
-          <q-item to="firmaregulacion"  exact clickable v-ripple v-if="$store.getters['login/isLoggedIn']">
+          <q-item to="firmaregulacion"  exact clickable v-ripple v-if="$store.state.login.boolfirmaregulacion">
             <q-item-section avatar>
               <q-icon name="list" />
             </q-item-section>
@@ -88,7 +88,7 @@
               <q-item-label caption>Registro de datos</q-item-label>
             </q-item-section>
           </q-item>
-          <q-item to="verificardocumentacion"  exact clickable v-ripple v-if="$store.getters['login/isLoggedIn']">
+          <q-item to="verificardocumentacion"  exact clickable v-ripple v-if="$store.state.login.boolverificardocumentacion">
             <q-item-section avatar>
               <q-icon name="list" />
             </q-item-section>
