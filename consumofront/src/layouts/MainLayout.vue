@@ -14,7 +14,7 @@
         <q-toolbar-title>
           {{$store.state.login.user.name}}
         </q-toolbar-title>
-        <div>Quasar v{{ $q.version }}</div>
+        <div>Vutrat {{ $q.version }}</div>
       </q-toolbar>
       <div class="q-px-lg q-pt-xl q-mb-md">
         <div class="text-h3">G.A.M.O.</div>
@@ -52,13 +52,49 @@
               <q-item-label caption>Ingresar al sistema</q-item-label>
             </q-item-section>
           </q-item>
-          <q-item to="locales"  exact clickable v-ripple v-if="$store.getters['login/isLoggedIn']">
+          <q-item to="user"  exact clickable v-ripple v-if="$store.getters['login/isLoggedIn']">
             <q-item-section avatar>
-              <q-icon name="code" />
+              <q-icon name="people" />
             </q-item-section>
             <q-item-section>
-              <q-item-label> Locales</q-item-label>
-              <q-item-label caption>Controlar locales</q-item-label>
+              <q-item-label> Usuarios</q-item-label>
+              <q-item-label caption>Control de usuarios</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item to="regtramite"  exact clickable v-ripple v-if="$store.getters['login/isLoggedIn']">
+            <q-item-section avatar>
+              <q-icon name="login" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label> Registro de tramite</q-item-label>
+              <q-item-label caption>Iniscio de tramite</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item to="form19"  exact clickable v-ripple v-if="$store.getters['login/isLoggedIn']">
+            <q-item-section avatar>
+              <q-icon name="list" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label> Formulario 19</q-item-label>
+              <q-item-label caption>Registro de datos</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item to="firmaregulacion"  exact clickable v-ripple v-if="$store.getters['login/isLoggedIn']">
+            <q-item-section avatar>
+              <q-icon name="list" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label> Firma regulacion tecnica</q-item-label>
+              <q-item-label caption>Registro de datos</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item to="verificardocumentacion"  exact clickable v-ripple v-if="$store.getters['login/isLoggedIn']">
+            <q-item-section avatar>
+              <q-icon name="list" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label> Verificar documentacion</q-item-label>
+              <q-item-label caption>Registro de datos</q-item-label>
             </q-item-section>
           </q-item>
           <q-item @click="logout"  exact clickable v-ripple v-if="$store.getters['login/isLoggedIn']">

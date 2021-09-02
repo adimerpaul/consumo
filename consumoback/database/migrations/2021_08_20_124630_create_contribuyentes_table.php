@@ -16,15 +16,14 @@ class CreateContribuyentesTable extends Migration
         Schema::create('contribuyentes', function (Blueprint $table) {
             $table->id();
             $table->string("padron")->nullable()->default("");
-            $table->string("paterno")->nullable()->default("");
-            $table->string("materno")->nullable()->default("");
-            $table->string("nombre")->nullable()->default("");
+            $table->string("representante")->nullable()->default("");
             $table->string("cedula")->nullable()->default("");
             $table->string("expedido")->nullable()->default("");
             $table->string("telefono")->nullable()->default("");
             $table->string("direccion")->nullable()->default("");
             $table->string("celular")->nullable()->default("");
             $table->string("tipo")->nullable()->default("");
+            $table->string("ruc")->nullable()->default("");
             $table->string("descripcion")->nullable()->default("");
             $table->timestamps();
         });

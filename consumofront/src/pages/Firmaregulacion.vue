@@ -1,7 +1,7 @@
 <template>
   <q-page class="q-pa-xs">
     <q-card>
-      <div class="text-h6">Regtramite</div>
+      <div class="text-h6">Firma regulacion</div>
 <!--      <q-table-->
 <!--        title="Contribuyente"-->
 <!--        :columns="columns"-->

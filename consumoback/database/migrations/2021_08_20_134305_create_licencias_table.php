@@ -15,10 +15,17 @@ class CreateLicenciasTable extends Migration
     {
         Schema::create('licencias', function (Blueprint $table) {
             $table->id();
+            //$table->string('num');
+            $table->string('num');
             $table->date("fecha");
+            $table->date("fechaautorizacion");
+            $table->date("fechafin");
+            $table->string("foto");
             $table->time("hora");
             $table->date("fechalimite");
             $table->string("tipo");
+            $table->string("estado");
+            $table->string("entramite");
             $table->unsignedBigInteger("user_id");
             $table->foreign("user_id")->references('id')->on('users');
             $table->unsignedBigInteger("contribuyente_id");

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Contribuyente;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ContribuyenteController extends Controller
 {
@@ -14,7 +15,7 @@ class ContribuyenteController extends Controller
      */
     public function index()
     {
-        return Contribuyente::all();
+        return DB::connection('indcom')->table('natur')->get();
     }
 
     /**
