@@ -7,6 +7,7 @@
       icon="add_circle"
       class="q-mb-xs"
     />
+
     <q-dialog v-model="alert">
       <q-card style="max-width: 80%; width: 50%">
         <q-card-section class="bg-green-14 text-white">

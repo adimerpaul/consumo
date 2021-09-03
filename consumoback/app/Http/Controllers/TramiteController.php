@@ -24,7 +24,9 @@ class TramiteController extends Controller
      */
     public function create()
     {
-        //
+        $tramites=DB::connection('vutrat')
+            ->select("SELECT n_tramite FROM v_tramites WHERE CodAut=(select max(CodAut) FROM v_tramites) ");
+        return $tramites[0];
     }
 
     /**
@@ -35,7 +37,7 @@ class TramiteController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
+//        return $request;
 
         DB::connection('vutrat')->table('v_tramites')->insert([
             'n_tramite'=>$request->n_tramite,
