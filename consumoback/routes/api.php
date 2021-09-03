@@ -24,6 +24,7 @@ Route::group(['middleware'=>'auth:sanctum'],function (){
     Route::resource('/contribuyente',\App\Http\Controllers\ContribuyenteController::class);
     Route::resource('/permiso',\App\Http\Controllers\PermisoController::class);
     Route::resource('/user',\App\Http\Controllers\UserController::class);
+    Route::resource('/tramite',\App\Http\Controllers\TramiteController::class);
     Route::put('/pass/{user}',[\App\Http\Controllers\UserController::class,'pass']);
     Route::put('/updatepermisos/{user}',[\App\Http\Controllers\UserController::class,'updatepermisos']);
 });

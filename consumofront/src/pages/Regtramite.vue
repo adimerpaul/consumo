@@ -1,7 +1,7 @@
 <template>
   <q-page class="q-pa-xs">
     <q-card>
-      <div class="text-h6">Regtramite</div>
+      <div class="text-h6 text-center bg-accent text-white">REGISTRO DE TRAMITES NUEVOS</div>
 <!--      <q-table-->
 <!--        title="Contribuyente"-->
 <!--        :columns="columns"-->
@@ -20,6 +20,7 @@
 </template>
 
 <script>
+
 export default {
   // name: 'Local',
   data(){
@@ -41,6 +42,9 @@ export default {
     }
   },
   created(){
+    this.actualizar();
+    // this.timer =
+      setInterval(this.actualizar, 1000);
     // console.log('aa')
     // setTimeout(() => {
     //   console.log("Refresh")
@@ -53,6 +57,11 @@ export default {
     //   // this.contribuyentes=res.data
     //   this.$q.loading.hide()
     // })
+  },
+  methods:{
+    actualizar(){
+      console.log('a')
+    }
   }
 }
 </script>
