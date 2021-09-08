@@ -6,7 +6,7 @@ use App\Models\Contribuyente;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class ContribuyenteController extends Controller
+class ContribuyenteController extends Controller    
 {
     /**
      * Display a listing of the resource.
@@ -82,5 +82,21 @@ class ContribuyenteController extends Controller
     public function destroy(Contribuyente $contribuyente)
     {
         //
+    }
+
+    public function listactividad(){
+        return DB::connection('vutrat')->table('actividad')->get();
+    }
+
+    public function requisito(Request $request){
+        $actividad=DB::connection('vutrat')->table('actividad')->where('codigo',$request->codigo)->get();
+        if($actividad->req_s2 && $actividad->req_s3 && $request->tipo=='N')
+            return DB::connection('vutrat')->table('v_requis')->where('cod_prin',2)->orWhere('cod_prin',3)->get();
+        if($actividad->req_s1 && $request->tipo=='J')
+            return DB::connection('vutrat')->table('v_requis')->where('cod_prin',1)->get();
+        if($actividad->req_s2 && $request->tipo=='N')
+            return DB::connection('vutrat')->table('v_requis')->where('cod_prin',2)->get();
+        if($actividad->req_s3 && $request->tipo=='N')
+            return DB::connection('vutrat')->table('v_requis')->where('cod_prin',3)->get();
     }
 }

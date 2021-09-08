@@ -14,5 +14,7 @@ class TramiteSeeder extends Seeder
     public function run()
     {
         //
+
+        
     }
 }

@@ -24,7 +24,6 @@ class CreateContribuyentesTable extends Migration
             $table->string("direccion")->nullable()->default("");
             $table->string("direccionrazon")->nullable()->default("");
 //            $table->string("celular")->nullable()->default("");
-            $table->string("telefono")->nullable()->default("");
             $table->string("cargo")->nullable()->default("");
             $table->string("tipo")->nullable()->default("");
             $table->string("mts2")->nullable()->default("");
