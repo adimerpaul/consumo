@@ -67,8 +67,8 @@
               <q-icon name="login" />
             </q-item-section>
             <q-item-section>
-              <q-item-label> Registro de tramite</q-item-label>
-              <q-item-label caption>Iniscio de tramite</q-item-label>
+              <q-item-label> Inicio tramite</q-item-label>
+<!--              <q-item-label caption>Iniscio de tramite</q-item-label>-->
             </q-item-section>
           </q-item>
 
@@ -81,7 +81,7 @@
               <q-item-label caption>Registro de datos</q-item-label>
             </q-item-section>
           </q-item>
-          
+
           <q-item to="firmaregulacion"  exact clickable v-ripple v-if="$store.state.login.boolfirmaregulacion">
             <q-item-section avatar>
               <q-icon name="list" />

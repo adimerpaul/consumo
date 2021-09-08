@@ -4,12 +4,40 @@
       <div class="text-h6 text-center bg-accent text-white">REGISTRO DE TRAMITES NUEVOS</div>
       <q-form @submit.prevent="crear">
         <div class="row">
-          <div class="col-6 q-pa-xs"><q-input outlined label="N° de tramite" v-model="ntramite" required disable/></div>
-          <div class="col-6 q-pa-xs"><q-input outlined label="Fecha" v-model="fecha" required disable/></div>
-          <div class="col-6 q-pa-xs"><q-select v-model="tipo" required outlined :options="[{id:1,label:'REGISTRO ACTIVIDAD ECONOMICA'},{id:2,label:'RENOVACION LICENCIA'}]"/></div>
-          <div class="col-6 q-pa-xs"><q-input outlined label="TRAMITADOR" required v-model="tramitador"/></div>
-          <div class="col-12 " >
-            <q-btn label="Crear" class="full-width" type="submit" icon="send" color="primary"/>
+<!--          <div class="col-6 q-pa-xs"><q-input outlined label="N° de tramite" v-model="ntramite" required disable/></div>-->
+<!--          <div class="col-6 q-pa-xs"><q-input outlined label="Fecha" v-model="fecha" required disable/></div>-->
+<!--          <div class="col-6 q-pa-xs"><q-select v-model="tipo" required outlined :options="[{id:1,label:'REGISTRO ACTIVIDAD ECONOMICA'},{id:2,label:'RENOVACION LICENCIA'}]"/></div>-->
+<!--          <div class="col-6 q-pa-xs"><q-input outlined label="TRAMITADOR" required v-model="tramitador"/></div>-->
+<!--          <div class="col-12 " >-->
+<!--            <q-btn label="Crear" class="full-width" type="submit" icon="send" color="primary"/>-->
+<!--          </div>-->
+          <div class="col-8 q-pa-xs">
+            <q-select
+              filled
+              v-model="model"
+              use-input
+              input-debounce="0"
+              label="Contribuyente"
+              :options="options"
+              @filter="filterFn"
+              behavior="menu"
+              @keyup="cambio"
+            >
+              <template v-slot:no-option>
+                <q-item>
+                  <q-item-section class="text-grey">
+                    No results
+                  </q-item-section>
+                </q-item>
+              </template>
+            </q-select>
+          </div>
+          <div class="col-2 q-pa-xs">
+<!--            <div class="text-4"></div>-->
+            <q-badge color="primary" :label="model.gestion"/>
+          </div>
+          <div class="col-2 q-pa-xs">
+            <q-badge color="secondary" :label="model.tipo"/>
           </div>
         </div>
       </q-form>
@@ -39,7 +67,11 @@ export default {
       fecha:'',
       ntramite:'',
       tipo:'',
-      tramitador:''
+      tramitador:'',
+      model:{id:0,label:'',gestion:0,tipo:'n'},
+      options:[
+        {id:0,label:'',gestion:0,tipo:'n'}
+      ]
       // contribuyentes:[],
       // columns:[
       //   { name: 'padron', label: 'padron', field: 'padron'},
@@ -75,6 +107,39 @@ export default {
     // })
   },
   methods:{
+    cambio(){
+      console.log(this.model)
+    },
+    filterFn(val, update){
+      if (val === '') {
+        update(() => {
+          this.options = [{id:0,label:'',gestion:0,tipo:'n'}],
+            this.model={id:0,label:'',gestion:0,tipo:'n'}
+        })
+        return
+      }
+
+      update(() => {
+        // const needle = val.toLowerCase()
+        this.$axios.get(process.env.API+'/buscarcon/'+val.toLowerCase()).then(res=>{
+          // console.log(res.data)
+          // this.options=res.data
+          this.options=[{id:0,label:'',gestion:0,tipo:'n'}]
+          if (res.data.length>0){
+            res.data.forEach(r=>{
+              this.options.push({
+                id:r.padron,
+                label:r.nombre,
+                gestion:r.gestion,
+                tipo:r.tipo,
+              })
+            })
+          }
+
+        })
+        // this.options.value = stringOptions.filter(v => v.toLowerCase().indexOf(needle) > -1)
+      })
+    },
     mifecha(){
       this.fecha=date.formatDate(new Date(),'YYYY-MM-DD HH:mm:ss' )
     },

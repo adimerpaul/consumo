@@ -6,7 +6,7 @@ use App\Models\Contribuyente;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class ContribuyenteController extends Controller    
+class ContribuyenteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,6 +16,44 @@ class ContribuyenteController extends Controller
     public function index()
     {
         return DB::connection('indcom')->table('natur')->get();
+    }
+    public function buscarcon($dato){
+//        return DB::connection('indcom')
+//            ->table('natur')
+//            ->where('paterno',$dato)
+//            ->orWhere('materno',$dato)
+//            ->orWhere('nombre',$dato)
+//            ->get();
+//            ->limit(10);
+//        $array=explode(' ',$dato);
+////        return count($array);
+//        if (count($array)==1){
+        $count= DB::connection('indcom')->select("
+        SELECT npadron padron, concat(paterno,' ',materno,' ',nombre,' CI',cedula) nombre,gest gestion,'N' tipo
+        FROM natur
+        WHERE hab=0
+        AND concat(TRIM( paterno),' ',TRIM( materno),' ',TRIM( nombre))  like '%$dato%'
+        LIMIT 10
+        ");
+        if ($count>0){
+            return $count;
+        }
+
+        $count= DB::connection('indcom')->select("
+        SELECT jpadron padron, CONCAT(nomreplega,' CI',numdociden)  nombre,gest gestion,'J' tipo
+        FROM jurid j
+        WHERE hab=0
+        AND nomreplega like '%$dato%'
+        LIMIT 10
+        ");
+        if ($count>0){
+            return $count;
+        }
+
+//        }
+
+
+
     }
 
     /**
