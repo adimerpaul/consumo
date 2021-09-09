@@ -17,9 +17,14 @@ class PermisoSeeder extends Seeder
         DB::table('permisos')->insert([
             ["id"=>1,"nombre"=>"Usuarios"],
             ["id"=>2,"nombre"=>"Registro tramite"],
-            ["id"=>3,"nombre"=>"Formulario 19"],
-            ["id"=>4,"nombre"=>"Firma regulacion tecnica"],
-            ["id"=>5,"nombre"=>"Verificar documentacion"],
+            ["id"=>3,"nombre"=>"Direccion tributaria"],
+            ["id"=>4,"nombre"=>"Infraestructura"],
+            ["id"=>5,"nombre"=>"Seguridad ciudadana"],
+            ["id"=>6,"nombre"=>"Medio ambiente"],
+            ["id"=>7,"nombre"=>"Salubridad"],
+            ["id"=>8,"nombre"=>"Actividades economicas"],
+            ["id"=>9,"nombre"=>"Consultar tramite"],
+            ["id"=>10,"nombre"=>"Entrega tramite"],
         ]);
     }
 }

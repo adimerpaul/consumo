@@ -17,11 +17,22 @@ class CreateTramitesTable extends Migration
             $table->id();
             $table->string("nrotramite");
             $table->date("fecha");
+            $table->date("fechalimite");
             $table->time("hora");
             $table->string("tipo");
             $table->string("padron");
+            $table->string("estado");
+            $table->string("estado2");
+            $table->boolean("infraestructura")->default(false);
+            $table->boolean("seguridad")->default(false);
+            $table->boolean("medio")->default(false);
+            $table->boolean("salubridad")->default(false);
             $table->string("nro")->default('')->nullable();
-            $table->dateTime("tramitador");
+            $table->string("tramitador");
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedBigInteger('tramite_id');
+            $table->foreign('tramite_id')->references('id')->on('tramites');
             $table->timestamps();
         });
     }

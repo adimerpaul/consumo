@@ -14,7 +14,7 @@
         <q-toolbar-title>
           {{$store.state.login.user.name}}
         </q-toolbar-title>
-        <div>Vutrat {{ $q.version }}</div>
+        <div>Control {{ $q.version }}</div>
       </q-toolbar>
       <div class="q-px-lg q-pt-xl q-mb-md">
         <div class="text-h3">G.A.M.O.</div>
@@ -61,7 +61,6 @@
               <q-item-label caption>Control de usuarios</q-item-label>
             </q-item-section>
           </q-item>
-
           <q-item to="regtramite"  exact clickable v-ripple v-if="$store.state.login.boolregtramite">
             <q-item-section avatar>
               <q-icon name="login" />
@@ -72,37 +71,82 @@
             </q-item-section>
           </q-item>
 
-          <q-item to="form19"  exact clickable v-ripple v-if="$store.state.login.boolform19">
+          <q-item to="direcciontrbutaria"  exact clickable v-ripple v-if="$store.state.login.direcciontrbutaria">
             <q-item-section avatar>
               <q-icon name="list" />
             </q-item-section>
             <q-item-section>
-              <q-item-label> Validacion y registro</q-item-label>
+              <q-item-label> Direccion tributaria</q-item-label>
               <q-item-label caption>Registro de datos</q-item-label>
             </q-item-section>
           </q-item>
 
-          <q-item to="firmaregulacion"  exact clickable v-ripple v-if="$store.state.login.boolfirmaregulacion">
+          <q-item to="infraestructura"  exact clickable v-ripple v-if="$store.state.login.infraestructura">
             <q-item-section avatar>
               <q-icon name="list" />
             </q-item-section>
             <q-item-section>
-              <q-item-label> Firma regulacion tecnica</q-item-label>
+              <q-item-label> Infraestructura</q-item-label>
               <q-item-label caption>Registro de datos</q-item-label>
             </q-item-section>
           </q-item>
-          <q-item to="verificardocumentacion"  exact clickable v-ripple v-if="$store.state.login.boolverificardocumentacion">
+          <q-item to="seguridadciudadana"  exact clickable v-ripple v-if="$store.state.login.seguridadciudadana">
             <q-item-section avatar>
               <q-icon name="list" />
             </q-item-section>
             <q-item-section>
-              <q-item-label> Verificar documentacion</q-item-label>
+              <q-item-label> Seguridad ciudadana</q-item-label>
+              <q-item-label caption>Registro de datos</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item to="medioambiente"  exact clickable v-ripple v-if="$store.state.login.medioambiente">
+            <q-item-section avatar>
+              <q-icon name="home" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label> Medio ambiente</q-item-label>
+              <q-item-label caption>Registro de datos</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item to="salubridad"  exact clickable v-ripple v-if="$store.state.login.salubridad">
+            <q-item-section avatar>
+              <q-icon name="list" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label> Salubridad</q-item-label>
+              <q-item-label caption>Registro de datos</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item to="activiadeseconomicas"  exact clickable v-ripple v-if="$store.state.login.activiadeseconomicas">
+            <q-item-section avatar>
+              <q-icon name="code" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label> Actividades economicas</q-item-label>
+              <q-item-label caption>Registro de datos</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item to="consultartramite"  exact clickable v-ripple v-if="$store.state.login.consultartramite">
+            <q-item-section avatar>
+              <q-icon name="search" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label> Consultar tramite</q-item-label>
+              <q-item-label caption>Registro de datos</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item to="entregartramite"  exact clickable v-ripple v-if="$store.state.login.entregartramite">
+            <q-item-section avatar>
+              <q-icon name="logout" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label> Entregar tramite</q-item-label>
               <q-item-label caption>Registro de datos</q-item-label>
             </q-item-section>
           </q-item>
           <q-item @click="logout"  exact clickable v-ripple v-if="$store.getters['login/isLoggedIn']">
             <q-item-section avatar>
-              <q-icon name="logout" />
+              <q-icon name="close" />
             </q-item-section>
             <q-item-section>
               <q-item-label> Salir</q-item-label>
