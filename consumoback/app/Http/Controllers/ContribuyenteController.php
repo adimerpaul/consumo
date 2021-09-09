@@ -13,6 +13,9 @@ class ContribuyenteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function consultar(Request $request){
+        return $request;
+    }
     public function index()
     {
         return DB::connection('indcom')->table('natur')->get();
@@ -28,27 +31,17 @@ class ContribuyenteController extends Controller
 //        $array=explode(' ',$dato);
 ////        return count($array);
 //        if (count($array)==1){
-        $count= DB::connection('indcom')->select("
-        SELECT npadron padron, concat(paterno,' ',materno,' ',nombre,' CI',cedula) nombre,gest gestion,'N' tipo
+        return DB::connection('indcom')->select("
+        SELECT npadron padron, concat(paterno,' ',materno,' ',nombre,' CI',cedula) nombre,gest gestion , ndireccion dir, nactdescri des,'NATURAL' tipo
         FROM natur
         WHERE hab=0
-        AND concat(TRIM( paterno),' ',TRIM( materno),' ',TRIM( nombre))  like '%$dato%'
-        LIMIT 10
-        ");
-        if ($count>0){
-            return $count;
-        }
-
-        $count= DB::connection('indcom')->select("
-        SELECT jpadron padron, CONCAT(nomreplega,' CI',numdociden)  nombre,gest gestion,'J' tipo
+        AND concat(TRIM( npadron),' ',TRIM( paterno),' ',TRIM( materno),' ',TRIM( nombre))  like '%$dato%'
+        UNION
+        SELECT jpadron padron, CONCAT(nomreplega,' CI',numdociden)  nombre,gest gestion, jdireccion dir, jactdescri des,'JURIDICO' tipo
         FROM jurid j
         WHERE hab=0
-        AND nomreplega like '%$dato%'
-        LIMIT 10
-        ");
-        if ($count>0){
-            return $count;
-        }
+        AND concat(TRIM( jpadron),' ',TRIM(nomreplega)) like '%$dato%'
+        LIMIT 10");
 
 //        }
 

@@ -2,7 +2,7 @@
   <q-page class="q-pa-xs">
     <q-card>
       <div class="text-h6 text-center bg-accent text-white">REGISTRO DE TRAMITES NUEVOS</div>
-      <q-form @submit.prevent="crear">
+      <q-form @submit.prevent="consultar">
         <div class="row">
 <!--          <div class="col-6 q-pa-xs"><q-input outlined label="N° de tramite" v-model="ntramite" required disable/></div>-->
 <!--          <div class="col-6 q-pa-xs"><q-input outlined label="Fecha" v-model="fecha" required disable/></div>-->
@@ -35,9 +35,17 @@
           <div class="col-2 q-pa-xs">
 <!--            <div class="text-4"></div>-->
             <q-badge color="primary" :label="model.gestion"/>
+            <br>
+            <q-badge color="accent" :label="model.dir"/>
           </div>
           <div class="col-2 q-pa-xs">
             <q-badge color="secondary" :label="model.tipo"/>
+            <br>
+            <q-badge color="positive" :label="model.des"/>
+          </div>
+          <div class="col-12 q-pa-xs flex flex-center">
+<!--            <q-badge color="secondary" :label="model.tipo"/>-->
+            <q-btn label="Consultar" icon="search" color="primary" type="submit"/>
           </div>
         </div>
       </q-form>
@@ -107,6 +115,13 @@ export default {
     // })
   },
   methods:{
+    consultar(){
+      this.$q.loading.show()
+      this.$axios.post(process.env.API+'/consultar',{padron:this.model.id}).then(res=>{
+        console.log(res.data)
+        this.$q.loading.hide()
+      })
+    },
     cambio(){
       console.log(this.model)
     },
@@ -129,9 +144,11 @@ export default {
             res.data.forEach(r=>{
               this.options.push({
                 id:r.padron,
-                label:r.nombre,
+                label:r.padron+''+r.nombre + ' TIPO:'+r.tipo,
                 gestion:r.gestion,
                 tipo:r.tipo,
+                dir:r.dir,
+                des:r.des,
               })
             })
           }

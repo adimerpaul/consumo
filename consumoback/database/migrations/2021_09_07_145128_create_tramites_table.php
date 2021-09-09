@@ -18,6 +18,9 @@ class CreateTramitesTable extends Migration
             $table->string("nrotramite");
             $table->date("fecha");
             $table->time("hora");
+            $table->string("tipo");
+            $table->string("padron");
+            $table->string("nro")->default('')->nullable();
             $table->dateTime("tramitador");
             $table->timestamps();
         });
