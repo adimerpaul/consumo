@@ -27,7 +27,7 @@ class TramiteSeeder extends Seeder
 //                "estado"=>"DIRECCION TRIBITARIA"
 
             "nrotramite"=>"0001/21",
-            "fecha"=>"2021-09-10",
+            "fecha"=>"2021-09-08",
             "fechalimite"=>"2021-09-30",
             "hora"=>"10:00",
             "tipo"=>"A",
@@ -38,6 +38,7 @@ class TramiteSeeder extends Seeder
             "tramitador"=>"JOSE JOSE",
             'user_id'=>"1",
             'caso_id'=>"1",
+                'contribuyente_id'=>"1",
             ]
         ]);
 

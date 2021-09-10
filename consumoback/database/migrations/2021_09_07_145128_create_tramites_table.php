@@ -33,6 +33,8 @@ class CreateTramitesTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedBigInteger('caso_id');
             $table->foreign('caso_id')->references('id')->on('casos');
+            $table->unsignedBigInteger('contribuyente_id');
+            $table->foreign('contribuyente_id')->references('id')->on('contribuyentes');
             $table->timestamps();
         });
     }

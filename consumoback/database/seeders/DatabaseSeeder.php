@@ -18,9 +18,12 @@ class DatabaseSeeder extends Seeder
            UserSeeder::class,
             PermisoSeeder::class,
             PermisoUser::class,
+            ContribuyenteSeeder::class,
             CasoSeeder::class,
             TramiteSeeder::class,
             SeguimientoSeeder::class,
+            RequisitoSeeder::class,
+            RequisitoTramiteSeeder::class
         ]);
     }
 }
