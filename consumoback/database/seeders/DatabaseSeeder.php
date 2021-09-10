@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
            UserSeeder::class,
             PermisoSeeder::class,
             PermisoUser::class,
+            TramiteSeeder::class,
+            SeguimientoSeeder::class,
         ]);
     }
 }
