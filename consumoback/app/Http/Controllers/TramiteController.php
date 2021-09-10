@@ -24,8 +24,7 @@ class TramiteController extends Controller
      */
     public function create()
     {
-        $tramites=DB::connection('vutrat')
-            ->select("SELECT n_tramite FROM v_tramites WHERE CodAut=(select max(CodAut) FROM v_tramites) ");
+        $tramites=DB::select("SELECT nrotramite FROM tramites WHERE id=(select max(id) FROM tramites) ");
         return $tramites[0];
     }
 
@@ -39,17 +38,20 @@ class TramiteController extends Controller
     {
 //        return $request;
 
-        DB::connection('vutrat')->table('v_tramites')->insert([
-            'n_tramite'=>$request->n_tramite,
-            'tipo_tram'=>$request->tipo_tram,
+        DB::table('tramites')->insert([
+            'nrotramite'=>$request->nrotramite,
+            'caso_id'=>$request->caso,
             'tramitador'=>$request->tramitador,
-            'fecha_ini'=>date('Y-m-d H:i:s'),
-            'operador'=>$request->user()->name,
-            'estado'=>'T',
-            'clave'=>'T',
-            'unid_dest'=>'1',
-            'fech_dest'=>date('Y-m-d H:i:s'),
+            'fecha'=>date('Y-m-d'),
+            'hora'=>date('H:i:s'),
+            'fechalimite'=>date('Y-m-d', strtotime(' + 21 days')),
+            'user_id'=>$request->user()->id,
+            'estado'=>"DIRECCION TRIBUTARIA",
+            "estado2"=>"EN PROCESO",
+            "tipo"=>"A",
+            "nro"=>"",
         ]);
+            
     }
 
     /**

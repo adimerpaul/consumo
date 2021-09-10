@@ -20,7 +20,7 @@ class CreateTramitesTable extends Migration
             $table->date("fechalimite");
             $table->time("hora");
             $table->string("tipo");
-            $table->string("padron");
+            $table->string("padron")->unique();
             $table->string("estado");
             $table->string("estado2");
             $table->boolean("infraestructura")->default(false);

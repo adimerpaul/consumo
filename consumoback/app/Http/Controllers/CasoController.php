@@ -15,6 +15,7 @@ class CasoController extends Controller
     public function index()
     {
         //
+        return Caso::all();
     }
 
     /**

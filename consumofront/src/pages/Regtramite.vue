@@ -49,19 +49,33 @@
           </div>
         </div>
       </q-form>
+
+      <div>
+          <q-input v-model="regvutrat" type="text" label="Vutrat" readonly />
+      </div>
       <q-table
        title="Pagos"
         :columns="columns"
-        :rows="contribuyentes"
-      >
-        <template v-slot:top-right>
-          <q-input borderless dense debounce="300" v-model="filter" placeholder="Search">
-            <template v-slot:append>
-              <q-icon name="search" />
-            </template>
-          </q-input>
-        </template>
-      </q-table>
+        :rows="pagos"
+        row-key="padron"
+      />
+        <q-form
+          @submit="registrar"
+          @reset="onReset"
+          class="q-gutter-md"
+        >
+      <div class="row">
+          
+          <div class="col-6 q-pa-xs"><q-input outlined label="N° de tramite" v-model="ntramite" required disable/></div>
+          <div class="col-6 q-pa-xs"><q-input outlined label="Fecha" v-model="fecha" required disable/></div>
+          <div class="col-6 q-pa-xs"><q-select v-model="tipo" required outlined :options="actividad"/></div>
+          <div class="col-6 q-pa-xs"><q-input outlined label="TRAMITADOR" required v-model="tramitador"/></div>
+          <div class="col-12 " >
+            <q-btn label="Crear" class="full-width" type="submit" icon="send" color="primary"/>
+          </div>
+      </div>
+        </q-form>
+      
     </q-card>
   </q-page>
 </template>
@@ -77,23 +91,27 @@ export default {
       tipo:'',
       tramitador:'',
       validar:'',
+      actividad:[],
+      filer:'',
       model:{id:0,label:'',gestion:0,tipo:'n'},
       options:[
         {id:0,label:'',gestion:0,tipo:'n'}
       ],
-      pagos:[],
+      regvutrat:'',
       columns:[
-         { name: 'padron', label: 'padron', field: 'padron'},
+         { name: 'padron', label: 'padron', field: 'padron', required: true,},
          { name: 'gestion', label: 'gestion', field: 'gestion'},
          { name: 'fech_pago', label: 'fecha pago', field: 'fech_pago'},
          { name: 'importe', label: 'Importe', field: 'imp_pagar'},
       //   { name: 'action', label: 'action', field: 'action'},
-      ]
+      ],
+      pagos:[],
     }
   },
   created(){
     this.mifecha()
     this.minum()
+    this.miscasos()
     // this.actualizar();
     //   setInterval(this.actualizar, 1000);
 
@@ -111,19 +129,39 @@ export default {
     // })
   },
   methods:{
+    miscasos(){
+      this.actividad=[];
+      this.$axios.get(process.env.API+'/caso').then(res=>{
+        
+        res.data.forEach(element => {
+          this.actividad.push({label:element.clasificacion + ' ' + element.caso,value:element.id});
+        });
+        console.log(this.actividad);
+      })
+
+    },
     consultar(){
       // console.log(this.model);
       this.$axios.post(process.env.API+'/conregistro',{padron:this.model.id,tipo:this.model.tipo,ci:this.model.ci}).then(res=>{
-        // console.log(res.data);
-        if(res.data.length>0)
+         console.log(res.data);
+        if(res.data.length>=1)
         {
           this.validar=res.data[0].estado;
         }
         else this.validar='F';
+         if(this.validar=='T') this.regvutrat='Se encuentra Registrado en Vutrat';
+          else this.regvutrat='No esta Registrado o Incompleto en Vutrat';
         })
+        this.pagos=[];
       this.$axios.post(process.env.API+'/conpagos',{padron:this.model.id}).then(res=>{
         console.log(res.data);
-        this.pagos=res.data;
+       // res.data.forEach(element => {
+          //.log(element[0].padron);
+        //  this.pagos.push({padron:element[0].padron,gestion:element[0].gestion,fech_pago:element[0].fech_pago,importe:element[0].imp_pagar});
+          
+       // });
+       this.pagos=res.data; 
+        console.log(this.pagos);
       })
     },
     cambio(){
@@ -134,6 +172,7 @@ export default {
         update(() => {
           this.options = [{id:0,label:'',gestion:0,tipo:'n'}],
             this.model={id:0,label:'',gestion:0,tipo:'n'}
+            this.validar=''; this.regvutrat=''; this.pagos=[]
         })
         return
       }
@@ -167,17 +206,28 @@ export default {
     },
     minum(){
       this.$axios.get(process.env.API+'/tramite/create').then(res=>{
-        let num=parseInt( res.data.n_tramite.substring(0,5)) +1
+        let num=parseInt( res.data.nrotramite.substring(0,5)) +1
         this.ntramite=this.zfill(num,5)+'/'+date.formatDate(new Date(),'YY' )
       })
     },
     crear(){
       // console.log('a')
+       if(this.model.id=='0')
+       {
+          this.$q.notify({
+          color:'red',
+          icon:'info',
+          message:'Seleccionar un contribuyente'
+        });
+        return false;
+      }
       this.$q.loading.show()
       this.$axios.post(process.env.API+'/tramite',{
-        n_tramite:this.ntramite,
-        tipo_tram:this.tipo.id,
+        nrotramite:this.ntramite,
+        caso:this.actividad.value,
         tramitador:this.tramitador,
+        tipo:this.model.tipo,
+        padron:this.model.id
       }).then(res=>{
         console.log(res.data)
         this.minum()

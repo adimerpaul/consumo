@@ -15,15 +15,15 @@ class ContribuyenteController extends Controller
      */
     public function conregistro(Request $request){
 //        return $request;
-       // if($request->tipo=='NATURAL')
+     if($request->tipo=='NATURAL')
         return DB::connection('vutrat')->select('
             select *
             from v_seguim vs
             where n_tramite = (select n_tramite from v_tramites vt WHERE n_tramite=(select n_tramite from v_naturales vn where pmc="'.$request->padron.'" and c_i="'.$request->ci.'" ))
             AND c_proce =8
             ');
-        //else
-        return DB::connection('vutrat')->select('select * from v_seguim vs where n_tramite = (select n_tramite from v_tramites vt WHERE n_tramite=(select n_tramite from v_juridicas vj where pmc="'.$request->padron.'" )) AND c_proce =8');
+      else
+        return DB::connection('vutrat')->select('select * from v_seguim vs where n_tramite = (select n_tramite from v_tramites vt WHERE n_tramite=(select n_tramite from v_juridicas vj where pmc="'.$request->padron.'"  and c_i_rl="'.$request->ci.'" )) AND c_proce =8');
 
     }
     public function conpagos(Request $request){
@@ -36,7 +36,7 @@ class ContribuyenteController extends Controller
                 ->whereNotNull('fech_pago')
                 ->where('padron','like','%'.$request->padron.'%');
             if ($query->count()>0){
-                array_push($lidgme,$query->get());
+                array_push($lidgme,$query->get()[0]);
             }
 //            echo date('y', $year).'----';
             $year = strtotime("+1 year", $year);
