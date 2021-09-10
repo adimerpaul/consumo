@@ -16,7 +16,66 @@
             </template>
           </q-input>
         </template>
+        <template v-slot:body="props">
+          <q-tr :props="props">
+            <q-td key="tramitador" :props="props">
+              {{ props.row.tramitador }}
+            </q-td>
+            <q-td key="tipo" :props="props">
+              <q-badge :color="props.row.tipo=='A'?'green':'warning'">
+                {{ props.row.tipo }}
+              </q-badge>
+            </q-td>
+            <q-td key="clasificacion" :props="props">
+              <q-badge :color="props.row.tipo=='A'?'green':'warning'">
+                {{ props.row.clasificacion }}
+              </q-badge>
+            </q-td>
+            <q-td key="tramite" :props="props">
+<!--              <q-badge color="orange">-->
+                {{ props.row.tramite }}
+<!--              </q-badge>-->
+            </q-td>
+            <q-td key="fecha" :props="props">
+<!--              <q-badge color="primary">-->
+                {{ props.row.fecha }}
+<!--              </q-badge>-->
+            </q-td>
+            <q-td key="dias" :props="props">
+              <q-badge :color="props.row.dias==1?'green':props.row.dias==2?'warning':'negative'">
+                {{ props.row.dias }}
+              </q-badge>
+            </q-td>
+            <q-td key="estado" :props="props">
+              <q-badge :color="props.row.estado=='ENPROCESO'?'green':'warning'">
+                {{ props.row.estado }}
+              </q-badge>
+            </q-td>
+            <q-td key="unidad" :props="props">
+<!--              <q-badge color="amber">-->
+                {{ props.row.unidad }}
+<!--              </q-badge>-->
+            </q-td>
+            <q-td key="action" :props="props">
+              <!--              <q-badge color="amber">-->
+              <q-btn color="teal" label="Requisitos" icon="list" size="xs" @click="verrequisitos(props.row)"/>
+              <q-btn color="negative" label="Dar alta" icon="login" size="xs"/>
+              <!--              </q-badge>-->
+            </q-td>
+          </q-tr>
+        </template>
       </q-table>
+      <q-dialog v-model="requisitos">
+        <q-card>
+          <q-card-section><div class="text-h">Requisitos presentados</div></q-card-section>
+          <q-card-section class="q-pt-none">
+            bjkhbkj
+          </q-card-section>
+          <q-card-section aling="right">
+            <q-btn flat label="ok" icon="trash" color="negative" v-close-popup/>
+          </q-card-section>
+        </q-card>
+      </q-dialog>
     </q-card>
   </q-page>
 </template>
@@ -31,12 +90,13 @@ export default {
   data(){
     return{
       filter:'',
+      requisitos:false,
       // contribuyentes:[],
       columns:[
         { name: 'tramitador', label: 'tramitador', field: 'tramitador'},
         { name: 'tipo', label: 'tipo', field: 'tipo'},
         { name: 'clasificacion', label: 'clasificacion', field: 'clasificacion'},
-        { name: 'usuario', label: 'usuario', field: 'usuario'},
+        { name: 'tramite', label: 'tramite', field: 'tramite'},
         { name: 'fecha', label: 'fecha', field: 'fecha'},
         { name: 'dias', label: 'dias', field: 'dias'},
         { name: 'estado', label: 'estado', field: 'estado'},
@@ -58,6 +118,9 @@ export default {
     this.mistramites()
   },
   methods:{
+    verrequisitos(r){
+      console.log(r)
+    },
     mistramites(){
       this.$q.loading.show()
       this.$axios.get(process.env.API+'/direccion').then(res=>{
@@ -77,11 +140,13 @@ export default {
             'tipo':r.tipo,
             'clasificacion':r.caso.clasificacion,
             'usuario':r.user.name,
+            'tramite':r.nrotramite,
             'fecha':r.fecha,
             'dias':diff,
             'estado':r.estado2,
             'unidad':r.estado,
-            'action':'',
+            // 'action':'',
+            'requisitos':r.requisitos
           })
         })
 

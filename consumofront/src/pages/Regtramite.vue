@@ -21,7 +21,6 @@
               :options="options"
               @filter="filterFn"
               behavior="menu"
-              @keyup="cambio"
             >
               <template v-slot:no-option>
                 <q-item>
@@ -64,10 +63,10 @@
           class="q-gutter-md"
         >
       <div class="row">
-          
+
           <div class="col-6 q-pa-xs"><q-input outlined label="N° de tramite" v-model="ntramite" required disable/></div>
           <div class="col-6 q-pa-xs"><q-input outlined label="Fecha" v-model="fecha" required disable/></div>
-          <div class="col-6 q-pa-xs"><q-select v-model="caso" required outlined :options="actividad" @change="requisito"/></div>
+          <div class="col-6 q-pa-xs"><q-select @update:model-value="cambio"  label="Selecionar Caso" v-model="caso" required outlined :options="actividad" /></div>
           <div class="col-6 q-pa-xs"><q-input outlined label="TRAMITADOR" required v-model="tramitador"/></div>
           <div class="col-6 q-pa-xs"></div>
           <div class="col-12 " >
@@ -75,7 +74,7 @@
           </div>
       </div>
         </q-form>
-      
+
     </q-card>
   </q-page>
 </template>
@@ -137,7 +136,7 @@ export default {
     miscasos(){
       this.actividad=[];
       this.$axios.get(process.env.API+'/caso').then(res=>{
-        
+
         res.data.forEach(element => {
           this.actividad.push({label:element.clasificacion + ' ' + element.caso+' '+ element.inicio+'-'+element.fin+' tipo:'+element.tipo
           ,value:{id:element.id,tipo:element.tipo}});
@@ -164,14 +163,14 @@ export default {
        // res.data.forEach(element => {
           //.log(element[0].padron);
         //  this.pagos.push({padron:element[0].padron,gestion:element[0].gestion,fech_pago:element[0].fech_pago,importe:element[0].imp_pagar});
-          
+
        // });
-       this.pagos=res.data; 
+       this.pagos=res.data;
         console.log(this.pagos);
       })
     },
-    cambio(){
-      console.log(this.model)
+    cambio(caso){
+      console.log(caso)
     },
     filterFn(val, update){
       if (val === '') {
