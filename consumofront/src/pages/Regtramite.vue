@@ -60,16 +60,16 @@
         row-key="padron"
       />
         <q-form
-          @submit="registrar"
-          @reset="onReset"
+          @submit="crear"
           class="q-gutter-md"
         >
       <div class="row">
           
           <div class="col-6 q-pa-xs"><q-input outlined label="N° de tramite" v-model="ntramite" required disable/></div>
           <div class="col-6 q-pa-xs"><q-input outlined label="Fecha" v-model="fecha" required disable/></div>
-          <div class="col-6 q-pa-xs"><q-select v-model="tipo" required outlined :options="actividad"/></div>
+          <div class="col-6 q-pa-xs"><q-select v-model="caso" required outlined :options="actividad" @change="requisito"/></div>
           <div class="col-6 q-pa-xs"><q-input outlined label="TRAMITADOR" required v-model="tramitador"/></div>
+          <div class="col-6 q-pa-xs"></div>
           <div class="col-12 " >
             <q-btn label="Crear" class="full-width" type="submit" icon="send" color="primary"/>
           </div>
@@ -92,7 +92,9 @@ export default {
       tramitador:'',
       validar:'',
       actividad:[],
+      caso:'',
       filer:'',
+      listrequisito:[],
       model:{id:0,label:'',gestion:0,tipo:'n'},
       options:[
         {id:0,label:'',gestion:0,tipo:'n'}
@@ -129,12 +131,16 @@ export default {
     // })
   },
   methods:{
+    requisito(){
+      console.log(this.caso);
+    },
     miscasos(){
       this.actividad=[];
       this.$axios.get(process.env.API+'/caso').then(res=>{
         
         res.data.forEach(element => {
-          this.actividad.push({label:element.clasificacion + ' ' + element.caso,value:element.id});
+          this.actividad.push({label:element.clasificacion + ' ' + element.caso+' '+ element.inicio+'-'+element.fin+' tipo:'+element.tipo
+          ,value:{id:element.id,tipo:element.tipo}});
         });
         console.log(this.actividad);
       })

@@ -32,11 +32,11 @@ class RequisitoSeeder extends Seeder
             ['nombre'=>'FOTOC. LEGALIZADA DEL PODER DEL REPRESENTANTE','tipo'=>'B'],
             ['nombre'=>'FOTOCOPIA CI REPRESENTANTE LEGAL ','tipo'=>'B'],
 
-            ['nombre'=>'FOTOC. LEGALIZADA DE AUTORIZACION SANITARIA','tipo'=>'B'],
-            ['nombre'=>'FOTOC. LEGALIZADA DEL INFORME DE ENSAYOS DE LABORATORIOS','tipo'=>'B'],
-            ['nombre'=>'FOTOC. LEGALIZADA DEL INFORME DE RESULTADOS DEL LABORATORIOS','tipo'=>'B'],
-            ['nombre'=>'FICHA DE INSPECCION POR DEFENSA AL CONSUMIDOR','tipo'=>'B'],
-            ['nombre'=>'REGISTRO AMBIENTAL DE DIRECCION DE SALUD AMBIENTAL','tipo'=>'B'],     
+            ['nombre'=>'FOTOC. LEGALIZADA DE AUTORIZACION SANITARIA','tipo'=>'C'],
+            ['nombre'=>'FOTOC. LEGALIZADA DEL INFORME DE ENSAYOS DE LABORATORIOS','tipo'=>'C'],
+            ['nombre'=>'FOTOC. LEGALIZADA DEL INFORME DE RESULTADOS DEL LABORATORIOS','tipo'=>'C'],
+            ['nombre'=>'FICHA DE INSPECCION POR DEFENSA AL CONSUMIDOR','tipo'=>'C'],
+            ['nombre'=>'REGISTRO AMBIENTAL DE DIRECCION DE SALUD AMBIENTAL','tipo'=>'C'],     
         ]);        
     }
 }

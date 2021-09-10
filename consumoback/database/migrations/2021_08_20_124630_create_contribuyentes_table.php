@@ -30,6 +30,7 @@ class CreateContribuyentesTable extends Migration
             $table->string("gest")->nullable()->default("");
             $table->string("ruc")->nullable()->default("");
             $table->string("descripcion")->nullable()->default("");
+            $table->unique(['cedula','padron'],'cont_padron');
             $table->timestamps();
         });
     }

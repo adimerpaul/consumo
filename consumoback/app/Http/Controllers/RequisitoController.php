@@ -15,7 +15,17 @@ class RequisitoController extends Controller
     public function index()
     {
         //
+        return Requisito::all();
     }
+
+    public function listrequisito(Request $request){
+        if($request->tipo=='A')
+        return Requisito::where('tipo','A')->get();
+        if($request->tipo=='B')
+        return Requisito::where('tipo','A')->orWhere('tipo','B')->get();
+        if($request->tipo=='C')
+        return Requisito::where('tipo','A')->orWhere('tipo','B')->orWhere('tipo','C')->get();
+    } 
 
     /**
      * Show the form for creating a new resource.

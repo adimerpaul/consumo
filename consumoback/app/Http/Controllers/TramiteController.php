@@ -36,8 +36,8 @@ class TramiteController extends Controller
      */
     public function store(Request $request)
     {
-//        return $request;
-
+        return $request;
+        
         DB::table('tramites')->insert([
             'nrotramite'=>$request->nrotramite,
             'caso_id'=>$request->caso,
