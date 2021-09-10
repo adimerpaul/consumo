@@ -14,9 +14,14 @@ class ContribuyenteController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function conregistro(Request $request){
-        //return $request;
+//        return $request;
        // if($request->tipo=='NATURAL')
-        return DB::connection('vutrat')->select('select * from v_seguim vs where n_tramite = (select n_tramite from v_tramites vt WHERE n_tramite=(select n_tramite from v_naturales vn where pmc="'.$request->padron.'")) AND c_proce =8');
+        return DB::connection('vutrat')->select('
+            select *
+            from v_seguim vs
+            where n_tramite = (select n_tramite from v_tramites vt WHERE n_tramite=(select n_tramite from v_naturales vn where pmc="'.$request->padron.'" and c_i="'.$request->ci.'" ))
+            AND c_proce =8
+            ');
         //else
         return DB::connection('vutrat')->select('select * from v_seguim vs where n_tramite = (select n_tramite from v_tramites vt WHERE n_tramite=(select n_tramite from v_juridicas vj where pmc="'.$request->padron.'" )) AND c_proce =8');
 
@@ -27,11 +32,15 @@ class ContribuyenteController extends Controller
         $lidgme=array();
         while($year <= $end)
         {
-            $query=DB::connection('bases')->table('lidgic'.date('y', $year))->whereNotNull('fech_pago')->where('padron','like','%'.$request->padron.'%');
+            $query=DB::connection('bases')->table('lidgic'.date('y', $year))
+                ->whereNotNull('fech_pago')
+                ->where('padron','like','%'.$request->padron.'%');
             if ($query->count()>0){
                 array_push($lidgme,$query->get());
             }
+//            echo date('y', $year).'----';
             $year = strtotime("+1 year", $year);
+
         }
         return $lidgme;
     }

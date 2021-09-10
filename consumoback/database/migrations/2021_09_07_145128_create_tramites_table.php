@@ -31,8 +31,8 @@ class CreateTramitesTable extends Migration
             $table->string("tramitador");
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->unsignedBigInteger('tramite_id');
-            $table->foreign('tramite_id')->references('id')->on('tramites');
+            $table->unsignedBigInteger('caso_id');
+            $table->foreign('caso_id')->references('id')->on('casos');
             $table->timestamps();
         });
     }

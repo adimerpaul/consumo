@@ -112,9 +112,9 @@ export default {
   },
   methods:{
     consultar(){
-      console.log(this.model);
-      this.$axios.post(process.env.API+'/conregistro',{padron:this.model.id,tipo:this.model.tipo_tram,ci:this.model.ci}).then(res=>{
-        console.log(res.data);
+      // console.log(this.model);
+      this.$axios.post(process.env.API+'/conregistro',{padron:this.model.id,tipo:this.model.tipo,ci:this.model.ci}).then(res=>{
+        // console.log(res.data);
         if(res.data.length>0)
         {
           this.validar=res.data[0].estado;
@@ -123,7 +123,7 @@ export default {
         })
       this.$axios.post(process.env.API+'/conpagos',{padron:this.model.id}).then(res=>{
         console.log(res.data);
-        this.pagos=res.data;  
+        this.pagos=res.data;
       })
     },
     cambio(){
