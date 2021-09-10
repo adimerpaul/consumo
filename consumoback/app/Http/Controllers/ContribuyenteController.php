@@ -13,9 +13,30 @@ class ContribuyenteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function consultar(Request $request){
-        return $request;
+    public function conregistro(Request $request){
+        //return $request;
+       // if($request->tipo=='NATURAL')
+        return DB::connection('vutrat')->select('select * from v_seguim vs where n_tramite = (select n_tramite from v_tramites vt WHERE n_tramite=(select n_tramite from v_naturales vn where pmc="'.$request->padron.'")) AND c_proce =8');
+        //else
+        return DB::connection('vutrat')->select('select * from v_seguim vs where n_tramite = (select n_tramite from v_tramites vt WHERE n_tramite=(select n_tramite from v_juridicas vj where pmc="'.$request->padron.'" )) AND c_proce =8');
+
     }
+    public function conpagos(Request $request){
+        $year = strtotime("1995-01-01");
+        $end = strtotime(date('Y-m-d', strtotime("-1 year")));
+        $lidgme=array();
+        while($year <= $end)
+        {
+            $query=DB::connection('bases')->table('lidgic'.date('y', $year))->whereNotNull('fech_pago')->where('padron','like','%'.$request->padron.'%');
+            if ($query->count()>0){
+                array_push($lidgme,$query->get());
+            }
+            $year = strtotime("+1 year", $year);
+        }
+        return $lidgme;
+    }
+
+
     public function index()
     {
         return DB::connection('indcom')->table('natur')->get();
@@ -32,12 +53,12 @@ class ContribuyenteController extends Controller
 ////        return count($array);
 //        if (count($array)==1){
         return DB::connection('indcom')->select("
-        SELECT npadron padron, concat(paterno,' ',materno,' ',nombre,' CI',cedula) nombre,gest gestion , ndireccion dir, nactdescri des,'NATURAL' tipo
+        SELECT npadron padron, concat(paterno,' ',materno,' ',nombre,' CI',cedula) nombre,gest gestion , ndireccion dir, nactdescri des,'NATURAL' tipo, cedula ci
         FROM natur
         WHERE hab=0
         AND concat(TRIM( npadron),' ',TRIM( paterno),' ',TRIM( materno),' ',TRIM( nombre))  like '%$dato%'
         UNION
-        SELECT jpadron padron, CONCAT(nomreplega,' CI',numdociden)  nombre,gest gestion, jdireccion dir, jactdescri des,'JURIDICO' tipo
+        SELECT jpadron padron, CONCAT(nomreplega,' CI',numdociden)  nombre,gest gestion, jdireccion dir, jactdescri des,'JURIDICO' tipo, numdociden ci
         FROM jurid j
         WHERE hab=0
         AND concat(TRIM( jpadron),' ',TRIM(nomreplega)) like '%$dato%'

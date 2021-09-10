@@ -49,19 +49,19 @@
           </div>
         </div>
       </q-form>
-<!--      <q-table-->
-<!--        title="Contribuyente"-->
-<!--        :columns="columns"-->
-<!--        :rows="contribuyentes"-->
-<!--      >-->
-<!--        <template v-slot:top-right>-->
-<!--          <q-input borderless dense debounce="300" v-model="filter" placeholder="Search">-->
-<!--            <template v-slot:append>-->
-<!--              <q-icon name="search" />-->
-<!--            </template>-->
-<!--          </q-input>-->
-<!--        </template>-->
-<!--      </q-table>-->
+      <q-table
+       title="Pagos"
+        :columns="columns"
+        :rows="contribuyentes"
+      >
+        <template v-slot:top-right>
+          <q-input borderless dense debounce="300" v-model="filter" placeholder="Search">
+            <template v-slot:append>
+              <q-icon name="search" />
+            </template>
+          </q-input>
+        </template>
+      </q-table>
     </q-card>
   </q-page>
 </template>
@@ -76,23 +76,19 @@ export default {
       ntramite:'',
       tipo:'',
       tramitador:'',
+      validar:'',
       model:{id:0,label:'',gestion:0,tipo:'n'},
       options:[
         {id:0,label:'',gestion:0,tipo:'n'}
-      ]
-      // contribuyentes:[],
-      // columns:[
-      //   { name: 'padron', label: 'padron', field: 'padron'},
-      //   { name: 'paterno', label: 'paterno', field: 'paterno'},
-      //   { name: 'materno', label: 'materno', field: 'materno'},
-      //   { name: 'cedula', label: 'cedula', field: 'cedula'},
-      //   { name: 'expedido', label: 'expedido', field: 'expedido'},
-      //   { name: 'celular', label: 'celular', field: 'celular'},
-      //   { name: 'direccion', label: 'direccion', field: 'direccion'},
-      //   { name: 'telefono', label: 'telefono', field: 'telefono'},
-      //   { name: 'tipo', label: 'tipo', field: 'tipo'},
+      ],
+      pagos:[],
+      columns:[
+         { name: 'padron', label: 'padron', field: 'padron'},
+         { name: 'gestion', label: 'gestion', field: 'gestion'},
+         { name: 'fech_pago', label: 'fecha pago', field: 'fech_pago'},
+         { name: 'importe', label: 'Importe', field: 'imp_pagar'},
       //   { name: 'action', label: 'action', field: 'action'},
-      // ]
+      ]
     }
   },
   created(){
@@ -116,10 +112,18 @@ export default {
   },
   methods:{
     consultar(){
-      this.$q.loading.show()
-      this.$axios.post(process.env.API+'/consultar',{padron:this.model.id}).then(res=>{
-        console.log(res.data)
-        this.$q.loading.hide()
+      console.log(this.model);
+      this.$axios.post(process.env.API+'/conregistro',{padron:this.model.id,tipo:this.model.tipo_tram,ci:this.model.ci}).then(res=>{
+        console.log(res.data);
+        if(res.data.length>0)
+        {
+          this.validar=res.data[0].estado;
+        }
+        else this.validar='F';
+        })
+      this.$axios.post(process.env.API+'/conpagos',{padron:this.model.id}).then(res=>{
+        console.log(res.data);
+        this.pagos=res.data;  
       })
     },
     cambio(){
@@ -149,6 +153,7 @@ export default {
                 tipo:r.tipo,
                 dir:r.dir,
                 des:r.des,
+                ci:r.ci,
               })
             })
           }
