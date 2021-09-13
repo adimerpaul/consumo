@@ -62,14 +62,14 @@
           @submit="crear"
           class="q-gutter-md"
         >
-      <div class="row">
+          <div class="row">
 
           <div class="col-6 q-pa-xs"><q-input outlined label="N° de tramite" v-model="ntramite" required disable/></div>
           <div class="col-6 q-pa-xs"><q-input outlined label="Fecha" v-model="fecha" required disable/></div>
           <div class="col-6 q-pa-xs"><q-select @update:model-value="cambio"  label="Selecionar Caso" v-model="caso" required outlined :options="actividad" /></div>
           <div class="col-6 q-pa-xs"><q-input outlined label="TRAMITADOR" required v-model="tramitador"/></div>
           <div class="col-12 q-pa-xs">
-            <q-checkbox rigth-label v-model="r.estado" :label="r.nombre" v-for="(r,i) in requisitos" :key="i" class="full-width"/>
+            <q-checkbox rigth-label v-model="r.estado" :label="r.nombre" v-for="(r,i) in requisitos" :key="i" class="full-width" />
           </div>
           <div class="col-12 " >
             <q-btn label="Crear" class="full-width" type="submit" icon="send" color="primary"/>
@@ -99,6 +99,7 @@ export default {
       caso:'',
       filer:'',
       re:{},
+      cumple:true,
       requisitos:[],
       model:{id:0,label:'',gestion:0,tipo:'n'},
       options:[
@@ -184,6 +185,7 @@ export default {
           this.$q.loading.hide()
          res.data.forEach(element => {
           this.requisitos.push({id:element.id,nombre:element.nombre,estado:false});
+          this.cumple=true;
          });
         })
     },
@@ -232,6 +234,7 @@ export default {
     },
     crear(){
       // console.log('a')
+      this.cumple=true;
        if(this.model.id=='0')
        {
           this.$q.notify({
@@ -241,18 +244,33 @@ export default {
         });
         return false;
       }
+      this.requisitos.forEach(element => {
+        if(element.estado==false)
+          this.cumple=false;
+      });
+      if(!this.cumple){
+          this.$q.notify({
+          color:'red',
+          icon:'info',
+          message:'Debe cumplir con los requisitos'
+        });
+        return false;
+      }
       this.$q.loading.show()
       this.$axios.post(process.env.API+'/tramite',{
         nrotramite:this.ntramite,
         caso:this.actividad.value,
         tramitador:this.tramitador,
+        ci:this.model.ci,
         tipo:this.model.tipo,
-        padron:this.model.id
+        padron:this.model.id,
+        requisitos:this.requisitos
       }).then(res=>{
         console.log(res.data)
         this.minum()
         this.mifecha()
         this.tramitador=''
+
         this.$q.loading.hide()
         this.$q.notify({
           color:'positive',

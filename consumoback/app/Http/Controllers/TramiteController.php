@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\User;
+use App\Models\Contribuyente;
+use App\Models\Tramite;
+use App\Models\Seguimiento;
 
 class TramiteController extends Controller
 {
@@ -36,21 +40,99 @@ class TramiteController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
+        //return $request;
+        $verifica=Contribuyente::where('padron',trim($request->padron))->get();
+        //return $verifica;
+        if($verifica!=[]) $contribuyente=$verifica[0];
+        else{
+        if($request->tipo=='NATURAL'){
+            $contrib=DB::connection('indcom')->table('natur')->where('npadron',$request->padron)->get()[0];
+            $contribuyente=new Contribuyente;
+            $contribuyente->padron=trim($contrib->npadron);
+    	    $contribuyente->representante=trim($contrib->nombre).' '.trim($contrib->paterno).' '.trim($contrib->materno);
+            $contribuyente->razon=$contrib->nactdescri;
+	    	$contribuyente->cedula=trim($contrib->cedula);
+            $contribuyente->expedido='';
+            $contribuyente->telefono=$contrib->ntelefono;
+	    	$contribuyente->direccion=$contrib->ndireccion;
+            $contribuyente->direccionrazon=$contrib->ndiract;
+		    $contribuyente->cargo='PROPIETARIO';
+		    $contribuyente->tipo='N';
+	        $contribuyente->mts2=$contrib->nmts2;
+		    $contribuyente->gest=$contrib->gest;
+	    	$contribuyente->ruc=$contrib->nruc;
+	    	$contribuyente->descripcion=$contrib->nactdescri;
+            $contribuyente->save();
+
+        }
+        else 
+            {$contrib=DB::connection('indcom')->table('jurid')->where('jpadron',$request->padron)->get()[0];
         
-        DB::table('tramites')->insert([
-            'nrotramite'=>$request->nrotramite,
-            'caso_id'=>$request->caso,
-            'tramitador'=>$request->tramitador,
-            'fecha'=>date('Y-m-d'),
-            'hora'=>date('H:i:s'),
-            'fechalimite'=>date('Y-m-d', strtotime(' + 21 days')),
-            'user_id'=>$request->user()->id,
-            'estado'=>"DIRECCION TRIBUTARIA",
-            "estado2"=>"EN PROCESO",
-            "tipo"=>"A",
-            "nro"=>"",
-        ]);
+            $contribuyente=new Contribuyente;
+            $contribuyente->padron=trim($contrib->jpadron);
+    	    $contribuyente->representante=$contrib->nombre.' '.$contrib->paterno.' '.$contrib->materno;
+            $contribuyente->razon=$contrib->nactdescri;
+	    	$contribuyente->cedula=trim($contrib->cedula);
+            $contribuyente->expedido='';
+            $contribuyente->telefono=$contrib->ntelefono;
+	    	$contribuyente->direccion=$contrib->ndireccion;
+            $contribuyente->direccionrazon=$contrib->diract;
+		    $contribuyente->cargo='PROPIETARIO';
+		    $contribuyente->tipo='N';
+	        $contribuyente->mts2=$contrib->nmts2;
+		    $contribuyente->gest=$contrib->gest;
+	    	$contribuyente->ruc=$contrib->nruc;
+	    	$contribuyente->descripcion=$contrib->nactdescri;
+            $contribuyente->save();
+
+            $contribuyente=new Contribuyente;
+            $contribuyente->padron=$contrib->jpadron;
+    	    $contribuyente->representante=$contrib->nomreplega;
+            $contribuyente->razon=$contrib->razon;
+	    	$contribuyente->cedula=$contrib->numdociden;
+            $contribuyente->expedido='';
+            $contribuyente->telefono=$contrib->jtelefono;
+	    	$contribuyente->direccion=$contrib->jdireccion;
+            $contribuyente->direccionrazon=$contrib->jdiractiv;
+		    $contribuyente->cargo=$contrib->cargo;
+		    $contribuyente->tipo='J';
+	        $contribuyente->mts2=$contrib->jmts2;
+		    $contribuyente->gest=$contrib->gest;
+	    	$contribuyente->ruc=$contrib->jruc;
+	    	$contribuyente->descripcion=$contrib->jactdescri;
+            $contribuyente->save();}
+        }
+
+        //return $contribuyente;
+        $tramite=new Tramite;
+        $tramite->nrotramite=$request->nrotramite;
+         $tramite->tramitador=$request->tramitador;
+         $tramite->fecha=date('Y-m-d');
+         $tramite->hora=date('H:i:s');
+         $tramite->fechalimite=date('Y-m-d', strtotime(' + 21 days'));
+         $tramite->user_id=$request->user()->id;
+         $tramite->estado="DIRECCION TRIBUTARIA";
+          $tramite->estado2="EN PROCESO";
+          $tramite->tipo=$request->tipo;
+          $tramite->caso_id=$request->caso;
+          $tramite->contribuyente_id=$contribuyente->id;
+          $tramite->padron=$request->padron;
+          $tramite->nro="";
+        $tramite->save();
+
+        foreach ($request->requisitos as $row) {
+            DB::table('requisito_tramite')->insert(['requisito_id'=>$row->id,'tramite_id'=>$tramite->id]);
+        }
+
+        $seguim= new Seguimiento;
+        $seguim->nombre="ENVIADO A DIRECCION TRIBUTARIA";
+        $seguim->observacion="INICIADO";
+        $seguim->fecha=date("Y-m-d");
+        $seguim->hora=date('H:i:s');
+        $seguim->tramite_id=$tramite->id;
+        $seguim->user_id=$request->user()->id;
+        return $seguim->save();
+        
             
     }
 
