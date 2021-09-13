@@ -68,13 +68,14 @@
           <div class="col-6 q-pa-xs"><q-input outlined label="Fecha" v-model="fecha" required disable/></div>
           <div class="col-6 q-pa-xs"><q-select @update:model-value="cambio"  label="Selecionar Caso" v-model="caso" required outlined :options="actividad" /></div>
           <div class="col-6 q-pa-xs"><q-input outlined label="TRAMITADOR" required v-model="tramitador"/></div>
-          <div class="col-6 q-pa-xs"></div>
+          <div class="col-12 q-pa-xs">
+            <q-checkbox rigth-label v-model="r.estado" :label="r.nombre" v-for="(r,i) in requisitos" :key="i" class="full-width"/>
+          </div>
           <div class="col-12 " >
             <q-btn label="Crear" class="full-width" type="submit" icon="send" color="primary"/>
           </div>
       </div>
       <div>
-        <q-checkbox rigth-label v-model="re.estado" :label="re.nombre" v-for="(requisitos,index) in re" :key="index"/>
       </div>
         </q-form>
 
@@ -117,7 +118,7 @@ export default {
   created(){
     this.mifecha()
     this.minum()
-    this.miscasos() 
+    this.miscasos()
     // this.actualizar();
     //   setInterval(this.actualizar, 1000);
 
@@ -175,12 +176,14 @@ export default {
       })
     },
     cambio(caso){
-      console.log(caso)
+      // console.log(caso)
+      this.requisitos=[]
+      this.$q.loading.show()
         this.$axios.post(process.env.API+'/listrequisito',caso).then(res=>{
-         console.log(res.data)
+         // console.log(res.data)
+          this.$q.loading.hide()
          res.data.forEach(element => {
           this.requisitos.push({id:element.id,nombre:element.nombre,estado:false});
-           
          });
         })
     },

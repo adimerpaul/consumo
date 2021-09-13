@@ -16,7 +16,7 @@ class SeguimientoSeeder extends Seeder
     {
         DB::table('seguimientos')->insert([
             [
-                'nombre'=>"VENTANILLA UNICA",
+                'nombre'=>"ENVIADO A DIRECCION TRIBUTARIA",
                 'observacion'=>"INICIADO",
                 'fecha'=>"2021-09-09",
                 'hora'=>"10:00",

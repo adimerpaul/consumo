@@ -2,7 +2,7 @@
   <q-page class="q-pa-xs">
     <q-card>
       <q-badge class="text-h6 full-width text-center" color="secondary" >Direccion tributaria</q-badge>
-      <q-btn @click="mistramites" icon="refresh" label="consultar" color="secondary" class="q-mt-xs"/>
+      <q-btn @click="mistramites" icon="refresh" label="refrescar" color="secondary" class="q-mt-xs"/>
       <q-table
         title="Mis tramites"
         :columns="columns"
@@ -52,14 +52,18 @@
               </q-badge>
             </q-td>
             <q-td key="unidad" :props="props">
-<!--              <q-badge color="amber">-->
                 {{ props.row.unidad }}
-<!--              </q-badge>-->
+            </q-td>
+            <q-td key="requisitos" :props="props">
+              <ul>
+                <li v-for="(r,i) in props.row.requisitos" :key="i">
+                  <q-badge :label="r.nombre" /></li>
+              </ul>
             </q-td>
             <q-td key="action" :props="props">
               <!--              <q-badge color="amber">-->
-              <q-btn color="teal" label="Requisitos" icon="list" size="xs" @click="verrequisitos(props.row)"/>
-              <q-btn color="negative" label="Dar alta" icon="login" size="xs"/>
+              <q-btn color="teal" label="Requisitos" icon="list" size="xs" @click="verrequisitos(props.row.requisitos)"/>
+              <q-btn color="negative" label="Dar alta" icon="login" size="xs" @click="daralta(props.row)"/>
               <!--              </q-badge>-->
             </q-td>
           </q-tr>
@@ -69,7 +73,9 @@
         <q-card>
           <q-card-section><div class="text-h">Requisitos presentados</div></q-card-section>
           <q-card-section class="q-pt-none">
-            bjkhbkj
+            <ul>
+              <li v-for="(r,i) in misrequisitos" :key="i">{{r.nombre}}</li>
+            </ul>
           </q-card-section>
           <q-card-section aling="right">
             <q-btn flat label="ok" icon="trash" color="negative" v-close-popup/>
@@ -91,7 +97,7 @@ export default {
     return{
       filter:'',
       requisitos:false,
-      // contribuyentes:[],
+      misrequisitos:[],
       columns:[
         { name: 'tramitador', label: 'tramitador', field: 'tramitador'},
         { name: 'tipo', label: 'tipo', field: 'tipo'},
@@ -101,6 +107,7 @@ export default {
         { name: 'dias', label: 'dias', field: 'dias'},
         { name: 'estado', label: 'estado', field: 'estado'},
         { name: 'unidad', label: 'unidad', field: 'unidad'},
+        { name: 'requisitos', label: 'requisitos', field: 'requisitos',    align: 'left'},
         // { name: 'tipo', label: 'tipo', field: 'tipo'},
         { name: 'action', label: 'action', field: 'action'},
       ],
@@ -118,13 +125,37 @@ export default {
     this.mistramites()
   },
   methods:{
+    daralta(i){
+      let id=i.id
+      this.$q.dialog({
+        title:'Seguro de dar de alta',
+        // message:''
+        cancel:true
+      }).onOk(()=>{
+        // console.log(i)
+        this.$axios.put(process.env.API+'/direccion/'+id,{
+          estado:'PROCESO',
+          nombre:'ENVIADO A INFRAESTRUCTURA SEGURIDAD MEDIO AMBIENTE SALUBRIDAD',
+          observacion:'INICIADO',
+          infraestructura:false,
+          seguridad:false,
+          medio:false,
+          salubridad:false,
+        }).then(res=>{
+          // console.log(res.data)
+          this.mistramites()
+        })
+      })
+    },
     verrequisitos(r){
-      console.log(r)
+      // console.log(r)
+      this.requisitos=true
+      this.misrequisitos=r
     },
     mistramites(){
       this.$q.loading.show()
       this.$axios.get(process.env.API+'/direccion').then(res=>{
-        console.log(res.data)
+        // console.log(res.data)
         this.tramites=[]
 
 
@@ -137,6 +168,7 @@ export default {
 
           this.tramites.push({
             'tramitador':r.tramitador,
+            'id':r.id,
             'tipo':r.tipo,
             'clasificacion':r.caso.clasificacion,
             'usuario':r.user.name,
