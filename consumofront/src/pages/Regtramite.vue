@@ -73,6 +73,9 @@
             <q-btn label="Crear" class="full-width" type="submit" icon="send" color="primary"/>
           </div>
       </div>
+      <div>
+        <q-checkbox rigth-label v-model="re.estado" :label="re.nombre" v-for="(requisitos,index) in re" :key="index"/>
+      </div>
         </q-form>
 
     </q-card>
@@ -86,6 +89,7 @@ export default {
   data(){
     return{
       fecha:'',
+      req:[],
       ntramite:'',
       tipo:'',
       tramitador:'',
@@ -93,7 +97,8 @@ export default {
       actividad:[],
       caso:'',
       filer:'',
-      listrequisito:[],
+      re:{},
+      requisitos:[],
       model:{id:0,label:'',gestion:0,tipo:'n'},
       options:[
         {id:0,label:'',gestion:0,tipo:'n'}
@@ -112,7 +117,7 @@ export default {
   created(){
     this.mifecha()
     this.minum()
-    this.miscasos()
+    this.miscasos() 
     // this.actualizar();
     //   setInterval(this.actualizar, 1000);
 
@@ -171,6 +176,13 @@ export default {
     },
     cambio(caso){
       console.log(caso)
+        this.$axios.post(process.env.API+'/listrequisito',caso).then(res=>{
+         console.log(res.data)
+         res.data.forEach(element => {
+          this.requisitos.push({id:element.id,nombre:element.nombre,estado:false});
+           
+         });
+        })
     },
     filterFn(val, update){
       if (val === '') {

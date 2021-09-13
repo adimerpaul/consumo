@@ -19,11 +19,12 @@ class RequisitoController extends Controller
     }
 
     public function listrequisito(Request $request){
-        if($request->tipo=='A')
+        //return $request;
+        if($request->value['tipo']=='A')
         return Requisito::where('tipo','A')->get();
-        if($request->tipo=='B')
+        if($request->value['tipo']=='B' && $request->value['id']!=16)
         return Requisito::where('tipo','A')->orWhere('tipo','B')->get();
-        if($request->tipo=='C')
+        if($request->value['tipo']=='C' || $request->value['id']==16)
         return Requisito::where('tipo','A')->orWhere('tipo','B')->orWhere('tipo','C')->get();
     } 
 

@@ -32,5 +32,6 @@ Route::group(['middleware'=>'auth:sanctum'],function (){
     Route::post('/consultar',[\App\Http\Controllers\ContribuyenteController::class,'consultar']);
     Route::post('/conregistro',[\App\Http\Controllers\ContribuyenteController::class,'conregistro']);
     Route::post('/conpagos',[\App\Http\Controllers\ContribuyenteController::class,'conpagos']);
+    Route::post('/listrequisito',[\App\Http\Controllers\RequisitoController::class,'listrequisito']);
     Route::resource('/direccion',\App\Http\Controllers\DireccionController::class);
 });
