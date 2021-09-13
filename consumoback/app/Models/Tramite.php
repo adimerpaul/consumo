@@ -29,6 +29,12 @@ class Tramite extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+    public function licencia(){
+        return $this->hasOne(Licencia::class)
+            ->with('user')
+            ->with('contribuyente')
+            ->with('caso');
+    }
     public function caso(){
         return $this->belongsTo(Caso::class);
     }
@@ -37,5 +43,8 @@ class Tramite extends Model
     }
     public function requisitos(){
         return $this->belongsToMany(Requisito::class);
+    }
+    public function seguimientos(){
+        return $this->hasMany(Seguimiento::class);
     }
 }

@@ -1,7 +1,7 @@
 <template>
   <q-page class="q-pa-xs">
     <q-card>
-      <q-badge class="text-h6 full-width text-center" color="positive" >Aprobar por salubridad</q-badge>
+      <q-badge class="text-h6 full-width text-center" color="accent" >Aprobar por actividades economicas</q-badge>
       <q-btn @click="mistramites" icon="refresh" label="refrescar" color="secondary" class="q-mt-xs"/>
       <q-table
         title="Mis tramites"
@@ -79,6 +79,23 @@
     </q-card>
     <div id="qr_code">
     </div>
+    <q-dialog v-model="dialog">
+      <q-card >
+        <q-form @submit="licencia">
+        <q-card-section>
+          <div class="text-h6">Datos de la licencia</div>
+        </q-card-section>
+        <q-card-section class="q-pt-none">
+          <q-input class="q-ma-xs" outlined v-model="dat.num" label="Numero" autofocus/>
+          <q-input class="q-ma-xs" outlined v-model="dat.numlicencia" label="Numero licencia" />
+        </q-card-section>
+        <q-card-actions align="right" class="text-primary">
+          <q-btn label="Cerrar" icon="delete" color="negative" v-close-popup />
+          <q-btn label="Crear" color="positive" icon="send" type="submit" />
+        </q-card-actions>
+        </q-form>
+      </q-card>
+    </q-dialog>
   </q-page>
 </template>
 
@@ -106,7 +123,9 @@ export default {
         { name: 'requisitos', label: 'requisitos', field: 'requisitos',    align: 'left'},
         { name: 'action', label: 'action', field: 'action'},
       ],
-      tramites:[]
+      tramites:[],
+      dat:{},
+      dialog:false,
     }
   },
   created(){
@@ -114,6 +133,33 @@ export default {
     this.mistramites()
   },
   methods:{
+    licencia(){
+
+      if (this.dat.num==undefined) {
+        this.$q.notify({
+          message:'Debes colocar Numero',
+          color:'red',
+          icon:'error'
+        })
+        return false
+      }
+      if (this.dat.numlicencia==undefined) {
+        this.$q.notify({
+          message:'Debes colocar Numero de licencia',
+          color:'red',
+          icon:'error'
+        })
+        return false
+      }
+      // console.log(this.dat.num)
+      // return false
+      this.$q.loading.show()
+      this.$axios.post(process.env.API+'/licencia',this.dat).then(res=>{
+        // console.log(res.data)
+        this.dialog=false
+        this.mistramites()
+      })
+    },
     imprimir(i){
       // console.log(i)
       var doc = new jsPDF('p','cm','letter')
@@ -188,24 +234,32 @@ export default {
       });
     },
     daralta(i){
-      let id=i.id
-      this.$q.dialog({
-        title:'Seguro de dar de alta',
-        cancel:true
-      }).onOk(()=>{
-        this.$axios.put(process.env.API+'/direccion/'+id,{
-          estado:'TERMINADO',
-          nombre:'APROBADO ACTIVIDADES ECNOMICAS',
-          observacion:'APROBADO',
-          infraestructura:true,
-          seguridad:true,
-          medio:true,
-          salubridad:true,
-        }).then(res=>{
-          // console.log(res.data)
-          this.mistramites()
-        })
-      })
+      this.dat.id=i.id
+      this.dialog=true
+
+      // this.dat.id=i.id
+      // this.$q.dialog({
+      //   title:'Seguro de dar de alta',
+      //   cancel:true,
+      // }).onOk(()=>{
+      //   this.dialog=true
+      //
+      //
+      //   // this.$axios.put(process.env.API+'/locencia',{
+      //   //   id,
+      //   //   nombre:'APROBADO ACTIVIDADES ECNOMICAS',
+      //   //   observacion:'APROBADO',
+      //   //   infraestructura:true,
+      //   //   seguridad:true,
+      //   //   medio:true,
+      //   //   salubridad:true,
+      //   // }).then(res=>{
+      //   //   // console.log(res.data)
+      //   //   this.mistramites()
+      //   // })
+      //
+      //
+      // })
     },
     verrequisitos(r){
       this.requisitos=true

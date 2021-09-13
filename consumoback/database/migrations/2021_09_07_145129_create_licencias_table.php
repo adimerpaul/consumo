@@ -17,6 +17,7 @@ class CreateLicenciasTable extends Migration
             $table->id();
             //$table->string('num');
             $table->string('num');
+            $table->string('numlicencia');
             $table->date("fecha");
             $table->date("fechaautorizacion");
             $table->date("fechafin");
@@ -25,13 +26,15 @@ class CreateLicenciasTable extends Migration
             $table->date("fechalimite");
             $table->string("tipo");
             $table->string("estado");
-            $table->string("entramite");
+            $table->string("entramite")->default('')->nullable();
             $table->unsignedBigInteger("user_id");
             $table->foreign("user_id")->references('id')->on('users');
             $table->unsignedBigInteger("contribuyente_id");
             $table->foreign("contribuyente_id")->references('id')->on('contribuyentes');
             $table->unsignedBigInteger("caso_id");
             $table->foreign("caso_id")->references('id')->on('casos');
+            $table->unsignedBigInteger("tramite_id");
+            $table->foreign("tramite_id")->references('id')->on('tramites');
             $table->timestamps();
         });
     }

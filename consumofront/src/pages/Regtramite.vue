@@ -277,6 +277,13 @@ export default {
           icon:'send',
           message:'Guardado correctamente'
         })
+      }).catch(err=>{
+        this.$q.loading.hide()
+        this.$q.notify({
+          color:'red',
+          icon:'error',
+          message:err.response.data.message
+        })
       })
     },
     zfill(number, width) {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Licencia;
 use App\Models\Seguimiento;
 use App\Models\Tramite;
 use Illuminate\Http\Request;
@@ -101,7 +102,25 @@ class DireccionController extends Controller
                 ->with('contribuyente')
                 ->get();
         }
-
+        if ($id=='todo'){
+            return Licencia::
+            with('user')
+            ->with('contribuyente')
+            ->with('caso')
+            ->with('tramite')
+            ->where('entramite','')
+            ->get();
+        }
+        if ($id=='tra'){
+            return Tramite::
+                with('user')
+                ->with('caso')
+                ->with('requisitos')
+                ->with('contribuyente')
+                ->with('seguimientos')
+                ->with('licencia')
+                ->get();
+        }
     }
 
     /**

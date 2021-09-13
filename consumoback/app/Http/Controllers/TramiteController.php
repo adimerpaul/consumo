@@ -40,13 +40,17 @@ class TramiteController extends Controller
      */
     public function store(Request $request)
     {
-        //return $request;
+        return $request;
         $verifica=Contribuyente::where('padron',trim($request->padron))->get();
-        //return $verifica;
-        if($verifica!=[]) $contribuyente=$verifica[0];
-        else{
+//        return count($verifica);
+        if(count($verifica)!=0) {
+//            return 'aa';
+            $contribuyente=$verifica[0];
+        }else{
         if($request->tipo=='NATURAL'){
+
             $contrib=DB::connection('indcom')->table('natur')->where('npadron',$request->padron)->get()[0];
+
             $contribuyente=new Contribuyente;
             $contribuyente->padron=trim($contrib->npadron);
     	    $contribuyente->representante=trim($contrib->nombre).' '.trim($contrib->paterno).' '.trim($contrib->materno);
@@ -63,27 +67,25 @@ class TramiteController extends Controller
 	    	$contribuyente->ruc=$contrib->nruc;
 	    	$contribuyente->descripcion=$contrib->nactdescri;
             $contribuyente->save();
-
         }
-        else 
+        else
             {$contrib=DB::connection('indcom')->table('jurid')->where('jpadron',$request->padron)->get()[0];
-        
-            $contribuyente=new Contribuyente;
-            $contribuyente->padron=trim($contrib->jpadron);
-    	    $contribuyente->representante=$contrib->nombre.' '.$contrib->paterno.' '.$contrib->materno;
-            $contribuyente->razon=$contrib->nactdescri;
-	    	$contribuyente->cedula=trim($contrib->cedula);
-            $contribuyente->expedido='';
-            $contribuyente->telefono=$contrib->ntelefono;
-	    	$contribuyente->direccion=$contrib->ndireccion;
-            $contribuyente->direccionrazon=$contrib->diract;
-		    $contribuyente->cargo='PROPIETARIO';
-		    $contribuyente->tipo='N';
-	        $contribuyente->mts2=$contrib->nmts2;
-		    $contribuyente->gest=$contrib->gest;
-	    	$contribuyente->ruc=$contrib->nruc;
-	    	$contribuyente->descripcion=$contrib->nactdescri;
-            $contribuyente->save();
+//            $contribuyente=new Contribuyente;
+//            $contribuyente->padron=trim($contrib->jpadron);
+//    	    $contribuyente->representante=$contrib->nombre.' '.$contrib->paterno.' '.$contrib->materno;
+//            $contribuyente->razon=$contrib->nactdescri;
+//	    	$contribuyente->cedula=trim($contrib->cedula);
+//            $contribuyente->expedido='';
+//            $contribuyente->telefono=$contrib->ntelefono;
+//	    	$contribuyente->direccion=$contrib->ndireccion;
+//            $contribuyente->direccionrazon=$contrib->diract;
+//		    $contribuyente->cargo='PROPIETARIO';
+//		    $contribuyente->tipo='N';
+//	        $contribuyente->mts2=$contrib->nmts2;
+//		    $contribuyente->gest=$contrib->gest;
+//	    	$contribuyente->ruc=$contrib->nruc;
+//	    	$contribuyente->descripcion=$contrib->nactdescri;
+//            $contribuyente->save();
 
             $contribuyente=new Contribuyente;
             $contribuyente->padron=$contrib->jpadron;
@@ -132,8 +134,8 @@ class TramiteController extends Controller
         $seguim->tramite_id=$tramite->id;
         $seguim->user_id=$request->user()->id;
         return $seguim->save();
-        
-            
+
+
     }
 
     /**
