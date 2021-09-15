@@ -252,7 +252,6 @@ export default {
     //   })
     // },
     filterFn (val, update) {
-      console.log(val)
       if (val === '') {
           this.model={id:0,label:'',gestion:0,tipo:'n'};
         update(() => {
