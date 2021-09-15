@@ -1,10 +1,10 @@
-import Index from "../pages";
+import Index from "../pages/Index";
 import Login from "../pages/Login";
 import Regtramite from "../pages/Regtramite";
 import User from "pages/User";
-import Form19 from "pages/Form19";
-import Firmaregulacion from "pages/Firmaregulacion";
-import Verificardocumentacion from "pages/Verificardocumentacion";
+// import Form19 from "pages/Form19";
+// import Firmaregulacion from "pages/Firmaregulacion";
+// import Verificardocumentacion from "pages/Verificardocumentacion";
 import Direcciontributaria from "pages/Direcciontributaria";
 import Infraestructura from "pages/Infraestructura";
 import Seguridadciudadana from "pages/Seguridadciudadana";
