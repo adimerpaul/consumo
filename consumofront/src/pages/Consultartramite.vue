@@ -42,8 +42,9 @@
           <q-badge v-if="licencia.caso!=undefined" color="teal" :label="'obligacion '+licencia.caso.clasificacion"/>
 <!--          <pre>{{licencia}}</pre>-->
         </div>
-        <div class="col-12" v-if="licencia.num!=undefined">
-          <q-btn label="Imprimir" icon="print" color="teal" class="full-width" @click="imprimir"/>
+        <div class="col-12 row" v-if="licencia.num!=undefined">
+          <div class="col-6"><q-btn label="Imprimir Licencia" icon="print" color="teal" class="full-width" @click="imprimir"/></div>
+          <div class="col-6"><q-btn label="Imprimir Control" icon="print" color="accent" class="full-width" @click="imprimir2"/></div>
         </div>
       </div>
       </q-card>
@@ -323,6 +324,52 @@ export default {
         window.open(doc.output('bloburl'), '_blank');
       });
     },
+        imprimir2(i){
+      // console.log(i)
+      var doc = new jsPDF('p','cm','letter')
+      // console.log(dat);
+      doc.setFont("courier");
+      doc.setFontSize(10);
+      var x=0,y=0;
+      doc.text(x+2, y+13.5, this.licencia.contribuyente.representante);
+      doc.text(x+2, y+15.5, this.licencia.contribuyente.razon);
+      doc.text(x+2, y+17, this.licencia.contribuyente.direccionrazon);
+
+      doc.text(x+2, y+19, this.licencia.caso.tipo);
+      doc.text(x+6, y+19, this.licencia.caso.inicio+'-'+this.licencia.caso.fin);
+      doc.text(x+12, y+19, this.licencia.numlicencia);
+
+      doc.text(x+2, y+20.5, this.licencia.fechaautorizacion);
+      doc.text(x+10.5, y+20.5, this.licencia.fechafin);
+
+
+      let miPrimeraPromise = new Promise((resolve, reject) => {
+        // Llamamos a resolve(...) cuando lo que estabamos haciendo finaliza con éxito, y reject(...) cuando falla.
+        // En este ejemplo, usamos setTimeout(...) para simular código asíncrono.
+        // En la vida real, probablemente uses algo como XHR o una API HTML5.
+        var qrcode = new QRCode(document.getElementById("qr_code"), {
+          text: process.env.API2+"/verificar/"+this.licencia.id,
+          width: 128,
+          height: 128,
+          colorDark : "#000000",
+          colorLight : "#ffffff",
+          correctLevel : QRCode.CorrectLevel.H
+        });
+        setTimeout(function(){
+          resolve("¡Éxito!"); // ¡Todo salió bien!
+        }, 250);
+      });
+      miPrimeraPromise.then((successMessage) => {
+        // succesMessage es lo que sea que pasamos en la función resolve(...) de arriba.
+        // No tiene por qué ser un string, pero si solo es un mensaje de éxito, probablemente lo sea.
+        // console.log("¡Sí! " + successMessage);
+        let base64Image = $('#qr_code img').attr('src');
+        // console.log(base64Image);
+        doc.addImage(base64Image, 'png', x+2, y+22,1.5, 1.5);
+        window.open(doc.output('bloburl'), '_blank');
+      });
+    },
+
     daralta(i){
       this.dat.id=i.id
       this.dialog=true
