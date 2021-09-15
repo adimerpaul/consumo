@@ -303,7 +303,7 @@ export default {
         // En este ejemplo, usamos setTimeout(...) para simular código asíncrono.
         // En la vida real, probablemente uses algo como XHR o una API HTML5.
         var qrcode = new QRCode(document.getElementById("qr_code"), {
-          text: process.env.API2+"/verificar/"+this.licencia.id,
+          text: process.env.API2+"/entregartramite/"+this.licencia.id,
           width: 128,
           height: 128,
           colorDark : "#000000",
@@ -348,7 +348,7 @@ export default {
         // En este ejemplo, usamos setTimeout(...) para simular código asíncrono.
         // En la vida real, probablemente uses algo como XHR o una API HTML5.
         var qrcode = new QRCode(document.getElementById("qr_code"), {
-          text: process.env.API2+"/verificar/"+this.licencia.id,
+          text: process.env.API2+"/entregartramite/"+this.licencia.id,
           width: 128,
           height: 128,
           colorDark : "#000000",
