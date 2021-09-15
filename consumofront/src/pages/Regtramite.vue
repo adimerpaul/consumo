@@ -252,10 +252,11 @@ export default {
     //   })
     // },
     filterFn (val, update) {
+      console.log(val)
       if (val === '') {
+          this.model={id:0,label:'',gestion:0,tipo:'n'};
         update(() => {
-          this.options = this.options2
-
+          this.options = this.options2;
           // here you have access to "ref" which
           // is the Vue reference of the QSelect
         })
@@ -263,6 +264,7 @@ export default {
       }
 
       update(() => {
+          this.model={id:0,label:'',gestion:0,tipo:'n'};
         const needle = val.toLowerCase()
         this.options = this.options2.filter(v => v.label.toLowerCase().indexOf(needle) > -1)
       })
