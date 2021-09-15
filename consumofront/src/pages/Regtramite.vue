@@ -85,6 +85,7 @@
 
 <script>
 import {date} from "quasar";
+import { jsPDF } from "jspdf";
 export default {
   // name: 'Local',
   data(){
@@ -267,6 +268,7 @@ export default {
         requisitos:this.requisitos
       }).then(res=>{
         console.log(res.data)
+        this.imprimir();
         this.minum()
         this.mifecha()
         this.tramitador=''
@@ -281,6 +283,21 @@ export default {
         this.model='';
         this.requisitos=[];
       })
+    },
+          imprimir(i){
+      // console.log(i)
+      var doc = new jsPDF('p','cm','letter')
+      // console.log(dat);
+      doc.setFont("courier");
+      doc.setFontSize(10);
+      var x=0,y=0;
+      doc.text(x+1, y+1, 'Nro Tramite: '+this.ntramite);
+      doc.text(x+1, y+1.5, 'Tramitador: '+this.tramitador);
+      doc.text(x+1, y+2, 'Categoria: '+ this.caso.label);
+      doc.text(x+1, y+2.5, 'Tipo: '+ this.model.tipo);
+      doc.text(x+1, y+3, 'Fecha:' +this.fecha);
+ 
+        window.open(doc.output('bloburl'), '_blank');
     },
     zfill(number, width) {
       var numberOutput = Math.abs(number); /* Valor absoluto del número */
