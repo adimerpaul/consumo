@@ -235,7 +235,7 @@ export default {
     crear(){
       // console.log('a')
       this.cumple=true;
-       if(this.model.id=='0')
+       if(this.model=='')
        {
           this.$q.notify({
           color:'red',
@@ -259,7 +259,7 @@ export default {
       this.$q.loading.show()
       this.$axios.post(process.env.API+'/tramite',{
         nrotramite:this.ntramite,
-        caso:this.actividad.value,
+        caso:this.caso.value,
         tramitador:this.tramitador,
         ci:this.model.ci,
         tipo:this.model.tipo,
@@ -277,13 +277,9 @@ export default {
           icon:'send',
           message:'Guardado correctamente'
         })
-      }).catch(err=>{
-        this.$q.loading.hide()
-        this.$q.notify({
-          color:'red',
-          icon:'error',
-          message:err.response.data.message
-        })
+        this.caso='';
+        this.model='';
+        this.requisitos=[];
       })
     },
     zfill(number, width) {

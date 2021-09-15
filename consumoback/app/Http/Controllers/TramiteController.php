@@ -40,10 +40,10 @@ class TramiteController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
-        $verifica=Contribuyente::where('padron',trim($request->padron))->get();
-//        return count($verifica);
-        if(count($verifica)!=0) {
+        //return $request;
+        $verifica=Contribuyente::where('padron',trim($request->padron))->where('cedula',$request->ci)->get();
+        //return count($verifica);
+        if(count($verifica)>0) {
 //            return 'aa';
             $contribuyente=$verifica[0];
         }else{
@@ -88,10 +88,10 @@ class TramiteController extends Controller
 //            $contribuyente->save();
 
             $contribuyente=new Contribuyente;
-            $contribuyente->padron=$contrib->jpadron;
+            $contribuyente->padron=trim($contrib->jpadron);
     	    $contribuyente->representante=$contrib->nomreplega;
             $contribuyente->razon=$contrib->razon;
-	    	$contribuyente->cedula=$contrib->numdociden;
+	    	$contribuyente->cedula=trim($contrib->numdociden);
             $contribuyente->expedido='';
             $contribuyente->telefono=$contrib->jtelefono;
 	    	$contribuyente->direccion=$contrib->jdireccion;
@@ -116,14 +116,14 @@ class TramiteController extends Controller
          $tramite->estado="DIRECCION TRIBUTARIA";
           $tramite->estado2="EN PROCESO";
           $tramite->tipo=$request->tipo;
-          $tramite->caso_id=$request->caso;
+          $tramite->caso_id=$request->caso['id'];
           $tramite->contribuyente_id=$contribuyente->id;
           $tramite->padron=$request->padron;
           $tramite->nro="";
         $tramite->save();
 
         foreach ($request->requisitos as $row) {
-            DB::table('requisito_tramite')->insert(['requisito_id'=>$row->id,'tramite_id'=>$tramite->id]);
+            DB::table('requisito_tramite')->insert(['requisito_id'=>$row['id'],'tramite_id'=>$tramite->id]);
         }
 
         $seguim= new Seguimiento;
