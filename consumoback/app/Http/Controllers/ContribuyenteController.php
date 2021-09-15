@@ -48,7 +48,16 @@ class ContribuyenteController extends Controller
 
     public function index()
     {
-        return DB::connection('indcom')->table('natur')->get();
+        return DB::connection('indcom')->select("
+        SELECT npadron padron, concat(paterno,' ',materno,' ',nombre,' CI',cedula) nombre,gest gestion , ndireccion dir, nactdescri des,'NATURAL' tipo, cedula ci
+        FROM natur
+        WHERE hab=0
+        AND concat(TRIM( npadron),' ',TRIM( paterno),' ',TRIM( materno),' ',TRIM( nombre))
+        UNION
+        SELECT jpadron padron, CONCAT(nomreplega,' CI',numdociden)  nombre,gest gestion, jdireccion dir, jactdescri des,'JURIDICO' tipo, numdociden ci
+        FROM jurid j
+        WHERE hab=0
+        AND concat(TRIM( jpadron),' ',TRIM(nomreplega))");
     }
     public function buscarcon($dato){
 //        return DB::connection('indcom')

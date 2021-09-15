@@ -106,6 +106,9 @@ export default {
       options:[
         {id:0,label:'',gestion:0,tipo:'n'}
       ],
+      options2:[
+        {id:0,label:'',gestion:0,tipo:'n'}
+      ],
       regvutrat:'',
       columns:[
          { name: 'padron', label: 'padron', field: 'padron', required: true,},
@@ -118,6 +121,30 @@ export default {
     }
   },
   created(){
+        this.$q.loading.show()
+        this.$axios.get(process.env.API+'/contribuyente').then(res=> {
+          console.log(res.data)
+          this.$q.loading.hide()
+          // this.options=res.data
+          this.options = [{id: 0, label: '', gestion: 0, tipo: 'n'}]
+          this.options2 = [{id: 0, label: '', gestion: 0, tipo: 'n'}]
+          if (res.data.length > 0) {
+            res.data.forEach(r => {
+              let dat={
+                id: r.padron,
+                label: r.padron + '' + r.nombre + ' TIPO:' + r.tipo,
+                gestion: r.gestion,
+                tipo: r.tipo,
+                dir: r.dir,
+                des: r.des,
+                ci: r.ci,
+              }
+              this.options.push(dat)
+              this.options2.push(dat)
+            })
+          }
+        })
+
     this.mifecha()
     this.minum()
     this.miscasos()
@@ -190,40 +217,58 @@ export default {
          });
         })
     },
-    filterFn(val, update){
+    // filterFn(val, update){
+    //   if (val === '') {
+    //     update(() => {
+    //       this.options = [{id:0,label:'',gestion:0,tipo:'n'}],
+    //         this.model={id:0,label:'',gestion:0,tipo:'n'}
+    //         this.validar=''; this.regvutrat=''; this.pagos=[]
+    //     })
+    //     return
+    //   }
+    //
+    //   update(() => {
+    //     // const needle = val.toLowerCase()
+    //     this.$axios.get(process.env.API+'/buscarcon/'+val.toLowerCase()).then(res=>{
+    //       // console.log(res.data)
+    //       // this.options=res.data
+    //       this.options=[{id:0,label:'',gestion:0,tipo:'n'}]
+    //       if (res.data.length>0){
+    //         res.data.forEach(r=>{
+    //           this.options.push({
+    //             id:r.padron,
+    //             label:r.padron+''+r.nombre + ' TIPO:'+r.tipo,
+    //             gestion:r.gestion,
+    //             tipo:r.tipo,
+    //             dir:r.dir,
+    //             des:r.des,
+    //             ci:r.ci,
+    //           })
+    //         })
+    //       }
+    //
+    //     })
+    //     // this.options.value = stringOptions.filter(v => v.toLowerCase().indexOf(needle) > -1)
+    //   })
+    // },
+    filterFn (val, update) {
       if (val === '') {
         update(() => {
-          this.options = [{id:0,label:'',gestion:0,tipo:'n'}],
-            this.model={id:0,label:'',gestion:0,tipo:'n'}
-            this.validar=''; this.regvutrat=''; this.pagos=[]
+          this.options = this.options2
+
+          // here you have access to "ref" which
+          // is the Vue reference of the QSelect
         })
         return
       }
 
       update(() => {
-        // const needle = val.toLowerCase()
-        this.$axios.get(process.env.API+'/buscarcon/'+val.toLowerCase()).then(res=>{
-          // console.log(res.data)
-          // this.options=res.data
-          this.options=[{id:0,label:'',gestion:0,tipo:'n'}]
-          if (res.data.length>0){
-            res.data.forEach(r=>{
-              this.options.push({
-                id:r.padron,
-                label:r.padron+''+r.nombre + ' TIPO:'+r.tipo,
-                gestion:r.gestion,
-                tipo:r.tipo,
-                dir:r.dir,
-                des:r.des,
-                ci:r.ci,
-              })
-            })
-          }
-
-        })
-        // this.options.value = stringOptions.filter(v => v.toLowerCase().indexOf(needle) > -1)
+        const needle = val.toLowerCase()
+        this.options = this.options2.filter(v => v.label.toLowerCase().indexOf(needle) > -1)
       })
     },
+
+
     mifecha(){
       this.fecha=date.formatDate(new Date(),'YYYY-MM-DD HH:mm:ss' )
     },
@@ -296,7 +341,7 @@ export default {
       doc.text(x+1, y+2, 'Categoria: '+ this.caso.label);
       doc.text(x+1, y+2.5, 'Tipo: '+ this.model.tipo);
       doc.text(x+1, y+3, 'Fecha:' +this.fecha);
- 
+
         window.open(doc.output('bloburl'), '_blank');
     },
     zfill(number, width) {
