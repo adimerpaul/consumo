@@ -49,12 +49,12 @@ class ContribuyenteController extends Controller
     public function index()
     {
         return DB::connection('indcom')->select("
-        SELECT npadron padron, concat(paterno,' ',materno,' ',nombre,' CI',cedula) nombre,gest gestion , ndireccion dir, nactdescri des,'NATURAL' tipo, cedula ci
+        SELECT TRIM(npadron) padron, concat(TRIM(paterno),' ',TRIM(materno),' ',TRIM(nombre),' CI',TRIM(cedula)) nombre,gest gestion , ndireccion dir, nactdescri des,'NATURAL' tipo, cedula ci
         FROM natur
-        WHERE hab=0        
+        WHERE hab=0
         UNION
-        SELECT jpadron padron, CONCAT(nomreplega,' CI',numdociden)  nombre,gest gestion, jdireccion dir, jactdescri des,'JURIDICO' tipo, numdociden ci
-        FROM jurid 
+        SELECT TRIM(jpadron) padron, CONCAT(TRIM(nomreplega),' CI',TRIM(numdociden))  nombre,gest gestion, jdireccion dir, jactdescri des,'JURIDICO' tipo, numdociden ci
+        FROM jurid
         WHERE hab=0
         ");
     }
