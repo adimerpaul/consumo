@@ -34,7 +34,7 @@ class ContribuyenteController extends Controller
         {
             $query=DB::connection('bases')->table('lidgic'.date('y', $year))
                 ->whereNotNull('fech_pago')
-                ->where('padron','like','%'.$request->padron.'%');
+                ->where('padron',trim($request->padron));
             if ($query->count()>0){
                 array_push($lidgme,$query->get()[0]);
             }

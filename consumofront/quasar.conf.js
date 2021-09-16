@@ -75,8 +75,8 @@ module.exports = configure(function (ctx) {
           ? 'http://localhost:8000/api'
           : 'http://192.168.154.209:82/api',
         API2: ctx.dev
-          ? 'http://157.245.136.92:85/#'
-          : 'http://localhost:8000/api',
+          ? 'http://localhost:8000/api'
+          : 'http://157.245.136.92:85/#',
 
       }
     },
