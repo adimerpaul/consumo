@@ -30,7 +30,41 @@ class CreateContribuyentesTable extends Migration
             $table->string("gest")->nullable()->default("");
             $table->string("ruc")->nullable()->default("");
             $table->string("descripcion")->nullable()->default("");
+
+            $table->string("actividad")->nullable()->default("");
+            $table->string("sector")->nullable()->default("");
+            $table->string("nombre")->nullable()->default("");
+            $table->string("descripcionactividad")->nullable()->default("");
+            $table->string("horario")->nullable()->default("");
+            $table->string("datospropietario")->nullable()->default("");
+            $table->string("calle")->nullable()->default("");
+            $table->string("numero")->nullable()->default("");
+            $table->string("telefono")->nullable()->default("");
+            $table->string("casilla")->nullable()->default("");
+            $table->string("fax")->nullable()->default("");
+            $table->string("extrangero")->nullable()->default("");
+            $table->string("numeroextrangero")->nullable()->default("");
+            $table->string("numerodni")->nullable()->default("");
+
+            $table->string("zona")->nullable()->default("");
+            $table->string("barrio")->nullable()->default("");
+            $table->string("avenida")->nullable()->default("");
+            $table->string("calleactividad")->nullable()->default("");
+            $table->string("entrecalles")->nullable()->default("");
+
+            $table->string("numpiso")->nullable()->default("");
+            $table->string("numeroagua")->nullable()->default("");
+            $table->string("numeroelectrico")->nullable()->default("");
+            $table->string("observaciones")->nullable()->default("");
+
+            $table->string("fachada")->nullable()->default("");
+            $table->string("acera")->nullable()->default("");
+            $table->string("iluminacion")->nullable()->default("");
+            $table->string("letrero")->nullable()->default("");
+            $table->string("datoestablecimiento")->nullable()->default("");
+
             $table->unique(['cedula','padron'],'cont_padron');
+
             $table->timestamps();
         });
     }

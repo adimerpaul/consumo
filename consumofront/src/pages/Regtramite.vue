@@ -181,6 +181,7 @@ export default {
 
     },
     consultar(){
+      this.$q.loading.show()
       // console.log(this.model);
       this.$axios.post(process.env.API+'/conregistro',{padron:this.model.id,tipo:this.model.tipo,ci:this.model.ci}).then(res=>{
          console.log(res.data);
@@ -191,6 +192,7 @@ export default {
         else this.validar='F';
          if(this.validar=='T') this.regvutrat='Se encuentra Registrado en Vutrat';
           else this.regvutrat='No esta Registrado o Incompleto en Vutrat';
+
         })
         this.pagos=[];
       this.$axios.post(process.env.API+'/conpagos',{padron:this.model.id}).then(res=>{
@@ -202,6 +204,7 @@ export default {
        // });
        this.pagos=res.data;
         console.log(this.pagos);
+        this.$q.loading.hide()
       })
     },
     cambio(caso){
