@@ -115,7 +115,7 @@ class TramiteController extends Controller
          $tramite->user_id=$request->user()->id;
          $tramite->estado="DIRECCION TRIBUTARIA";
           $tramite->estado2="EN PROCESO";
-          $tramite->tipo=$request->tipo;
+          $tramite->tipo=$request->caso['tipo'];
           $tramite->caso_id=$request->caso['id'];
           $tramite->contribuyente_id=$contribuyente->id;
           $tramite->padron=$request->padron;
