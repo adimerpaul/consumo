@@ -194,13 +194,12 @@ export default {
   },
   methods:{
     vertramite(i){
-      console.log(i)
+      // console.log(i)
       this.seguimientos=i.seguimientos
       this.licencia=''
       if (i.licencia!=null){
         this.licencia=i.licencia
       }
-
       // console.log(i.licencia)
 
     },
@@ -246,64 +245,13 @@ export default {
       doc.text(x+16, y+12.5, this.licencia.numlicencia);
       doc.text(x+2, y+15, this.licencia.contribuyente.descripcion);
       doc.text(x+2, y+17, this.licencia.caso.clasificacion);
-
-      // <q-badge v-if="licencia.num!=undefined" color="primary" :label="'Numero '+licencia.num"/>
-      //   <q-badge v-if="licencia.num!=undefined" color="secondary" :label="'Num licencia '+licencia.numlicencia"/>
-      //   <q-badge v-if="licencia.contribuyente!=undefined" color="teal" :label="'contribuyente '+licencia.contribuyente.representante"/>
-      //   <q-badge v-if="licencia.contribuyente!=undefined" color="accent" :label="'razon '+licencia.contribuyente.razon"/>
-      //   <q-badge v-if="licencia.contribuyente!=undefined" color="primary" :label="'direccion '+licencia.contribuyente.direccionrazon"/>
-      //   <q-badge v-if="licencia.fechaautorizacion!=undefined" color="secondary" :label="'fecha emicion '+licencia.fechaautorizacion"/>
-      //   <q-badge v-if="licencia.fechafin!=undefined" color="teal" :label="'fecha fin '+licencia.fechafin"/>
-      //   <q-badge v-if="licencia.caso!=undefined" color="teal" :label="'horario '+licencia.caso.inicio+'-'+licencia.caso.fin"/>
-      //   <q-badge v-if="licencia.contribuyente!=undefined" color="accent" :label="'Actividad autorizada '+licencia.contribuyente.descripcion"/>
-      //   <q-badge v-if="licencia.caso!=undefined" color="teal" :label="'obligacion '+licencia.caso.clasificacion"/>
-      //
-
-      // doc.text(x+9.5, y+6, dat.cliente.paterno.toString()+' '+dat.cliente.materno.toString()+' '+dat.cliente.nombre.toString());
-      // doc.text(x+9.5, y+7.5, dat.cliente.direccion.toString());
-      // doc.text(x+14, y+7.5, dat.cliente.numcasa.toString());
-      // doc.text(x+15.6, y+7.5, dat.cliente.ci.toString()+' '+dat.cliente.expedido.toString());
-      // doc.text(x+18, y+7.5, dat.cliente.telefono.toString());
-      // doc.text(x+3, y+9, dat.varios.toString());
-      // doc.text(x+9.5, y+9, 'OR '+ dat.fecha.toString());
-      // let xx=x+1.2
-      // let yy=x+9.7
-      // dat.detalles.forEach(r=>{
-      //   doc.text(xx, yy, r.codsubitem.toString());
-      //   doc.text(xx+2.5, yy, r.nombreitem.toString());
-      //   // doc.text(xx, yy, r.codsubitem.toString());
-      //   doc.text(xx+14.5, yy, r.subtotal.toString());
-      //   doc.text(xx+2.5, yy+0.5, r.detalle.toString());
-      //   yy++
-      //   // console.log(r)
-      // })
-      // doc.text(x+15.5, y+18, dat.total.toString()+' Bs');
-      // doc.text(x+2, y+16, dat.literal.toString()+' 00/100Bs');
-      //
-
-
-      // doc.text(x+8.7, y+20.5, dat.controlinterno.toString());
-      // doc.save("Comprobante.pdf");
-      // var qrcode = await new QRCode(document.getElementById("qr_code"), {
-      //   text: "https://cravecookie.com/",
-      //   width: 128,
-      //   height: 128,
-      //   colorDark : "#000000",
-      //   colorLight : "#ffffff",
-      //   correctLevel : QRCode.CorrectLevel.H
-      // });
-      // let base64Image =  await $('#qr_code img').attr('src');
-      // await  console.log(base64Image);
-      //
-      // await doc.addImage(base64Image, 'png', 0, 0, 2, 2);
-      //
-      // await  window.open(doc.output('bloburl'), '_blank');
+      console.log(this.licencia)
       let miPrimeraPromise = new Promise((resolve, reject) => {
         // Llamamos a resolve(...) cuando lo que estabamos haciendo finaliza con éxito, y reject(...) cuando falla.
         // En este ejemplo, usamos setTimeout(...) para simular código asíncrono.
         // En la vida real, probablemente uses algo como XHR o una API HTML5.
         var qrcode = new QRCode(document.getElementById("qr_code"), {
-          text: process.env.API2+"/entregartramite/"+this.licencia.id,
+          text: process.env.API2+"/entregartramite/"+this.licencia.tramite_id,
           width: 128,
           height: 128,
           colorDark : "#000000",
@@ -312,7 +260,7 @@ export default {
         });
         setTimeout(function(){
           resolve("¡Éxito!"); // ¡Todo salió bien!
-        }, 250);
+        }, 1000);
       });
       miPrimeraPromise.then((successMessage) => {
         // succesMessage es lo que sea que pasamos en la función resolve(...) de arriba.
@@ -320,7 +268,7 @@ export default {
         // console.log("¡Sí! " + successMessage);
         let base64Image = $('#qr_code img').attr('src');
         // console.log(base64Image);
-        doc.addImage(base64Image, 'png', x+6, y+15,1.5, 1.5);
+        doc.addImage(base64Image, 'png', x+8, y+15,2, 2);
         window.open(doc.output('bloburl'), '_blank');
       });
     },
@@ -348,7 +296,7 @@ export default {
         // En este ejemplo, usamos setTimeout(...) para simular código asíncrono.
         // En la vida real, probablemente uses algo como XHR o una API HTML5.
         var qrcode = new QRCode(document.getElementById("qr_code"), {
-          text: process.env.API2+"/entregartramite/"+this.licencia.id,
+          text: process.env.API2+"/entregartramite/"+this.licencia.tramite_id,
           width: 128,
           height: 128,
           colorDark : "#000000",
@@ -357,7 +305,7 @@ export default {
         });
         setTimeout(function(){
           resolve("¡Éxito!"); // ¡Todo salió bien!
-        }, 250);
+        }, 1000);
       });
       miPrimeraPromise.then((successMessage) => {
         // succesMessage es lo que sea que pasamos en la función resolve(...) de arriba.
@@ -365,7 +313,7 @@ export default {
         // console.log("¡Sí! " + successMessage);
         let base64Image = $('#qr_code img').attr('src');
         // console.log(base64Image);
-        doc.addImage(base64Image, 'png', x+2, y+22,1.5, 1.5);
+        doc.addImage(base64Image, 'png', x+8, y+22,2, 2);
         window.open(doc.output('bloburl'), '_blank');
       });
     },
@@ -405,7 +353,6 @@ export default {
     mislicencias(){
       this.$q.loading.show()
       this.$axios.get(process.env.API+'/direccion/tra').then(res=>{
-
         this.tramites=[]
         this.tramites2=[]
         res.data.forEach(r=>{

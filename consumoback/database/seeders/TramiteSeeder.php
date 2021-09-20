@@ -33,7 +33,7 @@ class TramiteSeeder extends Seeder
             "tipo"=>"A",
             "padron"=>"1-1-1-1",
             "estado"=>"DIRECCION TRIBUTARIA",
-            "estado2"=>"ENPROCESO",
+            "estado2"=>"EN PROCESO",
             "nro"=>"454545",
             "tramitador"=>"JOSE JOSE",
             'user_id'=>"1",

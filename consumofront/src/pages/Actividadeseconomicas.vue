@@ -38,7 +38,7 @@
               {{ props.row.fecha }}
             </q-td>
             <q-td key="dias" :props="props">
-              <q-badge :color="props.row.dias==1?'green':props.row.dias==2?'warning':'negative'">
+              <q-badge :color="props.row.dias<=1?'green':props.row.dias==2?'warning':'negative'">
                 {{ props.row.dias }}
               </q-badge>
             </q-td>
@@ -116,11 +116,11 @@ export default {
         { name: 'tipo', label: 'tipo', field: 'tipo'},
         { name: 'clasificacion', label: 'clasificacion', field: 'clasificacion'},
         { name: 'tramite', label: 'tramite', field: 'tramite'},
-        { name: 'fecha', label: 'fecha', field: 'fecha'},
+        // { name: 'fecha', label: 'fecha', field: 'fecha'},
         { name: 'dias', label: 'dias', field: 'dias'},
         { name: 'estado', label: 'estado', field: 'estado'},
         { name: 'unidad', label: 'unidad', field: 'unidad'},
-        { name: 'requisitos', label: 'requisitos', field: 'requisitos',    align: 'left'},
+        // { name: 'requisitos', label: 'requisitos', field: 'requisitos',    align: 'left'},
         { name: 'action', label: 'action', field: 'action'},
       ],
       tramites:[],

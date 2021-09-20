@@ -16,11 +16,22 @@ class DireccionController extends Controller
      */
     public function index()
     {
-        return Tramite::where('estado','DIRECCION TRIBUTARIA')
+        $tramite= Tramite::where('estado','DIRECCION TRIBUTARIA')
+            ->with('user')
+            ->with('caso')
+            ->with('requisitos')
+            ->with('contribuyente');
+//            ->get();
+        return Tramite::where('estado','PROCESO')
+            ->where('infraestructura',true)
+            ->where('seguridad',true)
+            ->where('medio',true)
+            ->where('salubridad',true)
             ->with('user')
             ->with('caso')
             ->with('requisitos')
             ->with('contribuyente')
+            ->union($tramite)
             ->get();
     }
 
@@ -91,7 +102,7 @@ class DireccionController extends Controller
                 ->get();
         }
         if ($id=='ac'){
-            return Tramite::where('estado','PROCESO')
+            return Tramite::where('estado','ACTIVIDADES ECONOMICAS')
                 ->where('infraestructura',true)
                 ->where('salubridad',true)
                 ->where('medio',true)

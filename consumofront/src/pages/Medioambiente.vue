@@ -117,6 +117,7 @@ export default {
         title:'Seguro de dar de alta',
         cancel:true
       }).onOk(()=>{
+        this.$q.loading.show()
         this.$axios.put(process.env.API+'/direccion/'+id,{
           estado:'PROCESO',
           nombre:'APROBADO MEDIO AMBIENTE',
