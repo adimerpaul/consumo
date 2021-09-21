@@ -316,13 +316,14 @@ export default {
         padron:this.model.id,
         requisitos:this.requisitos
       }).then(res=>{
-        console.log(res.data)
+        // console.log(res.data)
+        this.$q.loading.hide()
+        // return false
         this.imprimir();
         this.minum()
         this.mifecha()
         this.tramitador=''
 
-        this.$q.loading.hide()
         this.$q.notify({
           color:'positive',
           icon:'send',
@@ -331,6 +332,13 @@ export default {
         this.caso='';
         this.model='';
         this.requisitos=[];
+      }).catch(err=>{
+        this.$q.loading.hide()
+        this.$q.notify({
+          message:err.response.data.message,
+          color:'red',
+          icon:'error'
+        })
       })
     },
           imprimir(i){

@@ -72,7 +72,7 @@ class TramiteController extends Controller
                 $contribuyente->gest=date('Y', strtotime(date('Y-m-d'). ' -1 year'));
                 $contribuyente->ruc=$contrib->nit;
                 $contribuyente->descripcion=$contrib->descrip;
-    
+
                 $contribuyente->actividad=$contrib->cod_acti;
                 $contribuyente->sector=$contrib->cod_sector;
                 $contribuyente->nombreact=$contrib->nom_acti;
@@ -87,17 +87,17 @@ class TramiteController extends Controller
                 $contribuyente->extrangero=$contrib->extrangero;
                 $contribuyente->numeroextrangero=$contrib->cert_ext;
                 $contribuyente->numerodni=$contrib->n_dni;
-    
+
                 $contribuyente->zona=$contrib->act_zona;
                 $contribuyente->barrio=$contrib->act_barrio;
                 $contribuyente->calleactividad=$contrib->act_c_av;
                 $contribuyente->entrecalles=$contrib->act_e_ca;
-    
+
                 $contribuyente->numpiso=$contrib->act_piso;
                 $contribuyente->numeroagua=$contrib->n_medidor_a;
                 $contribuyente->numeroelectrico=$contrib->n_medidor_e;
                 $contribuyente->observaciones='';
-    
+
                 $contribuyente->fachada=$contrib->fachada;
                 $contribuyente->acera=$contrib->acera;
                 $contribuyente->iluminacion=$contrib->luz;
@@ -140,7 +140,7 @@ class TramiteController extends Controller
                     $contribuyente->paterno=$contrib->a_paterno_rl;
                     $contribuyente->materno=$contrib->a_materno_rl;
                     $contribuyente->esposo=$contrib->a_esposo_rl;
-    
+
                     $contribuyente->razon=$contrib->razon_social;
                     $contribuyente->cedula=$contrib->c_i_rl;
                     $contribuyente->expedido='';
@@ -149,11 +149,12 @@ class TramiteController extends Controller
                     $contribuyente->direccionrazon=$contrib->act_c_av.' '.$contrib->act_e_ca;
                     $contribuyente->cargo='PROPIETARIO';
                     $contribuyente->tipo='J';
-                    $contribuyente->mts2=$contrib->superficie;
+//                    return $contrib;
+                    $contribuyente->mts2=$contrib->superfice;
                     $contribuyente->gest=date('Y', strtotime(date('Y-m-d'). ' -1 year'));
                     $contribuyente->ruc=$contrib->nit;
                     $contribuyente->descripcion=$contrib->descrip;
-        
+
                     $contribuyente->actividad=$contrib->cod_acti;
                     $contribuyente->sector=$contrib->cod_sector;
                     $contribuyente->nombreact=$contrib->razon_social;
@@ -168,17 +169,17 @@ class TramiteController extends Controller
                     $contribuyente->extrangero=$contrib->boliviano;
                     $contribuyente->numeroextrangero=$contrib->cert_ext;
                     $contribuyente->numerodni=$contrib->n_dni;
-        
+
                     $contribuyente->zona=$contrib->act_zona;
                     $contribuyente->barrio=$contrib->act_barrio;
                     $contribuyente->calleactividad=$contrib->act_c_av;
                     $contribuyente->entrecalles=$contrib->act_e_ca;
-        
+
                     $contribuyente->numpiso=$contrib->act_piso;
                     $contribuyente->numeroagua=$contrib->n_medidor_a;
                     $contribuyente->numeroelectrico=$contrib->n_medidor_e;
                     $contribuyente->observaciones='';
-        
+
                     $contribuyente->fachada=$contrib->fachada;
                     $contribuyente->acera=$contrib->acera;
                     $contribuyente->iluminacion=$contrib->luz;
@@ -187,7 +188,7 @@ class TramiteController extends Controller
                     $contribuyente->save();
             }
             else{
-                
+
                 $contrib=DB::connection('indcom')->table('jurid')->where('jpadron',$request->padron)->get()[0];
 
             $contribuyente=new Contribuyente;
