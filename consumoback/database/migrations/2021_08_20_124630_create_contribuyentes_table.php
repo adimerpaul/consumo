@@ -66,6 +66,7 @@ class CreateContribuyentesTable extends Migration
             $table->string("iluminacion")->nullable()->default("");
             $table->string("letrero")->nullable()->default("");
             $table->string("datoestablecimiento")->nullable()->default("");
+            $table->string("estado")->default("ACTIVO");
 
             $table->unique(['cedula','padron'],'cont_padron');
 

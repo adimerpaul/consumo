@@ -61,12 +61,23 @@
               <q-item-label caption>Control de usuarios</q-item-label>
             </q-item-section>
           </q-item>
+
           <q-item to="regtramite"  exact clickable v-ripple v-if="$store.state.login.boolregtramite">
             <q-item-section avatar>
               <q-icon name="login" />
             </q-item-section>
             <q-item-section>
               <q-item-label> Inicio tramite</q-item-label>
+<!--              <q-item-label caption>Iniscio de tramite</q-item-label>-->
+            </q-item-section>
+          </q-item>
+
+          <q-item to="modifica"  exact clickable v-ripple v-if="$store.state.login.boolregtramite">
+            <q-item-section avatar>
+              <q-icon name="update" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label> Actualizar datos</q-item-label>
 <!--              <q-item-label caption>Iniscio de tramite</q-item-label>-->
             </q-item-section>
           </q-item>

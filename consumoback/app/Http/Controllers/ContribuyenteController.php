@@ -59,6 +59,12 @@ class ContribuyenteController extends Controller
         WHERE hab=0
         ");
     }
+
+    public function listadocontrib(){
+        return DB::table('contribuyentes')->where('estado','ACTIVO')->get();
+    }
+
+    
     public function buscarcon($dato){
 //        return DB::connection('indcom')
 //            ->table('natur')

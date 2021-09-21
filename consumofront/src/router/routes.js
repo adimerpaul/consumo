@@ -13,6 +13,7 @@ import Salubridad from "pages/Salubridad";
 import Actividadeseconomicas from "pages/Actividadeseconomicas";
 import Consultartramite from "pages/Consultartramite";
 import Entregartramite from "pages/Entregartramite";
+import Modifica from "pages/Modifica";
 const routes = [
   {
     path: '/',
@@ -30,6 +31,7 @@ const routes = [
       { path: 'activiadeseconomicas', component: Actividadeseconomicas,meta:{requiresAuth: true}},
       { path: 'consultartramite', component: Consultartramite,meta:{requiresAuth: true}},
       { path: 'entregartramite', component: Entregartramite,meta:{requiresAuth: true}},
+      { path: 'modifica', component: Modifica,meta:{requiresAuth: true}},
     ]
   },
 
