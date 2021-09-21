@@ -15,15 +15,16 @@ class ContribuyenteController extends Controller
      */
     public function conregistro(Request $request){
 //        return $request;
-     if($request->tipo=='NATURAL')
+     if($request->tipo=='NATURAL'){
         return DB::connection('vutrat')->select('
             select *
             from v_seguim vs
-            where n_tramite = (select n_tramite from v_tramites vt WHERE n_tramite=(select n_tramite from v_naturales vn where pmc="'.$request->padron.'" and c_i="'.$request->ci.'" ))
+            where n_tramite = (select n_tramite from v_tramites vt WHERE n_tramite=(select n_tramite from temp_naturales vn where pmc="'.$request->padron.'" and c_i="'.$request->ci.'" ))
             AND c_proce =8
             ');
+        }
       else
-        return DB::connection('vutrat')->select('select * from v_seguim vs where n_tramite = (select n_tramite from v_tramites vt WHERE n_tramite=(select n_tramite from v_juridicas vj where pmc="'.$request->padron.'"  and c_i_rl="'.$request->ci.'" )) AND c_proce =8');
+        return DB::connection('vutrat')->select('select * from v_seguim vs where n_tramite = (select n_tramite from v_tramites vt WHERE n_tramite=(select n_tramite from temp_juridicas vj where pmc="'.$request->padron.'"  and c_i_rl="'.$request->ci.'" )) AND c_proce =8');
 
     }
     public function conpagos(Request $request){

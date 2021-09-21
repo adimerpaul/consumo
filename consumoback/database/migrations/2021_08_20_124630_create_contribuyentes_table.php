@@ -17,6 +17,10 @@ class CreateContribuyentesTable extends Migration
             $table->id();
             $table->string("padron")->nullable()->default("");
             $table->string("representante")->nullable()->default("");
+            $table->string("nombres")->nullable()->default("");
+            $table->string("paterno")->nullable()->default("");
+            $table->string("materno")->nullable()->default("");
+            $table->string("esposo")->nullable()->default("");
             $table->string("razon")->nullable()->default("");
             $table->string("cedula")->nullable()->default("");
             $table->string("expedido")->nullable()->default("");
@@ -33,7 +37,7 @@ class CreateContribuyentesTable extends Migration
 
             $table->string("actividad")->nullable()->default("");
             $table->string("sector")->nullable()->default("");
-            $table->string("nombre")->nullable()->default("");
+            $table->string("nombreact")->nullable()->default("");
             $table->string("descripcionactividad")->nullable()->default("");
             $table->string("horario")->nullable()->default("");
             $table->string("datospropietario")->nullable()->default("");

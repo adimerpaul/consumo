@@ -49,11 +49,71 @@ class TramiteController extends Controller
         }else{
         if($request->tipo=='NATURAL'){
 
-            $contrib=DB::connection('indcom')->table('natur')->where('npadron',$request->padron)->get()[0];
+            $contrib=DB::connection('vutrat')->table('temp_naturales')->where('pmc',$request->padron)->where('c_i',$request->ci)->get();
+            if(count($contrib)>0){
+                $contrib=$contrib[0];
+                $contribuyente=new Contribuyente;
+                $contribuyente->padron=$contrib->pmc;
+                $contribuyente->representante=trim($contrib->nombres).' '.trim($contrib->a_paterno).' '.trim($contrib->a_materno).' '.trim($contrib->a_esposo);
+                $contribuyente->nombres=$contrib->nombres;
+                $contribuyente->paterno=$contrib->a_paterno;
+                $contribuyente->materno=$contrib->a_materno;
+                $contribuyente->esposo=$contrib->a_esposo;
+
+                $contribuyente->razon=$contrib->nom_acti;
+                $contribuyente->cedula=$contrib->c_i;
+                $contribuyente->expedido='';
+                $contribuyente->telefono=$contrib->fono_dom;
+                $contribuyente->direccion=$contrib->calle_dom;
+                $contribuyente->direccionrazon=$contrib->act_c_av.' '.$contrib->act_e_ca;
+                $contribuyente->cargo='PROPIETARIO';
+                $contribuyente->tipo='N';
+                $contribuyente->mts2=$contrib->superficie;
+                $contribuyente->gest=date('Y', strtotime(date('Y-m-d'). ' -1 year'));
+                $contribuyente->ruc=$contrib->nit;
+                $contribuyente->descripcion=$contrib->descrip;
+    
+                $contribuyente->actividad=$contrib->cod_acti;
+                $contribuyente->sector=$contrib->cod_sector;
+                $contribuyente->nombreact=$contrib->nom_acti;
+                $contribuyente->descripcionactividad=$contrib->descrip;
+                $contribuyente->horario=$contrib->horario;
+                $contribuyente->datospropietario='';
+                $contribuyente->calle=$contrib->calle_dom;
+                $contribuyente->numero='';
+                $contribuyente->telefono=$contrib->act_fono;
+                $contribuyente->casilla=$contrib->casilla;
+                $contribuyente->fax=$contrib->fax;
+                $contribuyente->extrangero=$contrib->extrangero;
+                $contribuyente->numeroextrangero=$contrib->cert_ext;
+                $contribuyente->numerodni=$contrib->n_dni;
+    
+                $contribuyente->zona=$contrib->act_zona;
+                $contribuyente->barrio=$contrib->act_barrio;
+                $contribuyente->calleactividad=$contrib->act_c_av;
+                $contribuyente->entrecalles=$contrib->act_e_ca;
+    
+                $contribuyente->numpiso=$contrib->act_piso;
+                $contribuyente->numeroagua=$contrib->n_medidor_a;
+                $contribuyente->numeroelectrico=$contrib->n_medidor_e;
+                $contribuyente->observaciones='';
+    
+                $contribuyente->fachada=$contrib->fachada;
+                $contribuyente->acera=$contrib->acera;
+                $contribuyente->iluminacion=$contrib->luz;
+                $contribuyente->letrero=$contrib->letreros;
+                $contribuyente->datoestablecimiento=$contrib->establec;
+                $contribuyente->save();
+            }
+            else{
+            $contrib=DB::connection('indcom')->table('natur')->where('npadron',$request->padron)->where('cedula',$request->ci)->get()[0];
 
             $contribuyente=new Contribuyente;
             $contribuyente->padron=trim($contrib->npadron);
     	    $contribuyente->representante=trim($contrib->nombre).' '.trim($contrib->paterno).' '.trim($contrib->materno);
+    	    $contribuyente->nombres=trim($contrib->nombre);
+    	    $contribuyente->paterno=trim($contrib->paterno);
+    	    $contribuyente->materno=trim($contrib->materno);
             $contribuyente->razon=$contrib->nactdescri;
 	    	$contribuyente->cedula=trim($contrib->cedula);
             $contribuyente->expedido='';
@@ -67,25 +127,68 @@ class TramiteController extends Controller
 	    	$contribuyente->ruc=$contrib->nruc;
 	    	$contribuyente->descripcion=$contrib->nactdescri;
             $contribuyente->save();
-        }
+        }}
         else
-            {$contrib=DB::connection('indcom')->table('jurid')->where('jpadron',$request->padron)->get()[0];
-//            $contribuyente=new Contribuyente;
-//            $contribuyente->padron=trim($contrib->jpadron);
-//    	    $contribuyente->representante=$contrib->nombre.' '.$contrib->paterno.' '.$contrib->materno;
-//            $contribuyente->razon=$contrib->nactdescri;
-//	    	$contribuyente->cedula=trim($contrib->cedula);
-//            $contribuyente->expedido='';
-//            $contribuyente->telefono=$contrib->ntelefono;
-//	    	$contribuyente->direccion=$contrib->ndireccion;
-//            $contribuyente->direccionrazon=$contrib->diract;
-//		    $contribuyente->cargo='PROPIETARIO';
-//		    $contribuyente->tipo='N';
-//	        $contribuyente->mts2=$contrib->nmts2;
-//		    $contribuyente->gest=$contrib->gest;
-//	    	$contribuyente->ruc=$contrib->nruc;
-//	    	$contribuyente->descripcion=$contrib->nactdescri;
-//            $contribuyente->save();
+            {
+                $contrib=DB::connection('vutrat')->table('temp_juridicas')->where('pmc',$request->padron)->where('c_i_rl',$request->ci)->get();
+                if(count($contrib)>0){
+                    $contrib=$contrib[0];
+                    $contribuyente=new Contribuyente;
+                    $contribuyente->padron=$contrib->pmc;
+                    $contribuyente->representante=trim($contrib->nombres_rl).' '.trim($contrib->a_paterno_rl).' '.trim($contrib->a_materno_rl).' '.trim($contrib->a_esposo_rl);
+                    $contribuyente->nombres=$contrib->nombres_rl;
+                    $contribuyente->paterno=$contrib->a_paterno_rl;
+                    $contribuyente->materno=$contrib->a_materno_rl;
+                    $contribuyente->esposo=$contrib->a_esposo_rl;
+    
+                    $contribuyente->razon=$contrib->razon_social;
+                    $contribuyente->cedula=$contrib->c_i_rl;
+                    $contribuyente->expedido='';
+                    $contribuyente->telefono=$contrib->fono_dom;
+                    $contribuyente->direccion=$contrib->calle_dom;
+                    $contribuyente->direccionrazon=$contrib->act_c_av.' '.$contrib->act_e_ca;
+                    $contribuyente->cargo='PROPIETARIO';
+                    $contribuyente->tipo='J';
+                    $contribuyente->mts2=$contrib->superficie;
+                    $contribuyente->gest=date('Y', strtotime(date('Y-m-d'). ' -1 year'));
+                    $contribuyente->ruc=$contrib->nit;
+                    $contribuyente->descripcion=$contrib->descrip;
+        
+                    $contribuyente->actividad=$contrib->cod_acti;
+                    $contribuyente->sector=$contrib->cod_sector;
+                    $contribuyente->nombreact=$contrib->razon_social;
+                    $contribuyente->descripcionactividad=$contrib->descrip;
+                    $contribuyente->horario=$contrib->horario;
+                    $contribuyente->datospropietario='';
+                    $contribuyente->calle=$contrib->calle_dom;
+                    $contribuyente->numero=$contrib->n_dom;
+                    $contribuyente->telefono=$contrib->fono_dom;
+                    $contribuyente->casilla=$contrib->casilla;
+                    $contribuyente->fax=$contrib->fax;
+                    $contribuyente->extrangero=$contrib->boliviano;
+                    $contribuyente->numeroextrangero=$contrib->cert_ext;
+                    $contribuyente->numerodni=$contrib->n_dni;
+        
+                    $contribuyente->zona=$contrib->act_zona;
+                    $contribuyente->barrio=$contrib->act_barrio;
+                    $contribuyente->calleactividad=$contrib->act_c_av;
+                    $contribuyente->entrecalles=$contrib->act_e_ca;
+        
+                    $contribuyente->numpiso=$contrib->act_piso;
+                    $contribuyente->numeroagua=$contrib->n_medidor_a;
+                    $contribuyente->numeroelectrico=$contrib->n_medidor_e;
+                    $contribuyente->observaciones='';
+        
+                    $contribuyente->fachada=$contrib->fachada;
+                    $contribuyente->acera=$contrib->acera;
+                    $contribuyente->iluminacion=$contrib->luz;
+                    $contribuyente->letrero=$contrib->letreros;
+                    $contribuyente->datoestablecimiento=$contrib->establec;
+                    $contribuyente->save();
+            }
+            else{
+                
+                $contrib=DB::connection('indcom')->table('jurid')->where('jpadron',$request->padron)->get()[0];
 
             $contribuyente=new Contribuyente;
             $contribuyente->padron=trim($contrib->jpadron);
@@ -103,6 +206,7 @@ class TramiteController extends Controller
 	    	$contribuyente->ruc=$contrib->jruc;
 	    	$contribuyente->descripcion=$contrib->jactdescri;
             $contribuyente->save();}
+        }
         }
 
         //return $contribuyente;
