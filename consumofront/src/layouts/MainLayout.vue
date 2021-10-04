@@ -146,6 +146,7 @@
               <q-item-label caption>Registro de datos</q-item-label>
             </q-item-section>
           </q-item>
+
           <q-item to="entregartramite"  exact clickable v-ripple v-if="$store.state.login.entregartramite">
             <q-item-section avatar>
               <q-icon name="logout" />
@@ -155,6 +156,17 @@
               <q-item-label caption>Registro de datos</q-item-label>
             </q-item-section>
           </q-item>
+
+          <q-item to="multa"  exact clickable v-ripple v-if="$store.getters['login/isLoggedIn']">
+            <q-item-section avatar>
+              <q-icon name="policy" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label> Registro de Multa</q-item-label>
+              <q-item-label caption>Multas y sanciones</q-item-label>
+            </q-item-section>
+          </q-item>
+
           <q-item @click="logout"  exact clickable v-ripple v-if="$store.getters['login/isLoggedIn']">
             <q-item-section avatar>
               <q-icon name="close" />
@@ -164,6 +176,7 @@
               <q-item-label caption>Salir del sistema</q-item-label>
             </q-item-section>
           </q-item>
+
         </q-list>
       </q-scroll-area>
 

@@ -37,4 +37,8 @@ class Licencia extends Model
     public function tramite(){
         return $this->belongsTo(Tramite::class)->with('seguimientos');
     }
+
+    public function historialmultas(){
+        return $this->hasMany(Historialmulta::class)->with('detallemulta');
+    }
 }

@@ -28,12 +28,18 @@ Route::group(['middleware'=>'auth:sanctum'],function (){
     Route::resource('/tramite',\App\Http\Controllers\TramiteController::class);
     Route::resource('/licencia',\App\Http\Controllers\LicenciaController::class);
     Route::resource('/caso',\App\Http\Controllers\CasoController::class);
+    Route::resource('/multa',\App\Http\Controllers\MultaController::class);
     Route::put('/pass/{user}',[\App\Http\Controllers\UserController::class,'pass']);
     Route::put('/updatepermisos/{user}',[\App\Http\Controllers\UserController::class,'updatepermisos']);
     Route::post('/consultar',[\App\Http\Controllers\ContribuyenteController::class,'consultar']);
     Route::post('/conregistro',[\App\Http\Controllers\ContribuyenteController::class,'conregistro']);
     Route::post('/conpagos',[\App\Http\Controllers\ContribuyenteController::class,'conpagos']);
     Route::get('/listadocontrib',[\App\Http\Controllers\ContribuyenteController::class,'listadocontrib']);
+    Route::get('/listlicencia',[\App\Http\Controllers\LicenciaController::class,'listlicencia']);
+    Route::get('/listactividad/{codigo}',[\App\Http\Controllers\ContribuyenteController::class,'listactividad']);
+    Route::get('/listsector/{sector}',[\App\Http\Controllers\ContribuyenteController::class,'listsector']);
     Route::post('/listrequisito',[\App\Http\Controllers\RequisitoController::class,'listrequisito']);
     Route::resource('/direccion',\App\Http\Controllers\DireccionController::class);
+    Route::resource('/historialmulta',\App\Http\Controllers\HistorialmultaController::class);
+    Route::post('/listahistorial/{id}',[\App\Http\Controllers\HistorialmultaController::class,'listahistorial']);
 });

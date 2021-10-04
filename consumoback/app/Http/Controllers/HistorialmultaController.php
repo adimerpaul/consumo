@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Historialmulta;
+use App\Models\Licencia;
 use Illuminate\Http\Request;
 
 class HistorialmultaController extends Controller
@@ -15,6 +16,7 @@ class HistorialmultaController extends Controller
     public function index()
     {
         //
+        
     }
 
     /**
@@ -27,6 +29,10 @@ class HistorialmultaController extends Controller
         //
     }
 
+    public function listahistorial($id){
+        return Historialmulta::where('licencia_id',$id)->get();
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -36,6 +42,31 @@ class HistorialmultaController extends Controller
     public function store(Request $request)
     {
         //
+        $historialmulta=new Historialmulta;
+        $historialmulta->detallemulta_id=$request->detallemulta_id;
+        $historialmulta->multa_id=$request->multa_id;
+        $historialmulta->monto=$request->monto;
+        $historialmulta->fecha=date('Y-m-d');
+        if($request->dia=='INDEFINIDO'){
+            $historialmulta->inicio=date('Y-m-d');
+            $historialmulta->fin=date('9999-12-31');
+            $lic=Licencia::find($request->licencia_id);
+            $lic->estado='CLAUSURA';
+            $lic->save();
+        }
+        
+        if(is_numeric($request->dia) && intval($request->dia)>0){
+            $historialmulta->inicio=date('Y-m-d');
+            $cdia=intval($request->dia);
+            $historialmulta->fin=date('Y-m-d', strtotime("+$cdia day"));
+            $lic=Licencia::find($request->licencia_id);
+            $lic->estado='SUSPENCION';
+            $lic->save();
+        }
+        $historialmulta->observacion=$request->observacion;
+        $historialmulta->licencia_id=$request->licencia_id;
+        $historialmulta->save();
+        return $historialmulta;
     }
 
     /**

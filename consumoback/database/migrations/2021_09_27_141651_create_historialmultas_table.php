@@ -15,12 +15,17 @@ class CreateHistorialmultasTable extends Migration
     {
         Schema::create('historialmultas', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('detallemulta_id');
-            $table->foreign('detallemulta_id')->references('id')->on('detallemultas');
+
             $table->integer('monto');
+            $table->date('fecha');
             $table->date('inicio');
             $table->date('fin');
             $table->string('estado')->default('PENDIENTE');
+            $table->string('observacion')->nullable();
+            $table->unsignedBigInteger('detallemulta_id');
+            $table->foreign('detallemulta_id')->references('id')->on('detallemultas');
+            $table->unsignedBigInteger('multa_id');
+            $table->foreign('multa_id')->references('id')->on('multas');
             $table->unsignedBigInteger('licencia_id');
             $table->foreign('licencia_id')->references('id')->on('licencias');
             $table->timestamps();

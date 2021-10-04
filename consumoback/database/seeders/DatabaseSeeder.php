@@ -23,7 +23,10 @@ class DatabaseSeeder extends Seeder
             TramiteSeeder::class,
             SeguimientoSeeder::class,
             RequisitoSeeder::class,
-            RequisitoTramiteSeeder::class
+            RequisitoTramiteSeeder::class,
+            MultaSeeder::class,
+            DetallemultaSeeder::class
+            
         ]);
     }
 }

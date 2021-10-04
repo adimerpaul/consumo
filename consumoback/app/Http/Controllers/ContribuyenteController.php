@@ -61,7 +61,8 @@ class ContribuyenteController extends Controller
     }
 
     public function listadocontrib(){
-        return DB::table('contribuyentes')->where('estado','ACTIVO')->get();
+        return DB::table('contribuyentes')
+        ->where('estado','ACTIVO')->get();
     }
 
     
@@ -160,8 +161,12 @@ class ContribuyenteController extends Controller
         //
     }
 
-    public function listactividad(){
-        return DB::connection('vutrat')->table('actividad')->get();
+    public function listactividad($codigo){
+        return DB::table('actividad')->where('codigo',$codigo)->get();
+    }
+
+    public function listsector($sector){
+        return DB::table('sectores')->where('sector',$sector)->get();
     }
 
     public function requisito(Request $request){
@@ -175,4 +180,6 @@ class ContribuyenteController extends Controller
         if($actividad->req_s3 && $request->tipo=='N')
             return DB::connection('vutrat')->table('v_requis')->where('cod_prin',3)->get();
     }
+
+
 }

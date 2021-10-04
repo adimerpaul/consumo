@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Licencia;
 use App\Models\Seguimiento;
 use App\Models\Tramite;
+use App\Models\Contribuyente;
+use App\Models\Caso;
+use App\Models\Historialmulta;
 use Illuminate\Http\Request;
 
 class LicenciaController extends Controller
@@ -17,6 +20,11 @@ class LicenciaController extends Controller
     public function index()
     {
         //
+    }
+
+    public function listlicencia(){
+        return Licencia::with('contribuyente')->with('caso')->with('historialmultas')
+        ->get();
     }
 
     /**
@@ -58,7 +66,7 @@ class LicenciaController extends Controller
         $licencia->hora=date('H:i:s');
         $licencia->fechalimite=$tramite->fechalimite;
         $licencia->tipo=$tramite->tipo;
-        $licencia->estado=$tramite->estado;
+        $licencia->estado='ACTIVO';
 //        $licencia->entramite=$request->entramite;
         $licencia->user_id=$request->user()->id;
         $licencia->contribuyente_id=$tramite->contribuyente_id;

@@ -61,10 +61,11 @@ class CreateContribuyentesTable extends Migration
             $table->string("numeroelectrico")->nullable()->default("");
             $table->string("observaciones")->nullable()->default("");
 
-            $table->string("fachada")->nullable()->default("");
-            $table->string("acera")->nullable()->default("");
-            $table->string("iluminacion")->nullable()->default("");
-            $table->string("letrero")->nullable()->default("");
+            $table->boolean("fachada")->nullable();
+            $table->boolean("acera")->nullable();
+            $table->boolean("iluminacion")->nullable();
+            $table->boolean("letrero")->nullable();
+
             $table->string("datoestablecimiento")->nullable()->default("");
             $table->string("estado")->default("ACTIVO");
 

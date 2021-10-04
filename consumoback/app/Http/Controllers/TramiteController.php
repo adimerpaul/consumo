@@ -96,12 +96,12 @@ class TramiteController extends Controller
                 $contribuyente->numpiso=$contrib->act_piso;
                 $contribuyente->numeroagua=$contrib->n_medidor_a;
                 $contribuyente->numeroelectrico=$contrib->n_medidor_e;
-                $contribuyente->observaciones='';
+                $contribuyente->observaciones=$contrib->obs;
 
-                $contribuyente->fachada=$contrib->fachada;
-                $contribuyente->acera=$contrib->acera;
-                $contribuyente->iluminacion=$contrib->luz;
-                $contribuyente->letrero=$contrib->letreros;
+                $contribuyente->fachada=($contrib->fachada=='T'?1:0);
+                $contribuyente->acera=($contrib->acera=='T'?1:0);
+                $contribuyente->iluminacion=($contrib->luz=='T'?1:0);
+                $contribuyente->letrero=($contrib->letreros=='T'?1:0);
                 $contribuyente->datoestablecimiento=$contrib->establec;
                 $contribuyente->save();
             }
@@ -178,7 +178,7 @@ class TramiteController extends Controller
                     $contribuyente->numpiso=$contrib->act_piso;
                     $contribuyente->numeroagua=$contrib->n_medidor_a;
                     $contribuyente->numeroelectrico=$contrib->n_medidor_e;
-                    $contribuyente->observaciones='';
+                    $contribuyente->observaciones=$contrib->obs;
 
                     $contribuyente->fachada=$contrib->fachada;
                     $contribuyente->acera=$contrib->acera;

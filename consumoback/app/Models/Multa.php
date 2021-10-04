@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Multa extends Model
 {
     use HasFactory;
+    protected $fillable=[
+        'titulo',
+    ];
+    public function detallemultas(){
+        return $this->hasMany(Detallemulta::class);
+    }
+
 }

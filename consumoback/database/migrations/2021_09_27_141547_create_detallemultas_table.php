@@ -19,7 +19,7 @@ class CreateDetallemultasTable extends Migration
             $table->foreign('multa_id')->references('id')->on('multas');
             $table->string('titulo');
             $table->string('monto');
-            $table->string('dias');
+            $table->string('dia');
             $table->timestamps();
         });
     }

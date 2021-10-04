@@ -15,6 +15,7 @@ class MultaController extends Controller
     public function index()
     {
         //
+        return Multa::with('detallemultas')->get();
     }
 
     /**
