@@ -45,17 +45,17 @@
                 </div>
         </div>
     <div>
-        <q-btn color="amber" label="Registrar Sansion" @click="onReg" />
+        <q-btn color="amber" label="Registrar Sancion" @click="onReg" />
             <q-dialog v-model="dialog_multa" >
       <q-card style="min-width: 350px">
         <q-card-section>
-          <div class="text-h6">Registrar Sansion</div>
+          <div class="text-h6">Registrar Sancion</div>
         </q-card-section>
 
         <q-card-section class="q-pt-none">
             Representante {{contribuyente.representante}}
           <div>
-              <q-select :options="multas" label="Tipo de Infraccion" v-model="sansion" @update:model-value="verificar"/>
+              <q-select :options="multas" label="Tipo de Infraccion" v-model="sancion" @update:model-value="verificar"/>
               <q-select :options="detallemultas" label="Infraccion" v-model="detalle" @update:model-value="llenar"/>
           </div>
           <div class="row">
@@ -74,7 +74,7 @@
     </q-dialog>
     </div>
       <q-table
-       title="Multas y Sansiones"
+       title="Multas y Sanciones"
         :columns="columns"
         :rows="historialmultas"
       >
@@ -107,7 +107,7 @@ export default {
     detallemultas:[],
     sector:{},
     contribuyente:{},
-    sansion:{},
+    sancion:{},
     caso:{},
     licencia:{},
     detalle:{},
@@ -180,7 +180,7 @@ export default {
 
         if(this.licencia.estado=='CLAUSURA'){
               this.$q.notify({
-          message: 'Licencia cancelada.',
+          message: 'Licencia cancelada',
           icon: 'error'
         })  
               return false;
@@ -188,7 +188,7 @@ export default {
 
            this.regmulta.licencia_id=this.licencia.id;
           this.regmulta.detallemulta_id=this.regmulta.id;
-          this.regmulta.multa_id=this.sansion.value;
+          this.regmulta.multa_id=this.sancion.value;
 
     
         this.$axios.post(process.env.API+'/historialmulta',this.regmulta).then(res=>{
@@ -204,7 +204,7 @@ export default {
       },
       verificar(){this.detallemultas=[];
       this.detalle={}
-          this.sansion.detalle.forEach(element => {
+          this.sancion.detalle.forEach(element => {
               this.detallemultas.push({label:element.titulo,detallemulta:element})
           });
           
