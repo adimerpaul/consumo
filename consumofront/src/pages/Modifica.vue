@@ -80,19 +80,6 @@
             </q-form>
         </div>
 
-<!--      <q-table-->
-<!--        title="Contribuyente"-->
-<!--        :columns="columns"-->
-<!--        :rows="contribuyentes"-->
-<!--      >-->
-<!--        <template v-slot:top-right>-->
-<!--          <q-input borderless dense debounce="300" v-model="filter" placeholder="Search">-->
-<!--            <template v-slot:append>-->
-<!--              <q-icon name="search" />-->
-<!--            </template>-->
-<!--          </q-input>-->
-<!--        </template>-->
-<!--      </q-table>-->
     </q-card>
   </q-page>
 </template>
@@ -112,20 +99,6 @@ export default {
     sector:{},
     contribuyente:{},
     contribuyentes:[]
-      // filter:'',
-      // contribuyentes:[],
-      // columns:[
-      //   { name: 'padron', label: 'padron', field: 'padron'},
-      //   { name: 'paterno', label: 'paterno', field: 'paterno'},
-      //   { name: 'materno', label: 'materno', field: 'materno'},
-      //   { name: 'cedula', label: 'cedula', field: 'cedula'},
-      //   { name: 'expedido', label: 'expedido', field: 'expedido'},
-      //   { name: 'celular', label: 'celular', field: 'celular'},
-      //   { name: 'direccion', label: 'direccion', field: 'direccion'},
-      //   { name: 'telefono', label: 'telefono', field: 'telefono'},
-      //   { name: 'tipo', label: 'tipo', field: 'tipo'},
-      //   { name: 'action', label: 'action', field: 'action'},
-      // ]
     }
   },
   created(){
