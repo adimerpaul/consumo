@@ -22,7 +22,35 @@ class UserSeeder extends Seeder
                 'carnet'=>"7336199",
                "password"=>Hash::make('admin'),
                "name"=>"Administrador"
-           ]
+           ],
+            [
+                "email"=>'sandobal@test.com',
+                'celular'=>"1111",
+                'carnet'=>"1111",
+                "password"=>Hash::make('sandobal'),
+                "name"=>"Eddy sandobal"
+            ],
+            [
+                "email"=>'wilson@test.com',
+                'celular'=>"2222",
+                'carnet'=>"2222",
+                "password"=>Hash::make('wilson'),
+                "name"=>"WILSON OLMOS LEAÑO"
+            ],
+            [
+                "email"=>'cardenas@test.com',
+                'celular'=>"3333",
+                'carnet'=>"3333",
+                "password"=>Hash::make('cardenas'),
+                "name"=>"WILLIAM CARDENAS GUILLEN "
+            ],
+            [
+                "email"=>'frojas@test.com',
+                'celular'=>"4444",
+                'carnet'=>"4444",
+                "password"=>Hash::make('frojas'),
+                "name"=>"FATIMA ROJAS"
+            ],
         ]);
     }
 }
