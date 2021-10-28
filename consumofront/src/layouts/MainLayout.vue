@@ -92,61 +92,63 @@
             </q-item-section>
           </q-item>
 
-          <q-item to="direcciontrbutaria"  exact clickable v-ripple v-if="$store.state.login.direcciontrbutaria">
-            <q-item-section avatar>
-              <q-icon name="list" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label> Direccion tributaria</q-item-label>
-              <q-item-label caption>Registro de datos</q-item-label>
-            </q-item-section>
-          </q-item>
+<!--          <q-item to="direcciontrbutaria"  exact clickable v-ripple v-if="$store.state.login.direcciontrbutaria">-->
+<!--            <q-item-section avatar>-->
+<!--              <q-icon name="list" />-->
+<!--            </q-item-section>-->
+<!--            <q-item-section>-->
+<!--              <q-item-label> Direccion tributaria</q-item-label>-->
+<!--              <q-item-label caption>Registro de datos</q-item-label>-->
+<!--            </q-item-section>-->
+<!--          </q-item>-->
 
-          <q-item to="infraestructura"  exact clickable v-ripple v-if="$store.state.login.infraestructura">
-            <q-item-section avatar>
-              <q-icon name="list" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label> Infraestructura</q-item-label>
-              <q-item-label caption>Registro de datos</q-item-label>
-            </q-item-section>
-          </q-item>
-          <q-item to="seguridadciudadana"  exact clickable v-ripple v-if="$store.state.login.seguridadciudadana">
-            <q-item-section avatar>
-              <q-icon name="list" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label> Seguridad ciudadana</q-item-label>
-              <q-item-label caption>Registro de datos</q-item-label>
-            </q-item-section>
-          </q-item>
-          <q-item to="medioambiente"  exact clickable v-ripple v-if="$store.state.login.medioambiente">
-            <q-item-section avatar>
-              <q-icon name="home" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label> Medio ambiente</q-item-label>
-              <q-item-label caption>Registro de datos</q-item-label>
-            </q-item-section>
-          </q-item>
-          <q-item to="salubridad"  exact clickable v-ripple v-if="$store.state.login.salubridad">
-            <q-item-section avatar>
-              <q-icon name="list" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label> Salubridad</q-item-label>
-              <q-item-label caption>Registro de datos</q-item-label>
-            </q-item-section>
-          </q-item>
-          <q-item to="activiadeseconomicas"  exact clickable v-ripple v-if="$store.state.login.activiadeseconomicas">
-            <q-item-section avatar>
-              <q-icon name="code" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label> Actividades economicas</q-item-label>
-              <q-item-label caption>Registro de datos</q-item-label>
-            </q-item-section>
-          </q-item>
+<!--          <q-item to="infraestructura"  exact clickable v-ripple v-if="$store.state.login.infraestructura">-->
+<!--            <q-item-section avatar>-->
+<!--              <q-icon name="list" />-->
+<!--            </q-item-section>-->
+<!--            <q-item-section>-->
+<!--              <q-item-label> Infraestructura</q-item-label>-->
+<!--              <q-item-label caption>Registro de datos</q-item-label>-->
+<!--            </q-item-section>-->
+<!--          </q-item>-->
+<!--          <q-item to="seguridadciudadana"  exact clickable v-ripple v-if="$store.state.login.seguridadciudadana">-->
+<!--            <q-item-section avatar>-->
+<!--              <q-icon name="list" />-->
+<!--            </q-item-section>-->
+<!--            <q-item-section>-->
+<!--              <q-item-label> Seguridad ciudadana</q-item-label>-->
+<!--              <q-item-label caption>Registro de datos</q-item-label>-->
+<!--            </q-item-section>-->
+<!--          </q-item>-->
+<!--          <q-item to="medioambiente"  exact clickable v-ripple v-if="$store.state.login.medioambiente">-->
+<!--            <q-item-section avatar>-->
+<!--              <q-icon name="home" />-->
+<!--            </q-item-section>-->
+<!--            <q-item-section>-->
+<!--              <q-item-label> Medio ambiente</q-item-label>-->
+<!--              <q-item-label caption>Registro de datos</q-item-label>-->
+<!--            </q-item-section>-->
+<!--          </q-item>-->
+<!--          <q-item to="salubridad"  exact clickable v-ripple v-if="$store.state.login.salubridad">-->
+<!--            <q-item-section avatar>-->
+<!--              <q-icon name="list" />-->
+<!--            </q-item-section>-->
+<!--            <q-item-section>-->
+<!--              <q-item-label> Salubridad</q-item-label>-->
+<!--              <q-item-label caption>Registro de datos</q-item-label>-->
+<!--            </q-item-section>-->
+<!--          </q-item>-->
+<!--          <q-item to="activiadeseconomicas"  exact clickable v-ripple v-if="$store.state.login.activiadeseconomicas">-->
+<!--            <q-item-section avatar>-->
+<!--              <q-icon name="code" />-->
+<!--            </q-item-section>-->
+<!--            <q-item-section>-->
+<!--              <q-item-label> Actividades economicas</q-item-label>-->
+<!--              <q-item-label caption>Registro de datos</q-item-label>-->
+<!--            </q-item-section>-->
+<!--          </q-item>-->
+
+
           <q-item to="consultartramite"  exact clickable v-ripple v-if="$store.state.login.consultartramite">
             <q-item-section avatar>
               <q-icon name="search" />
@@ -206,7 +208,7 @@
               <q-item-label caption> comprobante tramite</q-item-label>
             </q-item-section>
           </q-item>
-          <q-item to="aprovacion"  exact clickable v-ripple v-if="$store.state.login.boolaprovacion">
+          <q-item to="aprovacion"  exact clickable v-ripple v-if="$store.state.login.boolaprobacion">
             <q-item-section avatar>
               <q-icon name="add_circle" />
             </q-item-section>

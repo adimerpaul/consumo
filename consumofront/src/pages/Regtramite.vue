@@ -15,7 +15,7 @@
           <div class="row">
           <div class="col-4 q-pa-xs">
             <q-checkbox dense rigth-label v-model="r.estado" :label="r.nombre" v-for="(r,i) in requisitos" :key="i" class="full-width" />
-          </div>      
+          </div>
 
           </div>
 
@@ -65,62 +65,62 @@
           <div class="col-6">
             <q-select dense filled v-model="contrib.expedido" :options="exp" label="Expedido" />
           </div>
-          <div class="row">          
+          <div class="row">
             <div class="col-3"><q-input dense outlined v-model="contrib.paterno" label="Paterno" /></div>
             <div class="col-3"><q-input dense outlined v-model="contrib.materno" label="Materno" /></div>
             <div class="col-3"><q-input dense outlined v-model="contrib.nombres" label="Nombres" /></div>
             <div class="col-3"><q-input dense outlined v-model="contrib.esposo" label="Ap. Esposo" /></div>
           </div>
-          <div class="row">          
+          <div class="row">
             <div class="col-3"><q-input dense outlined v-model="contrib.nit" label="NIT" /></div>
             <div class="col-3"><q-input dense outlined v-model="contrib.domicilio" label="zona/domicilio" /></div>
             <div class="col-3"><q-input dense outlined v-model="contrib.calle" label="Calle" /></div>
             <div class="col-3"><q-input dense outlined v-model="contrib.numero" label="Numero Casa" /></div>
           </div>
-          <div class="row">          
+          <div class="row">
             <div class="col-3"><q-input dense outlined v-model="contrib.telefono" label="Telefono" /></div>
             <div class="col-3"><q-input dense outlined v-model="contrib.telofi" label="Telf Oficina" /></div>
             <div class="col-3"><q-input dense outlined v-model="contrib.casilla" label="Casilla" /></div>
             <div class="col-3"><q-input dense outlined v-model="contrib.fax" label="FAX" /></div>
           </div>
-          <div class="row">          
+          <div class="row">
             <div class="col-4"><q-checkbox dense v-model="contrib.extrangero" label="Extrangero" /></div>
             <div class="col-4"><q-input dense outlined v-model="contrib.numeroextrangero" label="Nro Extrang" /></div>
             <div class="col-4"><q-input dense outlined v-model="contrib.numerodni" label="Nro DNI" /></div>
           </div>
           </div>
                     <div class="text-h6" align:center>DATOS Y UBICACION DE LA ACTIVIDAD</div>
-          <div class="row">          
+          <div class="row">
             <div class="col-6"><q-select dense filled v-model="act" @update:model-value="listadosector(act)" :options="actividades" label="Actividad"/></div>
             <div class="col-6"><q-input dense outlined v-model="sectores" label="Sector" readonly /></div>
-            
+
           </div>
-          <div class="row">          
-            
+          <div class="row">
+
             <div class="col-9"><q-input dense outlined v-model="negocio.razon" label="Nombre" /></div>
             <div class="col-3"><q-input dense outlined v-model="negocio.horario" label="Horario" /></div>
           </div>
-          <div class="row">          
-            
+          <div class="row">
+
             <div class="col-9"><q-input dense outlined v-model="negocio.descripcionactividad" label="Descripcion" /></div>
             <div class="col-3"><q-input dense outlined v-model="negocio.mts2" label="Sup mts2" /></div>
           </div>
           <hr>
-          <div class="row">          
+          <div class="row">
             <div class="col-3"><q-input dense outlined v-model="negocio.zona" label="Zona" /></div>
             <div class="col-3"><q-input dense outlined v-model="negocio.Barrio" label="Barrio" /></div>
             <div class="col-3"><q-input dense outlined v-model="negocio.calle" label="AV/Calle" /></div>
             <div class="col-3"><q-input dense outlined v-model="negocio.entrecalles" label="Entre Calles" /></div>
           </div>
-          <div class="row">          
+          <div class="row">
             <div class="col-3"><q-input dense outlined v-model="negocio.numpiso" label="Nro Piso" /></div>
             <div class="col-3"><q-input dense outlined v-model="negocio.telefono" label="Telefono" /></div>
             <div class="col-3"><q-input dense outlined v-model="negocio.numeroagua" label="No Med Agua" /></div>
             <div class="col-3"><q-input dense outlined v-model="negocio.numeroelectrico" label="No Med Elec" /></div>
           </div>
-          <div class="row">          
+          <div class="row">
             <div class="col-4"><q-input dense outlined v-model="negocio.observaciones" label="Observacion" /></div>
-            <div class="col-4"><q-checkbox v-model="negocio." label="Label on Right" /></div>
+<!--            <div class="col-4"><q-checkbox v-model="negocio." label="Label on Right" /></div>-->
             <div class="col-4"><q-input dense outlined v-model="negocio.telefono" label="Telefono" /></div>
             <div class="col-4"><q-input dense outlined v-model="negocio.telefono" label="Telefono" /></div>
             <div class="col-4"><q-input dense outlined v-model="negocio.telefono" label="Telefono" /></div>
@@ -128,7 +128,7 @@
         </div>
 
             </div>
-        </q-card-section> 
+        </q-card-section>
         <q-card-actions align="right" class="text-primary">
           <q-btn flat label="Cancel" v-close-popup />
           <q-btn flat label="Add address" v-close-popup />
@@ -136,7 +136,7 @@
         </q-form>
       </q-card>
     </q-dialog>
- 
+
   </q-page>
 </template>
 

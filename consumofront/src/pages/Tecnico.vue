@@ -1,9 +1,10 @@
+
 <template>
   <q-page>
     <div class="row">
       <div class="col-12">
         <q-banner dense inline-actions class="text-white bg-red text-center text-bold">
-          ACTIVIDADES ECONOMICAS - VERIFICAR
+          ACTIVIDADES ECONOMICAS - TECNICO
         </q-banner>
       </div>
       <div class="col-12 q-pa-xs">
@@ -144,11 +145,11 @@
             <q-card-section class="q-pt-none">
               <q-form @submit.prevent="asignar">
                 <div class="row">
-                  <div class="col-8">
-                    <q-select label="Asignar tecnico" :options="users" v-model="user" option-label="name" outlined  />
-                  </div>
-                  <div class="col-4 flex flex-center" >
-                    <q-btn type="submit" label="Designar Tecnico" icon="send" color="primary"/>
+<!--                  <div class="col-8">-->
+<!--                    <q-select label="Asignar tecnico" :options="users" v-model="user" option-label="name" outlined  />-->
+<!--                  </div>-->
+                  <div class="col-12 flex flex-center" >
+                    <q-btn class="full-width" type="submit" label="Aprobar actividad" icon="send" color="primary"/>
                   </div>
                 </div>
               </q-form>
@@ -194,7 +195,7 @@ export default {
   methods:{
     asignar(){
       this.$q.loading.show()
-      this.$axios.post(process.env.API+'/asignar',{
+      this.$axios.post(process.env.API+'/aprobar',{
         user_id:this.user.id,
         name:this.user.name,
         tramite_id:this.tramite.id
@@ -249,7 +250,7 @@ export default {
     },
     mistramites(){
       this.$q.loading.show()
-      this.$axios.post(process.env.API+'/mistramites').then(res=>{
+      this.$axios.post(process.env.API+'/mistramitestecnico').then(res=>{
         // console.log(res.data)
         this.tramites=[]
         res.data.forEach(r=>{

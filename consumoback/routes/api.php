@@ -46,4 +46,6 @@ Route::group(['middleware'=>'auth:sanctum'],function (){
     Route::post('/mistramites',[\App\Http\Controllers\DireccionController::class,'mistramites']);
     Route::get('/listactividad',[\App\Http\Controllers\NegocioController::class,'listactividad']);
     Route::get('/lsector/{id}',[\App\Http\Controllers\NegocioController::class,'lsector']);
+    Route::post('/asignar',[\App\Http\Controllers\DireccionController::class,'asignar']);
+    Route::post('/probar',[\App\Http\Controllers\DireccionController::class,'probar']);
 });

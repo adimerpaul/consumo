@@ -14,15 +14,48 @@ class DireccionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function asignar(Request $request){
+//        return $request;
+        $tramite=Tramite::find($request->tramite_id);
+        $tramite->estado=$request->user_id;
+        $tramite->estado="VERIFICADO";
+        $tramite->save();
+
+        $seguimiento= new Seguimiento();
+        $seguimiento->nombre="Se designo al tecnico ".$request->name;
+        $seguimiento->observacion="INICIADO";
+        $seguimiento->fecha=date('Y-m-d');
+        $seguimiento->hora=date('H:i:s');
+        $seguimiento->tramite_id=$request->tramite_id;
+        $seguimiento->user_id=$request->user()->id;
+        $seguimiento->save();
+
+    }
+    public function aprobar(Request $request){
+        $tramite=Tramite::find($request->tramite_id);
+        $tramite->user_id=5;
+        $tramite->save();
+
+        $seguimiento= new Seguimiento();
+        $seguimiento->nombre="El tecnico ".$request->user()->name." Se a aprobado ";
+        $seguimiento->observacion="INICIADO";
+        $seguimiento->fecha=date('Y-m-d');
+        $seguimiento->hora=date('H:i:s');
+        $seguimiento->tramite_id=$request->tramite_id;
+        $seguimiento->user_id=$request->user()->id;
+        $seguimiento->save();
+
+    }
     public function mistramites(Request $request){
         return Tramite::
         with('user')
             ->with('caso')
+            ->with('negocio')
             ->with('requisitos')
             ->with('contribuyente')
             ->with('seguimientos')
             ->with('licencia')
-            ->where('user_id',$request->user()->id)
+            ->where('estado','REGISTRADO')
             ->get();
     }
     public function index()

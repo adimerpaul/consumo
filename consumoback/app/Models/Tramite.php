@@ -47,4 +47,9 @@ class Tramite extends Model
     public function seguimientos(){
         return $this->hasMany(Seguimiento::class);
     }
+    public function negocio(){
+        return $this->belongsTo(Negocio::class);
+    }
+
+
 }
