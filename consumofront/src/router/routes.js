@@ -26,7 +26,7 @@ const routes = [
       { path: 'login', component: Login},
       { path: 'user', component: User,meta:{requiresAuth: true}},
       { path: 'verificar', component: Verificar,meta:{requiresAuth: true}},
-      { path: 'verificar', component: Verifica,meta:{requiresAuth: true}},
+      { path: 'verifica', component: Verifica,meta:{requiresAuth: true}},
       { path: 'regtramite', component: Regtramite,meta:{requiresAuth: true}},
       { path: 'direcciontrbutaria', component: Direcciontributaria,meta:{requiresAuth: true}},
       { path: 'infraestructura', component: Infraestructura,meta:{requiresAuth: true}},

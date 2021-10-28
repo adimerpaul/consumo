@@ -113,7 +113,7 @@ export default {
     mistramites(){
       this.$q.loading.show()
       this.$axios.post(process.env.API+'/mistramites').then(res=>{
-        // console.log(res.data)
+        console.log(res.data)
         this.tramites=[]
         res.data.forEach(r=>{
           const date1 = new Date()

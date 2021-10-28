@@ -19,7 +19,7 @@ class CreateTramitesTable extends Migration
             $table->date("fecha");
             $table->date("fechalimite");
             $table->time("hora");
-            $table->string("tipo"); // A  o  B 
+            $table->string("tipo"); // A  o  B
             $table->string("licencia")->nullable(); // nuemro licencia
             $table->string("estado"); //unidad q se encuentra
             $table->string("estado2"); // Procedo anulado terminado
@@ -34,6 +34,8 @@ class CreateTramitesTable extends Migration
             $table->foreign('caso_id')->references('id')->on('casos');
             $table->unsignedBigInteger('negocio_id')->nullable();
             $table->foreign('negocio_id')->references('id')->on('negocios');
+            $table->unsignedBigInteger('contribuyente_id')->nullable();
+            $table->foreign('contribuyente_id')->references('id')->on('contribuyentes');
             $table->timestamps();
         });
     }
