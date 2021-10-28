@@ -1,5 +1,6 @@
 import Index from "../pages/Index";
 import Login from "../pages/Login";
+import Verificar from "../pages/Verificar";
 import Regtramite from "../pages/Regtramite";
 import User from "pages/User";
 // import Form19 from "pages/Form19";
@@ -23,6 +24,7 @@ const routes = [
       { path: '', component: Index },
       { path: 'login', component: Login},
       { path: 'user', component: User,meta:{requiresAuth: true}},
+      { path: 'verificar', component: Verificar,meta:{requiresAuth: true}},
       { path: 'regtramite', component: Regtramite,meta:{requiresAuth: true}},
       { path: 'direcciontrbutaria', component: Direcciontributaria,meta:{requiresAuth: true}},
       { path: 'infraestructura', component: Infraestructura,meta:{requiresAuth: true}},

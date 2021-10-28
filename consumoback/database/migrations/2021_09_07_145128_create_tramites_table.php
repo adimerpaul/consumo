@@ -19,22 +19,21 @@ class CreateTramitesTable extends Migration
             $table->date("fecha");
             $table->date("fechalimite");
             $table->time("hora");
-            $table->string("tipo");
-            $table->string("padron");
-            $table->string("estado");
-            $table->string("estado2");
+            $table->string("tipo"); // A  o B
+            $table->string("licencia"); // nuemro licencia
+            $table->string("estado"); //unidad q se encuentra
+            $table->string("estado2"); // Procedo anulado terminado
             $table->boolean("infraestructura")->default(false);
             $table->boolean("seguridad")->default(false);
             $table->boolean("medio")->default(false);
             $table->boolean("salubridad")->default(false);
-            $table->string("nro")->default('')->nullable();
             $table->string("tramitador");
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedBigInteger('caso_id');
             $table->foreign('caso_id')->references('id')->on('casos');
-            $table->unsignedBigInteger('contribuyente_id');
-            $table->foreign('contribuyente_id')->references('id')->on('contribuyentes');
+            $table->unsignedBigInteger('negocio_id')->nullable();
+            $table->foreign('negocio_id')->references('id')->on('negocios');
             $table->timestamps();
         });
     }

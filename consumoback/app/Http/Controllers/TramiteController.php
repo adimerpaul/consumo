@@ -28,10 +28,18 @@ class TramiteController extends Controller
      */
     public function create()
     {
-        $tramites=DB::select("SELECT nrotramite FROM tramites WHERE id=(select max(id) FROM tramites) ");
+        $tramites=DB::select("SELECT nrotramite FROM tramites WHERE id=(select max(id) FROM tramites) and YEAR(fecha)=YEAR(now())");
+        if(sizeof($tramites)>0)
         return $tramites[0];
+        else {
+            $tramites =['nrotramite'=>'00000/00'];
+            return $tramites;
+        }
     }
 
+    public function listregistro(){
+        return Tramite::where('estado2','INICIO')->get();
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -41,7 +49,65 @@ class TramiteController extends Controller
     public function store(Request $request)
     {
         //return $request;
-        $verifica=Contribuyente::where('padron',trim($request->padron))->where('cedula',$request->ci)->get();
+        $fecha=date('Y-m-d');
+        $hora=date('H:i:s');
+        $tramite=new Tramite;
+        $tramite->nrotramite=$request->nrotramite;
+         $tramite->tramitador=$request->tramitador;
+         $tramite->fecha=date('Y-m-d');
+         $tramite->hora=date('H:i:s');
+         $tramite->fechalimite=date('Y-m-d', strtotime(' + 21 days'));
+         $tramite->user_id=$request->user()->id;
+         //$tramite->estado="DIRECCION TRIBUTARIA";
+         $tramite->estado="VENTANILLA UNICA";
+          //$tramite->estado2="EN PROCESO";
+          $tramite->estado2="INCIO";
+          $tramite->tipo=$request->caso['tipo'];
+          $tramite->caso_id=$request->caso['id'];
+          $tramite->contribuyente_id=$contribuyente->id;
+          $tramite->padron=$request->padron;
+          $tramite->nro="";
+        $tramite->save();
+        $seguim= new Seguimiento;
+        $seguim->nombre="INICIO TRAMITE";
+        $seguim->observacion="INICIADO";
+        $seguim->fecha=date("Y-m-d");
+        $seguim->hora=date('H:i:s');
+        $seguim->tramite_id=$tramite->id;
+        $seguim->user_id=$request->user()->id;
+         $seguim->save();
+            $cadena="
+        <style>
+        .textn{
+            
+            font-weight:bold;
+        }
+        *{text-size:4px}
+        table,tr,td{
+            font-size: x-small; text-align: center;
+            margin:0;
+            border-solid:0;}
+        td{width:50%;}
+        </style>
+        <div>
+        <table>
+        <tr><td class='textn'>GOBIERNO AUTONOMO MUNICIPAL DE ORURO</td><td class='textn'>GOBIERNO AUTONOMO MUNICIPAL DE ORURO</td></tr>
+        <tr><td class='textn'>VENTANILLA UNICA DE TRAMITES TRIBUTARIOS</td><td class='textn'>VENTANILLA UNICA DE TRAMITES TRIBUTARIOS</td></tr>
+        <tr><td class='textn'>BOLETA DE CONSTANCIA DE TRAMITE</td><td class='textn'>BOLETA DE CONSTANCIA DE TRAMITE</td></tr>
+        <tr><td><span class='textn'>Tramite N:</span> $request->nrotramite</td><td><span class='textn'>Tramite N:</span> $request->nrotramite</td></tr>
+        <tr><td><span class='textn'>Tipo de Tramite:</span>$request->detalle</td><td><span class='textn'>Tipo de Tramite:</span> $request->detalle</td></tr>
+        <tr><td><span class='textn'>Nombre:</span> $request->tramitador</td><td><span class='textn'>Nombre: </span>$request->tramitador</td></tr>
+        <tr><td><span class='textn'>Fecha Inicio: </span>$fecha $hora</td><td><span class='textn'>Fecha Inicio:</span> $fecha $hora</td></tr>
+        <tr><td></td><td></td></tr>
+        <tr><td></td><td></td></tr><br><br><br>
+        <tr><td class='textn'>RESP. VETANILLA UNICA</td><td class='textn'>RESP. VETANILLA UNICA</td></tr>
+        
+        </table>
+        </div>
+        ";
+        return $cadena;
+
+        $verifica=Contribuyente::where('cedula',$request->ci)->get();
         //return count($verifica);
         if(count($verifica)>0) {
 //            return 'aa';
@@ -191,41 +257,12 @@ class TramiteController extends Controller
 
                 $contrib=DB::connection('indcom')->table('jurid')->where('jpadron',$request->padron)->get()[0];
 
-            $contribuyente=new Contribuyente;
-            $contribuyente->padron=trim($contrib->jpadron);
-    	    $contribuyente->representante=$contrib->nomreplega;
-            $contribuyente->razon=$contrib->razon;
-	    	$contribuyente->cedula=trim($contrib->numdociden);
-            $contribuyente->expedido='';
-            $contribuyente->telefono=$contrib->jtelefono;
-	    	$contribuyente->direccion=$contrib->jdireccion;
-            $contribuyente->direccionrazon=$contrib->jdiractiv;
-		    $contribuyente->cargo=$contrib->cargo;
-		    $contribuyente->tipo='J';
-	        $contribuyente->mts2=$contrib->jmts2;
-		    $contribuyente->gest=$contrib->gest;
-	    	$contribuyente->ruc=$contrib->jruc;
-	    	$contribuyente->descripcion=$contrib->jactdescri;
-            $contribuyente->save();}
+
         }
         }
 
         //return $contribuyente;
-        $tramite=new Tramite;
-        $tramite->nrotramite=$request->nrotramite;
-         $tramite->tramitador=$request->tramitador;
-         $tramite->fecha=date('Y-m-d');
-         $tramite->hora=date('H:i:s');
-         $tramite->fechalimite=date('Y-m-d', strtotime(' + 21 days'));
-         $tramite->user_id=$request->user()->id;
-         $tramite->estado="DIRECCION TRIBUTARIA";
-          $tramite->estado2="EN PROCESO";
-          $tramite->tipo=$request->caso['tipo'];
-          $tramite->caso_id=$request->caso['id'];
-          $tramite->contribuyente_id=$contribuyente->id;
-          $tramite->padron=$request->padron;
-          $tramite->nro="";
-        $tramite->save();
+
 
         foreach ($request->requisitos as $row) {
             DB::table('requisito_tramite')->insert(['requisito_id'=>$row['id'],'tramite_id'=>$tramite->id]);
@@ -239,7 +276,7 @@ class TramiteController extends Controller
         $seguim->tramite_id=$tramite->id;
         $seguim->user_id=$request->user()->id;
         return $seguim->save();
-
+    }
 
     }
 

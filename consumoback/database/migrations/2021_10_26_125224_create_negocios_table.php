@@ -18,7 +18,7 @@ class CreateNegociosTable extends Migration
             
             $table->string("actividad")->nullable()->default("");
             $table->string("sector")->nullable()->default("");
-            $table->string("licencia")->nullable()->default("");
+            $table->string("licencia")->nullable()->unique();
             $table->string("razon")->nullable()->default("");
             $table->string("descripcionactividad")->nullable()->default("");
             $table->string("telefono")->nullable()->default("");
@@ -32,7 +32,6 @@ class CreateNegociosTable extends Migration
             $table->string("barrio")->nullable()->default("");
             $table->string("calle")->nullable()->default("");
             $table->string("entrecalles")->nullable()->default("");
-            $table->string("celular")->nullable()->default("");
             $table->string("numeroagua")->nullable()->default("");
             $table->string("numeroelectrico")->nullable()->default("");
             $table->string("observaciones")->nullable()->default("");
@@ -51,7 +50,8 @@ class CreateNegociosTable extends Migration
 
             $table->string("cargo")->nullable()->default("");
             $table->string("estado")->default("ACTIVO");
-
+            $table->unsignedBigInteger('contribuyente_id');
+            $table->foreign('contribuyente_id')->references('id')->on('contribuyentes');
             $table->timestamps();
         });
     }

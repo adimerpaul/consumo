@@ -42,4 +42,5 @@ Route::group(['middleware'=>'auth:sanctum'],function (){
     Route::resource('/direccion',\App\Http\Controllers\DireccionController::class);
     Route::resource('/historialmulta',\App\Http\Controllers\HistorialmultaController::class);
     Route::post('/listahistorial/{id}',[\App\Http\Controllers\HistorialmultaController::class,'listahistorial']);
+    Route::post('/listregistro',[\App\Http\Controllers\TramiteController::class,'listregistro']);
 });

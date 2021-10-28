@@ -62,6 +62,16 @@
             </q-item-section>
           </q-item>
 
+          <q-item to="verificar"  exact clickable v-ripple v-if="$store.state.login.boolregtramite">
+            <q-item-section avatar>
+              <q-icon name="search" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label> Verifica Deudas</q-item-label>
+<!--              <q-item-label caption>Iniscio de tramite</q-item-label>-->
+            </q-item-section>
+          </q-item>
+
           <q-item to="regtramite"  exact clickable v-ripple v-if="$store.state.login.boolregtramite">
             <q-item-section avatar>
               <q-icon name="login" />

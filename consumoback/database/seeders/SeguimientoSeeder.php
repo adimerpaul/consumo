@@ -14,15 +14,15 @@ class SeguimientoSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('seguimientos')->insert([
-            [
-                'nombre'=>"ENVIADO A DIRECCION TRIBUTARIA",
-                'observacion'=>"INICIADO",
-                'fecha'=>"2021-09-09",
-                'hora'=>"10:00",
-                "tramite_id"=>"1",
-                "user_id"=>"1",
-            ]
-        ]);
+        // DB::table('seguimientos')->insert([
+        //     [
+        //         'nombre'=>"ENVIADO A DIRECCION TRIBUTARIA",
+        //         'observacion'=>"INICIADO",
+        //         'fecha'=>"2021-09-09",
+        //         'hora'=>"10:00",
+        //         "tramite_id"=>"1",
+        //         "user_id"=>"1",
+        //     ]
+        // ]);
     }
 }
