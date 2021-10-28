@@ -25,6 +25,11 @@ class PermisoSeeder extends Seeder
             ["id"=>8,"nombre"=>"Actividades economicas"],
             ["id"=>9,"nombre"=>"Consultar tramite"],
             ["id"=>10,"nombre"=>"Entrega tramite"],
+            ["id"=>11,"nombre"=>"Registro multa"],
+            ["id"=>12,"nombre"=>"Verifica"],
+            ["id"=>13,"nombre"=>"Tecnico"],
+            ["id"=>14,"nombre"=>"Comprobante"],
+            ["id"=>15,"nombre"=>"Aprobacion"],
         ]);
     }
 }

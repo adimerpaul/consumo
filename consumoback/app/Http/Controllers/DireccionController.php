@@ -14,6 +14,17 @@ class DireccionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function mistramites(Request $request){
+        return Tramite::
+        with('user')
+            ->with('caso')
+            ->with('requisitos')
+            ->with('contribuyente')
+            ->with('seguimientos')
+            ->with('licencia')
+            ->where('user_id',$request->user()->id)
+            ->get();
+    }
     public function index()
     {
         $tramite= Tramite::where('estado','DIRECCION TRIBUTARIA')
@@ -62,7 +73,7 @@ class DireccionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id,Request $request)
     {
 //        return $id;
         if ($id=='i'){
@@ -130,6 +141,17 @@ class DireccionController extends Controller
                 ->with('contribuyente')
                 ->with('seguimientos')
                 ->with('licencia')
+                ->get();
+        }
+        if ($id=='usuario'){
+            return Tramite::
+                with('user')
+                ->with('caso')
+                ->with('requisitos')
+                ->with('contribuyente')
+                ->with('seguimientos')
+                ->with('licencia')
+                ->where('user_id',$request->user()->id)
                 ->get();
         }
     }

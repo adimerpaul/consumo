@@ -23,6 +23,11 @@ export default function () {
     activiadeseconomicas:false,
     consultartramite:false,
     entregartramite:false,
+    boolregistrarmulta:false,
+    boolverifica:false,
+    booltecnico:false,
+    boolcomprobante:false,
+    boolaprobacion:false,
     pedido:[]
   }
 }

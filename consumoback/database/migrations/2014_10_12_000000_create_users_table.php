@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('celular');
             $table->string('carnet');
+            $table->string('tipo')->default('USUARIO');
             $table->date("fechalimite")->default('9999-01-01');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();

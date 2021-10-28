@@ -14,7 +14,7 @@
         <q-toolbar-title>
           {{$store.state.login.user.name}}
         </q-toolbar-title>
-        <div>Control {{ $q.version }}</div>
+        <div><div><q-btn @click="logout" label="Salir" icon="logout" size="xs"/></div></div>
       </q-toolbar>
       <div class="q-px-lg q-pt-xl q-mb-md">
         <div class="text-h3">G.A.M.O.</div>
@@ -167,7 +167,8 @@
             </q-item-section>
           </q-item>
 
-          <q-item to="multa"  exact clickable v-ripple v-if="$store.getters['login/isLoggedIn']">
+
+          <q-item to="multa"  exact clickable v-ripple v-if="$store.state.login.boolregistrarmulta">
             <q-item-section avatar>
               <q-icon name="policy" />
             </q-item-section>
@@ -177,9 +178,47 @@
             </q-item-section>
           </q-item>
 
+          <q-item to="verifica"  exact clickable v-ripple v-if="$store.state.login.boolverifica">
+            <q-item-section avatar>
+              <q-icon name="add_circle" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label> Verificar tramite</q-item-label>
+              <q-item-label caption> Verificar tramite</q-item-label>
+            </q-item-section>
+          </q-item>
+
+          <q-item to="tecnico"  exact clickable v-ripple v-if="$store.state.login.booltecnico">
+            <q-item-section avatar>
+              <q-icon name="add_circle" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label> Tecnicos tramite</q-item-label>
+              <q-item-label caption> Tecnicos tramite</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item to="comprobante"  exact clickable v-ripple v-if="$store.state.login.boolcomprobante">
+            <q-item-section avatar>
+              <q-icon name="add_circle" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label> comprobante tramite</q-item-label>
+              <q-item-label caption> comprobante tramite</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item to="aprovacion"  exact clickable v-ripple v-if="$store.state.login.boolaprovacion">
+            <q-item-section avatar>
+              <q-icon name="add_circle" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label> Aprovacion tramite</q-item-label>
+              <q-item-label caption> Aprovacion tramite</q-item-label>
+            </q-item-section>
+          </q-item>
+
           <q-item @click="logout"  exact clickable v-ripple v-if="$store.getters['login/isLoggedIn']">
             <q-item-section avatar>
-              <q-icon name="close" />
+              <q-icon name="logout" />
             </q-item-section>
             <q-item-section>
               <q-item-label> Salir</q-item-label>

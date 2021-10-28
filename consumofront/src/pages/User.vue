@@ -135,6 +135,11 @@
           <q-td key="fechalimite" :props="props">
             {{props.row.fechalimite}}
           </q-td>
+          <q-td key="permisos" :props="props">
+            <ul style="padding: 0px;margin: 0px;border: 0px;">
+              <li style="padding: 0px;margin: 0px;border: 0px;font-size: 10px;list-style: none" v-for="p in props.row.permisos" :key="p.i">{{p.nombre}}</li>
+            </ul>
+          </q-td>
           <q-td key="opcion" :props="props">
             <q-btn
               dense
@@ -368,8 +373,8 @@ export default {
         // {name: "unid", align: "left", label: "Unidad", field: "unid", sortable: true,},
         // {name: "codigo", align: "left", label: "Codigo", field: "codigo", sortable: true,},
         {name: "email", align: "left", label: "Email", field: "email", sortable: true,},
-        {name: "fechalimite", align: "left", label: "Fecha limite", field: "fechalimite", sortable: true,
-        },
+        {name: "fechalimite", align: "left", label: "Fecha limite", field: "fechalimite", sortable: true,},
+        {name: "permisos", align: "left", label: "Permisos", field: "permisos", sortable: true,},
         { name: "opcion", label: "Opcion", field: "action", sortable: false },
       ],
       data: [],
@@ -435,7 +440,7 @@ export default {
     misdatos() {
       this.$q.loading.show();
       this.$axios.get(process.env.API + "/user").then((res) => {
-        // console.log(res.data)
+        console.log(res.data)
         this.data = res.data;
         this.$q.loading.hide();
       });

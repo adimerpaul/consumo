@@ -16,6 +16,7 @@ import Consultartramite from "pages/Consultartramite";
 import Entregartramite from "pages/Entregartramite";
 import Modifica from "pages/Modifica";
 import Multa from "pages/Multa";
+import Verifica from "pages/Verifica";
 const routes = [
   {
     path: '/',
@@ -25,6 +26,7 @@ const routes = [
       { path: 'login', component: Login},
       { path: 'user', component: User,meta:{requiresAuth: true}},
       { path: 'verificar', component: Verificar,meta:{requiresAuth: true}},
+      { path: 'verificar', component: Verifica,meta:{requiresAuth: true}},
       { path: 'regtramite', component: Regtramite,meta:{requiresAuth: true}},
       { path: 'direcciontrbutaria', component: Direcciontributaria,meta:{requiresAuth: true}},
       { path: 'infraestructura', component: Infraestructura,meta:{requiresAuth: true}},

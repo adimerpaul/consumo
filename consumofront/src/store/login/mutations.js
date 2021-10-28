@@ -19,6 +19,11 @@ export function auth_success(state, data){
   state.activiadeseconomicas=data.user.permisos.find(permiso=>permiso.id==8)!=undefined
   state.consultartramite=data.user.permisos.find(permiso=>permiso.id==9)!=undefined
   state.entregartramite=data.user.permisos.find(permiso=>permiso.id==10)!=undefined
+  state.boolregistrarmulta=data.user.permisos.find(permiso=>permiso.id==11)!=undefined
+  state.boolverifica=data.user.permisos.find(permiso=>permiso.id==12)!=undefined
+  state.booltecnico=data.user.permisos.find(permiso=>permiso.id==13)!=undefined
+  state.boolcomprobante=data.user.permisos.find(permiso=>permiso.id==14)!=undefined
+  state.boolaprobacion=data.user.permisos.find(permiso=>permiso.id==15)!=undefined
 
 }
 export function   auth_error(state){
@@ -38,4 +43,9 @@ export function salir(state){
   state.activiadeseconomicas=false
   state.consultartramite=false
   state.entregartramite=false
+  state.boolregistrarmulta=false
+  state.boolverifica=false
+  state.booltecnico=false
+  state.boolcomprobante=false
+  state.boolaprobacion=false
 }

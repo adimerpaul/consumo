@@ -27,28 +27,28 @@ class UserSeeder extends Seeder
                 "email"=>'sandobal@test.com',
                 'celular'=>"1111",
                 'carnet'=>"1111",
-                "password"=>Hash::make('sandobal'),
-                "name"=>"Eddy sandobal"
+                "password"=>Hash::make('123456'),
+                "name"=>"EDDY SANDOBAL"
             ],
             [
                 "email"=>'wilson@test.com',
                 'celular'=>"2222",
                 'carnet'=>"2222",
-                "password"=>Hash::make('wilson'),
+                "password"=>Hash::make('123456'),
                 "name"=>"WILSON OLMOS LEAÑO"
             ],
             [
                 "email"=>'cardenas@test.com',
                 'celular'=>"3333",
                 'carnet'=>"3333",
-                "password"=>Hash::make('cardenas'),
+                "password"=>Hash::make('123456'),
                 "name"=>"WILLIAM CARDENAS GUILLEN "
             ],
             [
                 "email"=>'frojas@test.com',
                 'celular'=>"4444",
                 'carnet'=>"4444",
-                "password"=>Hash::make('frojas'),
+                "password"=>Hash::make('123456'),
                 "name"=>"FATIMA ROJAS"
             ],
         ]);
