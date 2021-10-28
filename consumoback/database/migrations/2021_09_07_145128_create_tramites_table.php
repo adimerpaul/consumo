@@ -19,8 +19,8 @@ class CreateTramitesTable extends Migration
             $table->date("fecha");
             $table->date("fechalimite");
             $table->time("hora");
-            $table->string("tipo"); // A  o B
-            $table->string("licencia"); // nuemro licencia
+            $table->string("tipo"); // A  o  B 
+            $table->string("licencia")->nullable(); // nuemro licencia
             $table->string("estado"); //unidad q se encuentra
             $table->string("estado2"); // Procedo anulado terminado
             $table->boolean("infraestructura")->default(false);

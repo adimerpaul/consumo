@@ -47,7 +47,6 @@ class CreateNegociosTable extends Migration
             $table->string("gest")->nullable()->default("");
             $table->string("ruc")->nullable()->default("");
 
-
             $table->string("cargo")->nullable()->default("");
             $table->string("estado")->default("ACTIVO");
             $table->unsignedBigInteger('contribuyente_id');

@@ -10,15 +10,13 @@
 
           <div class="col-6 q-pa-xs"><q-input outlined label="N° de tramite" v-model="ntramite" required disable/></div>
           <div class="col-6 q-pa-xs"><q-input outlined label="Fecha" v-model="fecha" required disable/></div>
-          <div class="col-6 q-pa-xs"><q-select @update:model-value="cambio"  label="Selecionar Caso" v-model="caso" required outlined :options="actividad" /></div>
+          <div class="col-6 q-pa-xs"><q-select label="Selecionar Caso" v-model="caso" required outlined :options="actividad" /></div>
           <div class="col-6 q-pa-xs"><q-input outlined label="TRAMITADOR" required v-model="tramitador"/></div>
           <div class="row">
           <div class="col-4 q-pa-xs">
             <q-checkbox dense rigth-label v-model="r.estado" :label="r.nombre" v-for="(r,i) in requisitos" :key="i" class="full-width" />
           </div>      
-          <div class="col-8 q-pa-xs">
-              <q-input label="CI" />
-          </div>
+
           </div>
 
           <div class="col-12 " >
@@ -28,17 +26,44 @@
       <div>
       </div>
         </q-form>
-
+          <div class="col-12 " >
+            <q-btn label="Registro Datos" class="full-width" icon="grading" color="green" @click="prompt=true"/>
+          </div>
     </q-card>
 
-            "cedula"
-            "expedido"
-            
+    <q-dialog v-model="prompt" persistent>
+      <q-card style="min-width: 350px">
+        <q-card-section>
+          <div class="text-h6">Registro Nuevo Contribuyente</div>
+        </q-card-section>
+        <q-form @submit="onSubmit">
+          <q-select dense filled v-model="tram" :options="tramites" label="Nro Tramites" />
+                <q-card-section>
+          <div class="text-h6" align:center>DATOS DE CONTRIBUYENTE</div>
+        <q-tabs
+          v-model="tab"
+          dense
+          class="text-grey"
+          active-color="primary"
+          indicator-color="primary"
+          align="justify"
+          narrow-indicator
+        >
+          <q-tab name="N" label="NATURAL" />
+          <q-tab name="J" label="JURIDICO" />
+        </q-tabs>
+        <div class="row">
+          <div class="col-6">
+            <q-input outlined v-model="contrib.cedula" label="Outlined" />
+          </div>
+          <div class="col-6">
+            <q-select dense filled v-model="contrib.expedido" :options="exp" label="Expedido" />
+          </div>
+        </div>
             "nombres"
             "paterno"
             "materno"
             "esposo"
-
             "telefono"
             "telofi"
             "direccion"
@@ -51,6 +76,15 @@
             "numerodni"
             "zona"
             "nit"
+        </q-card-section> 
+        <q-card-actions align="right" class="text-primary">
+          <q-btn flat label="Cancel" v-close-popup />
+          <q-btn flat label="Add address" v-close-popup />
+        </q-card-actions>
+        </q-form>
+      </q-card>
+    </q-dialog>
+ 
   </q-page>
 </template>
 
@@ -62,10 +96,15 @@ export default {
   data(){
     return{
       fecha:'',
+      exp:['OR','LP','PT','PD','SC','CB','CH','TJ','BN','EX'],
+      prompt:false,
+      tab:'N',
+      tramites:[],
       req:[],
       ntramite:'',
       tipo:'',
       tramitador:'',
+      tram:'',
       validar:'',
       actividad:[],
       caso:'',
@@ -81,6 +120,7 @@ export default {
         {id:0,label:'',gestion:0,tipo:'n'}
       ],
       regvutrat:'',
+      contrib:{},
       columns:[
          { name: 'padron', label: 'padron', field: 'padron', required: true,},
          { name: 'gestion', label: 'gestion', field: 'gestion'},
@@ -92,12 +132,22 @@ export default {
     }
   },
   created(){
-
+    this.regini()
     this.mifecha()
     this.minum()
     this.miscasos()
   },
   methods:{
+    regini(){
+      this.$axios.get(process.env.API+'/listregistro').then(res=>{
+        this.tramites=[];
+        console.log(res.data);
+        res.data.forEach(element => {
+          this.tramites.push({label:element.nrotramite,value:element});
+        });
+      });
+
+    },
     requisito(){
       console.log(this.caso);
     },

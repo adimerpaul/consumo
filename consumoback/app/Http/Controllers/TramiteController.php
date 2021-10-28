@@ -61,13 +61,12 @@ class TramiteController extends Controller
          //$tramite->estado="DIRECCION TRIBUTARIA";
          $tramite->estado="VENTANILLA UNICA";
           //$tramite->estado2="EN PROCESO";
-          $tramite->estado2="INCIO";
+          $tramite->estado2="INICIO";
           $tramite->tipo=$request->caso['tipo'];
           $tramite->caso_id=$request->caso['id'];
-          $tramite->contribuyente_id=$contribuyente->id;
-          $tramite->padron=$request->padron;
-          $tramite->nro="";
-        $tramite->save();
+        
+         $tramite->save();
+
         $seguim= new Seguimiento;
         $seguim->nombre="INICIO TRAMITE";
         $seguim->observacion="INICIADO";
