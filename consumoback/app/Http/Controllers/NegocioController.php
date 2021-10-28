@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Negocio;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class NegocioController extends Controller
 {
@@ -17,6 +18,13 @@ class NegocioController extends Controller
         //
     }
 
+    public function listactividad(){
+        return DB::SELECT("SELECT * from actividades ");
+    }
+
+    public function lsector($id){
+        return DB::SELECT("SELECT * from sectors where id=$id")[0];
+    }
     /**
      * Show the form for creating a new resource.
      *

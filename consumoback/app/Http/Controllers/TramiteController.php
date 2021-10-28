@@ -38,7 +38,7 @@ class TramiteController extends Controller
     }
 
     public function listregistro(){
-        return Tramite::where('estado2','INICIO')->get();
+        return Tramite::where('estado2','INICIO')->with('caso')->with('requisitos')->get();
     }
     /**
      * Store a newly created resource in storage.

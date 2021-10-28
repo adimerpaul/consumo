@@ -31,21 +31,22 @@
           </div>
     </q-card>
 
-    <q-dialog v-model="prompt" persistent>
+    <q-dialog maximized  v-model="prompt" persistent>
       <q-card style="min-width: 350px">
         <q-card-section>
           <div class="text-h6">Registro Nuevo Contribuyente</div>
         </q-card-section>
-        <q-form @submit="onSubmit">
-          <q-select dense filled v-model="tram" :options="tramites" label="Nro Tramites" />
+        <q-form @submit="crear">
+          <q-select dense filled v-model="tram" :options="tramites" label="Nro Tramites" @update:model-value="cambio(tram.value)"/>
                 <q-card-section>
           <div class="text-h6" align:center>DATOS DE CONTRIBUYENTE</div>
         <q-tabs
           v-model="tab"
           dense
           class="text-grey"
-          active-color="primary"
+          active-color="white"
           indicator-color="primary"
+          active-bg-color="accent"
           align="justify"
           narrow-indicator
         >
@@ -53,29 +54,80 @@
           <q-tab name="J" label="JURIDICO" />
         </q-tabs>
         <div class="row">
+          <div class="col-4">
+          <q-checkbox rigth-label v-model="r.estado" :label="r.nombre" v-for="(r,i) in requisitos" :key="i" class="full-width" />
+          </div>
+          <div class="col-8">
+          <div class="row">
           <div class="col-6">
-            <q-input outlined v-model="contrib.cedula" label="Outlined" />
+            <q-input dense outlined v-model="contrib.cedula" label="Cedula de Identidad" />
           </div>
           <div class="col-6">
             <q-select dense filled v-model="contrib.expedido" :options="exp" label="Expedido" />
           </div>
+          <div class="row">          
+            <div class="col-3"><q-input dense outlined v-model="contrib.paterno" label="Paterno" /></div>
+            <div class="col-3"><q-input dense outlined v-model="contrib.materno" label="Materno" /></div>
+            <div class="col-3"><q-input dense outlined v-model="contrib.nombres" label="Nombres" /></div>
+            <div class="col-3"><q-input dense outlined v-model="contrib.esposo" label="Ap. Esposo" /></div>
+          </div>
+          <div class="row">          
+            <div class="col-3"><q-input dense outlined v-model="contrib.nit" label="NIT" /></div>
+            <div class="col-3"><q-input dense outlined v-model="contrib.domicilio" label="zona/domicilio" /></div>
+            <div class="col-3"><q-input dense outlined v-model="contrib.calle" label="Calle" /></div>
+            <div class="col-3"><q-input dense outlined v-model="contrib.numero" label="Numero Casa" /></div>
+          </div>
+          <div class="row">          
+            <div class="col-3"><q-input dense outlined v-model="contrib.telefono" label="Telefono" /></div>
+            <div class="col-3"><q-input dense outlined v-model="contrib.telofi" label="Telf Oficina" /></div>
+            <div class="col-3"><q-input dense outlined v-model="contrib.casilla" label="Casilla" /></div>
+            <div class="col-3"><q-input dense outlined v-model="contrib.fax" label="FAX" /></div>
+          </div>
+          <div class="row">          
+            <div class="col-4"><q-checkbox dense v-model="contrib.extrangero" label="Extrangero" /></div>
+            <div class="col-4"><q-input dense outlined v-model="contrib.numeroextrangero" label="Nro Extrang" /></div>
+            <div class="col-4"><q-input dense outlined v-model="contrib.numerodni" label="Nro DNI" /></div>
+          </div>
+          </div>
+                    <div class="text-h6" align:center>DATOS Y UBICACION DE LA ACTIVIDAD</div>
+          <div class="row">          
+            <div class="col-6"><q-select dense filled v-model="act" @update:model-value="listadosector(act)" :options="actividades" label="Actividad"/></div>
+            <div class="col-6"><q-input dense outlined v-model="sectores" label="Sector" readonly /></div>
+            
+          </div>
+          <div class="row">          
+            
+            <div class="col-9"><q-input dense outlined v-model="negocio.razon" label="Nombre" /></div>
+            <div class="col-3"><q-input dense outlined v-model="negocio.horario" label="Horario" /></div>
+          </div>
+          <div class="row">          
+            
+            <div class="col-9"><q-input dense outlined v-model="negocio.descripcionactividad" label="Descripcion" /></div>
+            <div class="col-3"><q-input dense outlined v-model="negocio.mts2" label="Sup mts2" /></div>
+          </div>
+          <hr>
+          <div class="row">          
+            <div class="col-3"><q-input dense outlined v-model="negocio.zona" label="Zona" /></div>
+            <div class="col-3"><q-input dense outlined v-model="negocio.Barrio" label="Barrio" /></div>
+            <div class="col-3"><q-input dense outlined v-model="negocio.calle" label="AV/Calle" /></div>
+            <div class="col-3"><q-input dense outlined v-model="negocio.entrecalles" label="Entre Calles" /></div>
+          </div>
+          <div class="row">          
+            <div class="col-3"><q-input dense outlined v-model="negocio.numpiso" label="Nro Piso" /></div>
+            <div class="col-3"><q-input dense outlined v-model="negocio.telefono" label="Telefono" /></div>
+            <div class="col-3"><q-input dense outlined v-model="negocio.numeroagua" label="No Med Agua" /></div>
+            <div class="col-3"><q-input dense outlined v-model="negocio.numeroelectrico" label="No Med Elec" /></div>
+          </div>
+          <div class="row">          
+            <div class="col-4"><q-input dense outlined v-model="negocio.observaciones" label="Observacion" /></div>
+            <div class="col-4"><q-checkbox v-model="negocio." label="Label on Right" /></div>
+            <div class="col-4"><q-input dense outlined v-model="negocio.telefono" label="Telefono" /></div>
+            <div class="col-4"><q-input dense outlined v-model="negocio.telefono" label="Telefono" /></div>
+            <div class="col-4"><q-input dense outlined v-model="negocio.telefono" label="Telefono" /></div>
+          </div>
         </div>
-            "nombres"
-            "paterno"
-            "materno"
-            "esposo"
-            "telefono"
-            "telofi"
-            "direccion"
-            "calle"
-            "numero"
-            "casilla"
-            "fax"
-            "extrangero"
-            "numeroextrangero"
-            "numerodni"
-            "zona"
-            "nit"
+
+            </div>
         </q-card-section> 
         <q-card-actions align="right" class="text-primary">
           <q-btn flat label="Cancel" v-close-popup />
@@ -96,8 +148,9 @@ export default {
   data(){
     return{
       fecha:'',
-      exp:['OR','LP','PT','PD','SC','CB','CH','TJ','BN','EX'],
+      exp:['OR','LP','PT','PD','SC','CB','CH','TJ','BE','EX'],
       prompt:false,
+      negocio:{},
       tab:'N',
       tramites:[],
       req:[],
@@ -107,18 +160,15 @@ export default {
       tram:'',
       validar:'',
       actividad:[],
+      actividades:[],
+      sectores:[],
+      act:{label:''},
+      sect:'',
       caso:'',
       filer:'',
       re:{},
       cumple:true,
       requisitos:[],
-      model:{id:0,label:'',gestion:0,tipo:'n'},
-      options:[
-        {id:0,label:'',gestion:0,tipo:'n'}
-      ],
-      options2:[
-        {id:0,label:'',gestion:0,tipo:'n'}
-      ],
       regvutrat:'',
       contrib:{},
       columns:[
@@ -136,8 +186,23 @@ export default {
     this.mifecha()
     this.minum()
     this.miscasos()
+    this.listadoactividad()
   },
   methods:{
+    listadoactividad(){
+      this.$axios.get(process.env.API+'/listactividad').then(res=>{
+        console.log(res.data);
+        this.actividades=[];
+        res.data.forEach(element => {
+          this.actividades.push({label:element.detalle,value:element});
+        });
+      })
+    },
+    listadosector(actividad){
+      this.$axios.get(process.env.API+'/lsector/'+actividad.value.sector_id).then(res=>{
+        this.sectores=res.data.detalle;
+      })
+    },
     regini(){
       this.$axios.get(process.env.API+'/listregistro').then(res=>{
         this.tramites=[];
@@ -163,19 +228,18 @@ export default {
       })
 
     },
+
     cambio(caso){
-      // console.log(caso)
+       console.log(caso)
       this.requisitos=[]
-      this.$q.loading.show()
         this.$axios.post(process.env.API+'/listrequisito',caso).then(res=>{
          // console.log(res.data)
-          this.$q.loading.hide()
          res.data.forEach(element => {
           this.requisitos.push({id:element.id,nombre:element.nombre,estado:false});
-          this.cumple=true;
          });
         })
     },
+
     filterFn (val, update) {
       if (val === '') {
           this.model={id:0,label:'',gestion:0,tipo:'n'};

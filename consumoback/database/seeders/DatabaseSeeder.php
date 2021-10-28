@@ -25,7 +25,9 @@ class DatabaseSeeder extends Seeder
             RequisitoSeeder::class,
             RequisitoTramiteSeeder::class,
             MultaSeeder::class,
-            DetallemultaSeeder::class
+            DetallemultaSeeder::class,
+            SectorSeeder::class,
+            ActividadSeeder::class,
             
         ]);
     }

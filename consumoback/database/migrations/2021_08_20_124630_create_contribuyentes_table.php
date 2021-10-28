@@ -23,7 +23,7 @@ class CreateContribuyentesTable extends Migration
             $table->string("expedido")->nullable()->default("");
             $table->string("telefono")->nullable()->default("");
             $table->string("telofi")->nullable()->default("");
-            $table->string("direccion")->nullable()->default("");
+            $table->string("domicilio")->nullable()->default("");
             $table->string("calle")->nullable()->default("");
             $table->string("numero")->nullable()->default("");
             $table->string("casilla")->nullable()->default("");
