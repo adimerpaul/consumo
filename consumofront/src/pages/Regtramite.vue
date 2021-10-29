@@ -31,7 +31,7 @@
         <q-card-section>
           <div class="text-h6">Registro Nuevo Contribuyente</div>
         </q-card-section>
-        <q-form @submit.prevent="registrar">
+        <q-form @submit.prevent="registrar" @reset="reset">
           <q-select dense filled v-model="tram" :options="tramites" label="Nro Tramites" @update:model-value="cambio(tram.value)"/>
                 <q-card-section>
           <div class="text-h6 text-center" >DATOS DE CONTRIBUYENTE</div>
@@ -55,15 +55,15 @@
           <div class="col-8">
           <div class="row">
           <div class="col-6">
-            <q-input dense outlined v-model="contrib.cedula" label="Cedula de Identidad" @change="buscarcontrib"/>
+            <q-input dense outlined v-model="contrib.cedula" label="Cedula de Identidad" @change="buscarcontrib" :rules="[ val => val.length >3 || 'Ingrese cedula' ]"/>
           </div>
           <div class="col-6">
-            <q-select dense filled v-model="contrib.expedido" :options="exp" label="Expedido" />
+            <q-select dense filled v-model="contrib.expedido" :options="exp" label="Expedido" :rules="[ val => val.length > 0 || 'Seleccione' ]" />
           </div>
           <div class="row">
             <div class="col-3"><q-input dense outlined v-model="contrib.paterno" label="Paterno" /></div>
             <div class="col-3"><q-input dense outlined v-model="contrib.materno" label="Materno" /></div>
-            <div class="col-3"><q-input dense outlined v-model="contrib.nombres" label="Nombres" /></div>
+            <div class="col-3"><q-input dense outlined v-model="contrib.nombres" label="Nombres" :rules="[ val => val.length > 3 || 'Ingrese su nombre' ]"/></div>
             <div class="col-3"><q-input dense outlined v-model="contrib.esposo" label="Ap. Esposo" /></div>
           </div>
           <div class="row">
@@ -86,18 +86,18 @@
           </div>
                     <div class="text-h6 text-center" >DATOS Y UBICACION DE LA ACTIVIDAD</div>
           <div class="row">
-            <div class="col-6"><q-select dense filled v-model="act" @update:model-value="listadosector(act)" :options="actividades" label="Actividad"/></div>
+            <div class="col-6"><q-select dense filled v-model="act" @update:model-value="listadosector(act)" :options="actividades" label="Actividad " /></div>
             <div class="col-6"><q-input dense outlined v-model="sectores" label="Sector" readonly /></div>
 
           </div>
           <div class="row">
 
-            <div class="col-9"><q-input dense outlined v-model="negocio.razon" label="Nombre" /></div>
+            <div class="col-9"><q-input dense outlined v-model="negocio.razon" label="Nombre" :rules="[ val => val.length > 3 || 'Ingrese Datos' ]"/></div>
             <div class="col-3"><q-input dense outlined v-model="negocio.horario" label="Horario" /></div>
           </div>
           <div class="row">
 
-            <div class="col-9"><q-input dense outlined v-model="negocio.descripcionactividad" label="Descripcion" /></div>
+            <div class="col-9"><q-input dense outlined v-model="negocio.descripcionactividad" label="Descripcion" :rules="[ val => val.length > 3 || 'Ingrese descripcion' ]"/></div>
             <div class="col-3"><q-input dense outlined v-model="negocio.mts2" label="Sup mts2" /></div>
           </div>
           <hr>
@@ -363,6 +363,7 @@ export default {
       this.negocio={};
       this.regini();
       this.prompt=false;
+      this.requisitos=[];
 
         this.$q.notify({
           color:'positive',
@@ -377,6 +378,54 @@ export default {
           icon:'error'
         })
       })
+    },
+    reset(){
+      this.contrib.
+            this.contrib.id=""
+            this.contrib.nombres=""
+            this.contrib.paterno=""
+            this.contrib.materno=""
+            this.contrib.esposo=""
+            this.contrib.cedula=""
+            this.contrib.expedido=""
+            this.contrib.telefono=""
+            this.contrib.telofi=""
+            this.contrib.domicilio=""
+            this.contrib.calle=""
+            this.contrib.numero=""
+            this.contrib.casilla=""
+            this.contrib.fax=""
+            this.contrib.extrangero=false
+            this.contrib.numeroextrangero=''
+            this.contrib.numerodni=''
+            this.contrib.zona=''
+            this.contrib.nit=''
+
+            this.negocio.actividad=''
+            this.negocio.sector=''
+            this.negocio.razon=''
+            this.negocio.descripcionactividad=''
+            this.negocio.telefono=''
+            this.negocio.numpiso=''
+            this.negocio.horario=''
+            this.negocio.mts2=''
+
+            this.negocio.zona=''
+            this.negocio.barrio=''
+            this.negocio.calle=''
+            this.negocio.entrecalles=''
+            this.negocio.numeroagua=''
+            this.negocio.numeroelectrico=''
+            this.negocio.observacion=''
+
+            this.negocio.fachada=false
+            this.negocio.acera=false
+            this.negocio.iluminacion=false
+            this.negocio.letrero=false
+
+            this.negocio.establecimiento=''
+
+            this.negocio.tipo=''
     },
 
     zfill(number, width) {

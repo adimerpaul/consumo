@@ -25,27 +25,27 @@ class NegocioController extends Controller
     }
 
     public function regnegocio(Request $request){
-        return $request->contribuyente;
+        //return $request->contribuyente;
         if($request->contribuyente['id']==null || $request->contribuyente['id']==''){
             $contrib= new Contribuyente;
-            $contrib->nombres=$request->contribuyente['nombres']!=null?$request->contribuyente['nombres']:'';
-            $contrib->paterno=$request->contribuyente['paterno']!=null?$request->contribuyente['paterno']:'';
-            $contrib->materno=$request->contribuyente['materno']!=null?$request->contribuyente['materno']:'';
-            $contrib->esposo=$request->contribuyente['esposo']!=null?$request->contribuyente['esposo']:'';
-            $contrib->cedula=$request->contribuyente['cedula']!=null?$request->contribuyente['cedula']:'';
-            $contrib->expedido=$request->contribuyente['expedido']!=null?$request->contribuyente['expedido']:'';
-            $contrib->telefono=$request->contribuyente['telefono']!=null?$request->contribuyente['telefono']:'';
-            $contrib->telofi=$request->contribuyente['telofi']!=null?$request->contribuyente['telofi']:'';
-            $contrib->domicilio=$request->contribuyente['domicilio']!=null?$request->contribuyente['domicilio']:'';
-            $contrib->calle=$request->contribuyente['calle']!=null?$request->contribuyente['calle']:'';
-            $contrib->numero=$request->contribuyente['numero']!=null?$request->contribuyente['numero']:'';
-            $contrib->casilla=$request->contribuyente['casilla']!=null?$request->contribuyente['casilla']:'';
-            $contrib->fax=$request->contribuyente['fax']!=null?$request->contribuyente['fax']:'';
-            $contrib->extrangero=$request->contribuyente['extrangero']!=null?false:true;
-            $contrib->numeroextrangero=$request->contribuyente['numeroextrangero']!=null?$request->contribuyente['numeroextrangero']:'';
-            $contrib->numerodni=$request->contribuyente['numerodni']!=null?$request->contribuyente['numerodni']:'';
-            $contrib->zona=$request->contribuyente['zona']!=null?$request->contribuyente['zona']:'';
-            $contrib->nit=$request->contribuyente['nit']!=null?$request->contribuyente['nit']:'';
+            $contrib->nombres=$request->contribuyente['nombres']!=""?$request->contribuyente['nombres']:'';
+            $contrib->paterno=$request->contribuyente['paterno']!=""?$request->contribuyente['paterno']:'';
+            $contrib->materno=$request->contribuyente['materno']!=""?$request->contribuyente['materno']:'';
+            $contrib->esposo=$request->contribuyente['esposo']!=""?$request->contribuyente['esposo']:'';
+            $contrib->cedula=$request->contribuyente['cedula']!=""?$request->contribuyente['cedula']:'';
+            $contrib->expedido=$request->contribuyente['expedido']!=""?$request->contribuyente['expedido']:'';
+            $contrib->telefono=$request->contribuyente['telefono']!=""?$request->contribuyente['telefono']:'';
+            $contrib->telofi=$request->contribuyente['telofi']!=""?$request->contribuyente['telofi']:'';
+            $contrib->domicilio=$request->contribuyente['domicilio']!=""?$request->contribuyente['domicilio']:'';
+            $contrib->calle=$request->contribuyente['calle']!=""?$request->contribuyente['calle']:'';
+            $contrib->numero=$request->contribuyente['numero']!=""?$request->contribuyente['numero']:'';
+            $contrib->casilla=$request->contribuyente['casilla']!=""?$request->contribuyente['casilla']:'';
+            $contrib->fax=$request->contribuyente['fax']!=""?$request->contribuyente['fax']:'';
+            $contrib->extrangero=$request->contribuyente['extrangero']!=""?false:true;
+            $contrib->numeroextrangero=$request->contribuyente['numeroextrangero']!=""?$request->contribuyente['numeroextrangero']:'';
+            $contrib->numerodni=$request->contribuyente['numerodni']!=""?$request->contribuyente['numerodni']:'';
+            $contrib->zona=$request->contribuyente['zona']!=""?$request->contribuyente['zona']:'';
+            $contrib->nit=$request->contribuyente['nit']!=""?$request->contribuyente['nit']:'';
             $contrib->save();
             $cid=$contrib->id;
         }
@@ -59,31 +59,31 @@ class NegocioController extends Controller
         }
 
         $negocio= new Negocio;
-        $negocio->actividad=$request->negocio['actividad'];
-        $negocio->sector=$request->negocio['sector'];
-        $negocio->razon=$request->negocio['razon'];
-        $negocio->descripcionactividad=$request->negocio['descripcionactividad'];
-        $negocio->telefono=$request->negocio['telefono'];
-        $negocio->numpiso=$request->negocio['numpiso'];
-        $negocio->horario=$request->negocio['horario'];
-        $negocio->mts2=$request->negocio['mts2'];
+        $negocio->actividad=$request->negocio['actividad']!=""?$request->negocio['actividad']:'';
+        $negocio->sector=$request->negocio['sector']!=""?$request->negocio['sector']:'';
+        $negocio->razon=$request->negocio['razon']!=""?$request->negocio['razon']:'';
+        $negocio->descripcionactividad=$request->negocio['descripcionactividad']!=""?$request->negocio['descripcionactividad']:'';
+        $negocio->telefono=$request->negocio['telefono']!=""?$request->negocio['telefono']:'';
+        $negocio->numpiso=$request->negocio['numpiso']!=""?$request->negocio['numpiso']:'';
+        $negocio->horario=$request->negocio['horario']!=""?$request->negocio['horario']:'';
+        $negocio->mts2=$request->negocio['mts2']!=""?$request->negocio['mts2']:'';
 
-        $negocio->zona=$request->negocio['zona'];
-        $negocio->barrio=$request->negocio['barrio'];
-        $negocio->calle=$request->negocio['calle'];
-        $negocio->entrecalles=$request->negocio['entrecalles'];
-        $negocio->numeroagua=$request->negocio['numeroagua'];
-        $negocio->numeroelectrico=$request->negocio['numeroelectrico'];
-        $negocio->observacion=$request->negocio['observacion'];
+        $negocio->zona=$request->negocio['zona']!=""?$request->negocio['zona']:'';
+        $negocio->barrio=$request->negocio['barrio']!=""?$request->negocio['barrio']:'';
+        $negocio->calle=$request->negocio['calle']!=""?$request->negocio['calle']:'';
+        $negocio->entrecalles=$request->negocio['entrecalles']!=""?$request->negocio['entrecalles']:'';
+        $negocio->numeroagua=$request->negocio['numeroagua']!=""?$request->negocio['numeroagua']:'';
+        $negocio->numeroelectrico=$request->negocio['numeroelectrico']!=null?$request->negocio['numeroelectrico']:'';
+        $negocio->observacion=$request->negocio['observacion']!=""?$request->negocio['observacion']:'';
 
-        $negocio->fachada=$request->negocio['fachada'];
-        $negocio->acera=$request->negocio['acera'];
-        $negocio->iluminacion=$request->negocio['iluminacion'];
-        $negocio->letrero=$request->negocio['letrero'];
+        $negocio->fachada=$request->negocio['fachada']!=null?$request->negocio['fachada']:false;
+        $negocio->acera=$request->negocio['acera']!=null?$request->negocio['acera']:false;
+        $negocio->iluminacion=$request->negocio['iluminacion']!=null?$request->negocio['iluminacion']:false;
+        $negocio->letrero=$request->negocio['letrero']!=null?$request->negocio['letrero']:false;
 
-        $negocio->datoestablecimiento=$request->negocio['establecimiento'];
+        $negocio->datoestablecimiento=$request->negocio['establecimiento']!=""?$request->negocio['establecimiento']:'';
 
-        $negocio->tipo=$request->negocio['tipo'];
+        $negocio->tipo=$request->negocio['tipo']!=""?$request->negocio['tipo']:'';
 
         $negocio->contribuyente_id=$cid;
         $negocio->save();
