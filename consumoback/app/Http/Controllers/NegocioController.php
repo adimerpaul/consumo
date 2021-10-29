@@ -25,27 +25,27 @@ class NegocioController extends Controller
     }
 
     public function regnegocio(Request $request){
-        //return $request;
+        return $request->contribuyente;
         if($request->contribuyente['id']==null || $request->contribuyente['id']==''){
             $contrib= new Contribuyente;
-            $contrib->nombres=$request->contribuyente['nombre'];
-            $contrib->paterno=$request->contribuyente['paterno'];
-            $contrib->materno=$request->contribuyente['materno'];
-            $contrib->esposo=$request->contribuyente['esposo'];
-            $contrib->cedula=$request->contribuyente['cedula'];
-            $contrib->expedido=$request->contribuyente['expedido'];
-            $contrib->telefono=$request->contribuyente['telefono'];
-            $contrib->telofi=$request->contribuyente['telofi'];
-            $contrib->domicilio=$request->contribuyente['domicilio'];
-            $contrib->calle=$request->contribuyente['calle'];
-            $contrib->numero=$request->contribuyente['numero'];
-            $contrib->casilla=$request->contribuyente['casilla'];
-            $contrib->fax=$request->contribuyente['fax'];
-            $contrib->extrangero=$request->contribuyente['estrangero'];
-            $contrib->numeroextrangero=$request->contribuyente['numeroextrangero'];
-            $contrib->numerodni=$request->contribuyente['numerodni'];
-            $contrib->zona=$request->contribuyente['zona'];
-            $contrib->nit=$request->contribuyente['nit'];
+            $contrib->nombres=$request->contribuyente['nombres']!=null?$request->contribuyente['nombres']:'';
+            $contrib->paterno=$request->contribuyente['paterno']!=null?$request->contribuyente['paterno']:'';
+            $contrib->materno=$request->contribuyente['materno']!=null?$request->contribuyente['materno']:'';
+            $contrib->esposo=$request->contribuyente['esposo']!=null?$request->contribuyente['esposo']:'';
+            $contrib->cedula=$request->contribuyente['cedula']!=null?$request->contribuyente['cedula']:'';
+            $contrib->expedido=$request->contribuyente['expedido']!=null?$request->contribuyente['expedido']:'';
+            $contrib->telefono=$request->contribuyente['telefono']!=null?$request->contribuyente['telefono']:'';
+            $contrib->telofi=$request->contribuyente['telofi']!=null?$request->contribuyente['telofi']:'';
+            $contrib->domicilio=$request->contribuyente['domicilio']!=null?$request->contribuyente['domicilio']:'';
+            $contrib->calle=$request->contribuyente['calle']!=null?$request->contribuyente['calle']:'';
+            $contrib->numero=$request->contribuyente['numero']!=null?$request->contribuyente['numero']:'';
+            $contrib->casilla=$request->contribuyente['casilla']!=null?$request->contribuyente['casilla']:'';
+            $contrib->fax=$request->contribuyente['fax']!=null?$request->contribuyente['fax']:'';
+            $contrib->extrangero=$request->contribuyente['extrangero']!=null?false:true;
+            $contrib->numeroextrangero=$request->contribuyente['numeroextrangero']!=null?$request->contribuyente['numeroextrangero']:'';
+            $contrib->numerodni=$request->contribuyente['numerodni']!=null?$request->contribuyente['numerodni']:'';
+            $contrib->zona=$request->contribuyente['zona']!=null?$request->contribuyente['zona']:'';
+            $contrib->nit=$request->contribuyente['nit']!=null?$request->contribuyente['nit']:'';
             $contrib->save();
             $cid=$contrib->id;
         }

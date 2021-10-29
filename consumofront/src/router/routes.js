@@ -18,6 +18,7 @@ import Modifica from "pages/Modifica";
 import Multa from "pages/Multa";
 import Verifica from "pages/Verifica";
 import Tecnico from "pages/Tecnico";
+import Revisado from "pages/Revisado";
 const routes = [
   {
     path: '/',
@@ -40,6 +41,7 @@ const routes = [
       { path: 'modifica', component: Modifica,meta:{requiresAuth: true}},
       { path: 'multa', component: Multa,meta:{requiresAuth: true}},
       { path: 'tecnico', component: Tecnico,meta:{requiresAuth: true}},
+      { path: 'revisado', component: Revisado,meta:{requiresAuth: true}},
     ]
   },
 

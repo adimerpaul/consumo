@@ -192,16 +192,16 @@
 
           <q-item to="tecnico"  exact clickable v-ripple v-if="$store.state.login.booltecnico">
             <q-item-section avatar>
-              <q-icon name="add_circle" />
+              <q-icon name="work_outline" />
             </q-item-section>
             <q-item-section>
               <q-item-label> Tecnicos tramite</q-item-label>
               <q-item-label caption> Tecnicos tramite</q-item-label>
             </q-item-section>
           </q-item>
-          <q-item to="comprobante"  exact clickable v-ripple v-if="$store.state.login.boolcomprobante">
+          <q-item to="revisado"  exact clickable v-ripple v-if="$store.state.login.boolcomprobante">
             <q-item-section avatar>
-              <q-icon name="add_circle" />
+              <q-icon name="assignment_ind" />
             </q-item-section>
             <q-item-section>
               <q-item-label> comprobante tramite</q-item-label>

@@ -34,7 +34,7 @@
         <q-form @submit.prevent="registrar">
           <q-select dense filled v-model="tram" :options="tramites" label="Nro Tramites" @update:model-value="cambio(tram.value)"/>
                 <q-card-section>
-          <div class="text-h6" align:center>DATOS DE CONTRIBUYENTE</div>
+          <div class="text-h6 text-center" >DATOS DE CONTRIBUYENTE</div>
         <q-tabs
           v-model="tab"
           dense
@@ -84,7 +84,7 @@
             <div class="col-4"><q-input dense outlined v-model="contrib.numerodni" label="Nro DNI" /></div>
           </div>
           </div>
-                    <div class="text-h6" align:center>DATOS Y UBICACION DE LA ACTIVIDAD</div>
+                    <div class="text-h6 text-center" >DATOS Y UBICACION DE LA ACTIVIDAD</div>
           <div class="row">
             <div class="col-6"><q-select dense filled v-model="act" @update:model-value="listadosector(act)" :options="actividades" label="Actividad"/></div>
             <div class="col-6"><q-input dense outlined v-model="sectores" label="Sector" readonly /></div>
@@ -193,10 +193,10 @@ export default {
   methods:{
     buscarcontrib(){
       this.$axios.post(process.env.API+'/buscarcontrib/'+this.contrib.cedula).then(res=>{
-        console.log(res.data)
+        // console.log(res.data)
           if(res.data.length>0)
             this.contrib=res.data[0];
-          else this.contrib={cedula:this.contrib.cedula}
+          else this.contrib={id:'',cedula:this.contrib.cedula}
       })
 
     },
@@ -346,7 +346,7 @@ export default {
 
         window.open(doc.output('bloburl'), '_blank');
     },
-        
+
   registrar(){
       this.negocio.tipo=this.tab;
       this.negocio.actividad=this.act.value.id;

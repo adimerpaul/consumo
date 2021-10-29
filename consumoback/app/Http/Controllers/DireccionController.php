@@ -17,7 +17,7 @@ class DireccionController extends Controller
     public function asignar(Request $request){
 //        return $request;
         $tramite=Tramite::find($request->tramite_id);
-        $tramite->estado=$request->user_id;
+        $tramite->user_id=$request->user_id;
         $tramite->estado="VERIFICADO";
         $tramite->save();
 
@@ -46,6 +46,34 @@ class DireccionController extends Controller
         $seguimiento->save();
 
     }
+    public function aprobartecnico(Request $request){
+        $tramite=Tramite::find($request->tramite_id);
+        $tramite->estado='REVISADO';
+        $tramite->save();
+        $seguimiento= new Seguimiento();
+        $seguimiento->nombre="El tecnico ".$request->user()->name." Aprobo ";
+        $seguimiento->observacion="INICIADO";
+        $seguimiento->fecha=date('Y-m-d');
+        $seguimiento->hora=date('H:i:s');
+        $seguimiento->tramite_id=$request->tramite_id;
+        $seguimiento->user_id=$request->user()->id;
+        $seguimiento->save();
+
+    }
+    public function aprobarrevisado(Request $request){
+        $tramite=Tramite::find($request->tramite_id);
+        $tramite->estado='COMPROBANTE';
+        $tramite->save();
+        $seguimiento= new Seguimiento();
+        $seguimiento->nombre="El Usuario ".$request->user()->name." realizo el comprobante ";
+        $seguimiento->observacion="INICIADO";
+        $seguimiento->fecha=date('Y-m-d');
+        $seguimiento->hora=date('H:i:s');
+        $seguimiento->tramite_id=$request->tramite_id;
+        $seguimiento->user_id=$request->user()->id;
+        $seguimiento->save();
+
+    }
     public function mistramites(Request $request){
         return Tramite::
         with('user')
@@ -56,6 +84,32 @@ class DireccionController extends Controller
             ->with('seguimientos')
             ->with('licencia')
             ->where('estado','REGISTRADO')
+            ->get();
+    }
+    public function mistramitestecnico(Request $request){
+        return Tramite::
+        with('user')
+            ->with('caso')
+            ->with('negocio')
+            ->with('requisitos')
+            ->with('contribuyente')
+            ->with('seguimientos')
+            ->with('licencia')
+            ->where('estado','VERIFICADO')
+            ->where('user_id',$request->user()->id)
+            ->get();
+    }
+    public function mistramitesrevisado(Request $request){
+        return Tramite::
+        with('user')
+            ->with('caso')
+            ->with('negocio')
+            ->with('requisitos')
+            ->with('contribuyente')
+            ->with('seguimientos')
+            ->with('licencia')
+            ->where('estado','REVISADO')
+//            ->where('user_id',$request->user()->id)
             ->get();
     }
     public function index()

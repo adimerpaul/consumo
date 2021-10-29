@@ -44,10 +44,14 @@ Route::group(['middleware'=>'auth:sanctum'],function (){
     Route::post('/listahistorial/{id}',[\App\Http\Controllers\HistorialmultaController::class,'listahistorial']);
     Route::get('/listregistro',[\App\Http\Controllers\TramiteController::class,'listregistro']);
     Route::post('/mistramites',[\App\Http\Controllers\DireccionController::class,'mistramites']);
+    Route::post('/mistramitestecnico',[\App\Http\Controllers\DireccionController::class,'mistramitestecnico']);
+    Route::post('/mistramitesrevisado',[\App\Http\Controllers\DireccionController::class,'mistramitesrevisado']);
     Route::get('/listactividad',[\App\Http\Controllers\NegocioController::class,'listactividad']);
     Route::get('/lsector/{id}',[\App\Http\Controllers\NegocioController::class,'lsector']);
     Route::post('/asignar',[\App\Http\Controllers\DireccionController::class,'asignar']);
-    Route::post('/probar',[\App\Http\Controllers\DireccionController::class,'probar']);
+    Route::post('/aprobar',[\App\Http\Controllers\DireccionController::class,'aprobar']);
+    Route::post('/aprobartecnico',[\App\Http\Controllers\DireccionController::class,'aprobartecnico']);
+    Route::post('/aprobarrevisado',[\App\Http\Controllers\DireccionController::class,'aprobarrevisado']);
     Route::post('/buscarcontrib/{cedula}',[\App\Http\Controllers\ContribuyenteController::class,'buscarcontrib']);
     Route::post('/regnegocio',[\App\Http\Controllers\NegocioController::class,'regnegocio']);
 });
