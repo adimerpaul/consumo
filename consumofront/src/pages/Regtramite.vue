@@ -103,7 +103,7 @@
           <hr>
           <div class="row">
             <div class="col-3"><q-input dense outlined v-model="negocio.zona" label="Zona" /></div>
-            <div class="col-3"><q-input dense outlined v-model="negocio.Barrio" label="Barrio" /></div>
+            <div class="col-3"><q-input dense outlined v-model="negocio.barrio" label="Barrio" /></div>
             <div class="col-3"><q-input dense outlined v-model="negocio.calle" label="AV/Calle" /></div>
             <div class="col-3"><q-input dense outlined v-model="negocio.entrecalles" label="Entre Calles" /></div>
           </div>
@@ -349,14 +349,20 @@ export default {
         
   registrar(){
       this.negocio.tipo=this.tab;
+      this.negocio.actividad=this.act.value.id;
+      this.negocio.sector=this.act.value.sector_id;
       this.$axios.post(process.env.API+'/regnegocio',{
         contribuyente:this.contrib,
-        tramite:this.tram,
+        tramite:this.tram.value,
         negocio:this.negocio,
-        requisito:this.requisito
+        requisito:this.requisitos
       }).then(res=>{
 
       console.log(res.data);
+      this.contrib={};
+      this.negocio={};
+      this.regini();
+      this.prompt=false;
 
         this.$q.notify({
           color:'positive',

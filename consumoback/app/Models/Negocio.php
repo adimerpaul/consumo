@@ -28,7 +28,7 @@ class Negocio extends Model
         "entrecalles",
         "numeroagua",
         "numeroelectrico",
-        "observaciones",
+        "observacion",
 
        "fachada",
        "acera",
