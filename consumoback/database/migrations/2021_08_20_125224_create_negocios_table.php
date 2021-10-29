@@ -34,7 +34,7 @@ class CreateNegociosTable extends Migration
             $table->string("entrecalles")->nullable()->default("");
             $table->string("numeroagua")->nullable()->default("");
             $table->string("numeroelectrico")->nullable()->default("");
-            $table->string("observaciones")->nullable()->default("");
+            $table->string("observacion")->nullable()->default("");
 
             $table->boolean("fachada")->nullable();
             $table->boolean("acera")->nullable();

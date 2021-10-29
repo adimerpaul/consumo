@@ -27,6 +27,12 @@ class ContribuyenteController extends Controller
         return DB::connection('vutrat')->select('select * from v_seguim vs where n_tramite = (select n_tramite from v_tramites vt WHERE n_tramite=(select n_tramite from temp_juridicas vj where pmc="'.$request->padron.'"  and c_i_rl="'.$request->ci.'" )) AND c_proce =8');
 
     }
+
+    public function buscarcontrib($cedula){
+        $buscar =DB::table('contribuyentes')->where('cedula',$cedula)->get();
+        return $buscar;
+    }
+
     public function conpagos(Request $request){
         $year = strtotime("1995-01-01");
         $end = strtotime(date('Y-m-d', strtotime("-1 year")));

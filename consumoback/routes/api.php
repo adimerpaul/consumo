@@ -48,4 +48,6 @@ Route::group(['middleware'=>'auth:sanctum'],function (){
     Route::get('/lsector/{id}',[\App\Http\Controllers\NegocioController::class,'lsector']);
     Route::post('/asignar',[\App\Http\Controllers\DireccionController::class,'asignar']);
     Route::post('/probar',[\App\Http\Controllers\DireccionController::class,'probar']);
+    Route::post('/buscarcontrib/{cedula}',[\App\Http\Controllers\ContribuyenteController::class,'buscarcontrib']);
+    Route::post('/regnegocio',[\App\Http\Controllers\NegocioController::class,'regnegocio']);
 });

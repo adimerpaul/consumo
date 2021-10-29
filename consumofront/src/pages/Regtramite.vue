@@ -12,12 +12,7 @@
           <div class="col-6 q-pa-xs"><q-input outlined label="Fecha" v-model="fecha" required disable/></div>
           <div class="col-6 q-pa-xs"><q-select label="Selecionar Caso" v-model="caso" required outlined :options="actividad" /></div>
           <div class="col-6 q-pa-xs"><q-input outlined label="TRAMITADOR" required v-model="tramitador"/></div>
-          <div class="row">
-          <div class="col-4 q-pa-xs">
-            <q-checkbox dense rigth-label v-model="r.estado" :label="r.nombre" v-for="(r,i) in requisitos" :key="i" class="full-width" />
-          </div>
 
-          </div>
 
           <div class="col-12 " >
             <q-btn label="Crear" class="full-width" type="submit" icon="send" color="primary"/>
@@ -36,7 +31,7 @@
         <q-card-section>
           <div class="text-h6">Registro Nuevo Contribuyente</div>
         </q-card-section>
-        <q-form @submit="crear">
+        <q-form @submit.prevent="registrar">
           <q-select dense filled v-model="tram" :options="tramites" label="Nro Tramites" @update:model-value="cambio(tram.value)"/>
                 <q-card-section>
           <div class="text-h6" align:center>DATOS DE CONTRIBUYENTE</div>
@@ -60,7 +55,7 @@
           <div class="col-8">
           <div class="row">
           <div class="col-6">
-            <q-input dense outlined v-model="contrib.cedula" label="Cedula de Identidad" />
+            <q-input dense outlined v-model="contrib.cedula" label="Cedula de Identidad" @change="buscarcontrib"/>
           </div>
           <div class="col-6">
             <q-select dense filled v-model="contrib.expedido" :options="exp" label="Expedido" />
@@ -119,19 +114,26 @@
             <div class="col-3"><q-input dense outlined v-model="negocio.numeroelectrico" label="No Med Elec" /></div>
           </div>
           <div class="row">
-            <div class="col-4"><q-input dense outlined v-model="negocio.observaciones" label="Observacion" /></div>
-<!--            <div class="col-4"><q-checkbox v-model="negocio." label="Label on Right" /></div>-->
-            <div class="col-4"><q-input dense outlined v-model="negocio.telefono" label="Telefono" /></div>
-            <div class="col-4"><q-input dense outlined v-model="negocio.telefono" label="Telefono" /></div>
-            <div class="col-4"><q-input dense outlined v-model="negocio.telefono" label="Telefono" /></div>
+            <div class="col-4"><q-input dense outlined v-model="negocio.observacion" label="Observacion" /></div>
+            <div class="col-2"><q-checkbox v-model="negocio.fachada" label="Fachada" /></div>
+            <div class="col-2"><q-checkbox v-model="negocio.acera" label="Acera" /></div>
+            <div class="col-2"><q-checkbox v-model="negocio.iluminacion" label="Iluminacion" /></div>
+            <div class="col-2"><q-checkbox v-model="negocio.letrero" label="Letrero" /></div>
+          </div>
+
+          <div class="row">
+            <q-radio v-model="negocio.establecimiento" val="PROPIO" label="PROPIO" />
+            <q-radio v-model="negocio.establecimiento" val="ALQUILADO" label="ALQUILADO" />
+            <q-radio v-model="negocio.establecimiento" val="ANTICRETICO" label="ANTICRETICO" />
+            <q-radio v-model="negocio.establecimiento" val="OTROS" label="OTROS" />
           </div>
         </div>
 
             </div>
         </q-card-section>
         <q-card-actions align="right" class="text-primary">
-          <q-btn flat label="Cancel" v-close-popup />
-          <q-btn flat label="Add address" v-close-popup />
+          <q-btn  label="CANCELAR" v-close-popup color="red"/>
+          <q-btn  label="REGISTRAR" type="submit"  color="green"/>
         </q-card-actions>
         </q-form>
       </q-card>
@@ -189,6 +191,15 @@ export default {
     this.listadoactividad()
   },
   methods:{
+    buscarcontrib(){
+      this.$axios.post(process.env.API+'/buscarcontrib/'+this.contrib.cedula).then(res=>{
+        console.log(res.data)
+          if(res.data.length>0)
+            this.contrib=res.data[0];
+          else this.contrib={cedula:this.contrib.cedula}
+      })
+
+    },
     listadoactividad(){
       this.$axios.get(process.env.API+'/listactividad').then(res=>{
         console.log(res.data);
@@ -231,6 +242,12 @@ export default {
 
     cambio(caso){
        console.log(caso)
+       this.negocio.letrero=false;
+       this.negocio.iluminacion=false;
+       this.negocio.acera=false;
+       this.negocio.fachada=false;
+       this.contrib.extrangero=false;
+
       this.requisitos=[]
         this.$axios.post(process.env.API+'/listrequisito',caso).then(res=>{
          // console.log(res.data)
@@ -269,6 +286,7 @@ export default {
         this.ntramite=this.zfill(num,5)+'/'+date.formatDate(new Date(),'YY' )
       })
     },
+
     crear(){
 
       this.$axios.post(process.env.API+'/tramite',{
@@ -302,6 +320,7 @@ export default {
         this.caso='';
         this.model='';
         this.requisitos=[];
+        this.regini();
       }).catch(err=>{
         this.$q.loading.hide()
         this.$q.notify({
@@ -327,6 +346,33 @@ export default {
 
         window.open(doc.output('bloburl'), '_blank');
     },
+        
+  registrar(){
+      this.negocio.tipo=this.tab;
+      this.$axios.post(process.env.API+'/regnegocio',{
+        contribuyente:this.contrib,
+        tramite:this.tram,
+        negocio:this.negocio,
+        requisito:this.requisito
+      }).then(res=>{
+
+      console.log(res.data);
+
+        this.$q.notify({
+          color:'positive',
+          icon:'send',
+          message:'Guardado correctamente'
+        });
+      }).catch(err=>{
+        this.$q.loading.hide()
+        this.$q.notify({
+          message:err.response.data.message,
+          color:'red',
+          icon:'error'
+        })
+      })
+    },
+
     zfill(number, width) {
       var numberOutput = Math.abs(number); /* Valor absoluto del número */
       var length = number.toString().length; /* Largo del número */

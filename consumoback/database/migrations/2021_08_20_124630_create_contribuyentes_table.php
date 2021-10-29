@@ -28,7 +28,7 @@ class CreateContribuyentesTable extends Migration
             $table->string("numero")->nullable()->default("");
             $table->string("casilla")->nullable()->default("");
             $table->string("fax")->nullable()->default("");
-            $table->string("extrangero")->nullable()->default("");
+            $table->boolean("extrangero")->nullable()->default(false);
             $table->string("numeroextrangero")->nullable()->default("");
             $table->string("numerodni")->nullable()->default("");
             $table->string("zona")->nullable()->default("");
