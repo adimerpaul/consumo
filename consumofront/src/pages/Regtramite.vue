@@ -58,7 +58,7 @@
             <q-input dense outlined v-model="contrib.cedula" label="Cedula de Identidad" @change="buscarcontrib" :rules="[ val => val.length >3 || 'Ingrese cedula' ]"/>
           </div>
           <div class="col-6">
-            <q-select dense filled v-model="contrib.expedido" :options="exp" label="Expedido" :rules="[ val => val.length > 0 || 'Seleccione' ]" />
+            <q-select dense filled v-model="contrib.expedido" :options="exp" label="Expedido" required />
           </div>
           <div class="row">
             <div class="col-3"><q-input dense outlined v-model="contrib.paterno" label="Paterno" /></div>
@@ -189,14 +189,19 @@ export default {
     this.minum()
     this.miscasos()
     this.listadoactividad()
+    this.reset()
   },
   methods:{
     buscarcontrib(){
       this.$axios.post(process.env.API+'/buscarcontrib/'+this.contrib.cedula).then(res=>{
+        let resulta=this.contrib.cedula
         // console.log(res.data)
           if(res.data.length>0)
             this.contrib=res.data[0];
-          else this.contrib={id:'',cedula:this.contrib.cedula}
+          else {this.reset
+          this.contrib.cedula=resulta;
+          
+          }
       })
 
     },
@@ -380,52 +385,51 @@ export default {
       })
     },
     reset(){
-      this.contrib.
-            this.contrib.id=""
-            this.contrib.nombres=""
-            this.contrib.paterno=""
-            this.contrib.materno=""
-            this.contrib.esposo=""
-            this.contrib.cedula=""
-            this.contrib.expedido=""
-            this.contrib.telefono=""
-            this.contrib.telofi=""
-            this.contrib.domicilio=""
-            this.contrib.calle=""
-            this.contrib.numero=""
-            this.contrib.casilla=""
-            this.contrib.fax=""
-            this.contrib.extrangero=false
-            this.contrib.numeroextrangero=''
-            this.contrib.numerodni=''
-            this.contrib.zona=''
-            this.contrib.nit=''
+            this.contrib.id="";
+            this.contrib.nombres="";
+            this.contrib.paterno="";
+            this.contrib.materno="";
+            this.contrib.esposo="";
+            this.contrib.cedula="";
+            this.contrib.expedido={};
+            this.contrib.telefono="";
+            this.contrib.telofi="";
+            this.contrib.domicilio="";
+            this.contrib.calle="";
+            this.contrib.numero="";
+            this.contrib.casilla="";
+            this.contrib.fax="";
+            this.contrib.extrangero=false;
+            this.contrib.numeroextrangero='';
+            this.contrib.numerodni='';
+            this.contrib.zona='';
+            this.contrib.nit='';
 
-            this.negocio.actividad=''
-            this.negocio.sector=''
-            this.negocio.razon=''
-            this.negocio.descripcionactividad=''
-            this.negocio.telefono=''
-            this.negocio.numpiso=''
-            this.negocio.horario=''
-            this.negocio.mts2=''
+            this.negocio.actividad={};
+            this.negocio.sector='';
+            this.negocio.razon='';
+            this.negocio.descripcionactividad='';
+            this.negocio.telefono='';
+            this.negocio.numpiso='';
+            this.negocio.horario='';
+            this.negocio.mts2='';
 
-            this.negocio.zona=''
-            this.negocio.barrio=''
-            this.negocio.calle=''
-            this.negocio.entrecalles=''
-            this.negocio.numeroagua=''
-            this.negocio.numeroelectrico=''
-            this.negocio.observacion=''
+            this.negocio.zona='';
+            this.negocio.barrio='';
+            this.negocio.calle='';
+            this.negocio.entrecalles='';
+            this.negocio.numeroagua='';
+            this.negocio.numeroelectrico='';
+            this.negocio.observacion='';
 
-            this.negocio.fachada=false
-            this.negocio.acera=false
-            this.negocio.iluminacion=false
-            this.negocio.letrero=false
+            this.negocio.fachada=false;
+            this.negocio.acera=false;
+            this.negocio.iluminacion=false;
+            this.negocio.letrero=false;
 
-            this.negocio.establecimiento=''
+            this.negocio.establecimiento='';
 
-            this.negocio.tipo=''
+            this.negocio.tipo='';
     },
 
     zfill(number, width) {
