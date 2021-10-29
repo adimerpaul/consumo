@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col-12">
         <q-banner dense inline-actions class="text-white bg-red text-center text-bold">
-          ACTIVIDADES ECONOMICAS - Revisado
+          ACTIVIDADES ECONOMICAS - APROBACION
         </q-banner>
       </div>
       <div class="col-12 q-pa-xs">
@@ -228,7 +228,7 @@ export default {
   methods:{
     asignar(){
       this.$q.loading.show()
-      this.$axios.post(process.env.API+'/aprobarrevisado',{
+      this.$axios.post(process.env.API+'/aprobartramite',{
         // user_id:this.user.id,
         // name:this.user.name,
         tramite_id:this.tramite.id
@@ -285,7 +285,7 @@ export default {
     },
     mistramites(){
       this.$q.loading.show()
-      this.$axios.post(process.env.API+'/mistramitesrevisado').then(res=>{
+      this.$axios.post(process.env.API+'/mistramitesaprobacion').then(res=>{
         console.log(res.data)
         this.tramites=[]
         res.data.forEach(r=>{

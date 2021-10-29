@@ -74,6 +74,36 @@ class DireccionController extends Controller
         $seguimiento->save();
 
     }
+    public function aprobartramite(Request $request){
+        $tramite=Tramite::find($request->tramite_id);
+        $tramite->estado='APROBADO';
+        $tramite->save();
+        $seguimiento= new Seguimiento();
+        $seguimiento->nombre="El Usuario ".$request->user()->name." aprobo el comprobante ";
+        $seguimiento->observacion="INICIADO";
+        $seguimiento->fecha=date('Y-m-d');
+        $seguimiento->hora=date('H:i:s');
+        $seguimiento->tramite_id=$request->tramite_id;
+        $seguimiento->user_id=$request->user()->id;
+        $seguimiento->save();
+
+    }
+    public function aprobarterminar(Request $request){
+        $tramite=Tramite::find($request->tramite_id);
+        $tramite->estado='TERMINADO';
+        $tramite->estado2='TERMINADO';
+        $tramite->save();
+        $seguimiento= new Seguimiento();
+        $seguimiento->nombre="El Usuario ".$request->user()->name." entrego el tramite ";
+        $seguimiento->observacion="INICIADO";
+        $seguimiento->fecha=date('Y-m-d');
+        $seguimiento->hora=date('H:i:s');
+        $seguimiento->tramite_id=$request->tramite_id;
+        $seguimiento->user_id=$request->user()->id;
+        $seguimiento->save();
+
+    }
+
     public function mistramites(Request $request){
         return Tramite::
         with('user')
@@ -97,6 +127,33 @@ class DireccionController extends Controller
             ->with('licencia')
             ->where('estado','VERIFICADO')
             ->where('user_id',$request->user()->id)
+            ->get();
+    }
+    public function mistramitesaprobacion(Request $request){
+        return Tramite::
+        with('user')
+            ->with('caso')
+            ->with('negocio')
+            ->with('requisitos')
+            ->with('contribuyente')
+            ->with('seguimientos')
+            ->with('licencia')
+            ->where('estado','COMPROBANTE')
+//            ->where('user_id',$request->user()->id)
+            ->get();
+    }
+
+    public function mistramitesterminar(Request $request){
+        return Tramite::
+        with('user')
+            ->with('caso')
+            ->with('negocio')
+            ->with('requisitos')
+            ->with('contribuyente')
+            ->with('seguimientos')
+            ->with('licencia')
+            ->where('estado','APROBADO')
+//            ->where('user_id',$request->user()->id)
             ->get();
     }
     public function mistramitesrevisado(Request $request){

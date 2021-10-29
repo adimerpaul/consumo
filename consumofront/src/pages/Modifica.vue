@@ -2,7 +2,7 @@
   <q-page class="q-pa-xs">
     <q-card>
       <div class="text-h6">Modificar Datos Inmueble</div>
-        
+
         <div>
             <q-select
               filled
@@ -64,7 +64,7 @@
                     <div class="col-6"><q-input v-model="contribuyente.numeroagua" type="text" label="N Medidor Agua" /></div>
                     <div class="col-6"><q-input v-model="contribuyente.numeroelectrico" type="text" label="N Medidor Electrico" /></div>
                     <div class="col-6"><q-input v-model="contribuyente.observaciones" type="text" label="Observaciones" /></div>
-                    
+
                     <div class="col-6"><q-checkbox v-model="contribuyente.fachada" type="text" label="Fachada" /></div>
                     <div class="col-6"><q-checkbox v-model="contribuyente.acera" type="text" label="acera" /></div>
                     <div class="col-6"><q-checkbox v-model="contribuyente.iluminacion" type="text" label="iluminacion" /></div>
@@ -125,6 +125,13 @@ export default {
             })
           }
        this.$q.loading.hide()
+     }).catch(err=>{
+       this.$q.loading.hide()
+       this.$q.notify({
+         message:err.response.data.message,
+         color:'red',
+         icon:'error'
+       })
      })
   },
   methods:{

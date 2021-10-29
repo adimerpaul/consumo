@@ -208,13 +208,13 @@
               <q-item-label caption> comprobante tramite</q-item-label>
             </q-item-section>
           </q-item>
-          <q-item to="aprovacion"  exact clickable v-ripple v-if="$store.state.login.boolaprobacion">
+          <q-item to="aprobacion"  exact clickable v-ripple v-if="$store.state.login.boolaprobacion">
             <q-item-section avatar>
-              <q-icon name="add_circle" />
+              <q-icon name="engineering" />
             </q-item-section>
             <q-item-section>
-              <q-item-label> Aprovacion tramite</q-item-label>
-              <q-item-label caption> Aprovacion tramite</q-item-label>
+              <q-item-label> Aprobacion tramite</q-item-label>
+              <q-item-label caption> Aprobacion tramite</q-item-label>
             </q-item-section>
           </q-item>
 

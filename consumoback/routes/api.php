@@ -46,12 +46,17 @@ Route::group(['middleware'=>'auth:sanctum'],function (){
     Route::post('/mistramites',[\App\Http\Controllers\DireccionController::class,'mistramites']);
     Route::post('/mistramitestecnico',[\App\Http\Controllers\DireccionController::class,'mistramitestecnico']);
     Route::post('/mistramitesrevisado',[\App\Http\Controllers\DireccionController::class,'mistramitesrevisado']);
+    Route::post('/mistramitesaprobacion',[\App\Http\Controllers\DireccionController::class,'mistramitesaprobacion']);
+    Route::post('/mistramitesterminar',[\App\Http\Controllers\DireccionController::class,'mistramitesterminar']);
     Route::get('/listactividad',[\App\Http\Controllers\NegocioController::class,'listactividad']);
     Route::get('/lsector/{id}',[\App\Http\Controllers\NegocioController::class,'lsector']);
     Route::post('/asignar',[\App\Http\Controllers\DireccionController::class,'asignar']);
     Route::post('/aprobar',[\App\Http\Controllers\DireccionController::class,'aprobar']);
     Route::post('/aprobartecnico',[\App\Http\Controllers\DireccionController::class,'aprobartecnico']);
     Route::post('/aprobarrevisado',[\App\Http\Controllers\DireccionController::class,'aprobarrevisado']);
+    Route::post('/aprobartramite',[\App\Http\Controllers\DireccionController::class,'aprobartramite']);
+    Route::post('/aprobarterminar',[\App\Http\Controllers\DireccionController::class,'aprobarterminar']);
+
     Route::post('/buscarcontrib/{cedula}',[\App\Http\Controllers\ContribuyenteController::class,'buscarcontrib']);
     Route::post('/regnegocio',[\App\Http\Controllers\NegocioController::class,'regnegocio']);
 });

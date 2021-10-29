@@ -97,7 +97,7 @@
           </div>
           <div class="row">
 
-            <div class="col-9"><q-input dense outlined v-model="negocio.descripcionactividad" label="Descripcion" :rules="[ val => val.length > 3 || 'Ingrese descripcion' ]"/></div>
+            <div class="col-9"><q-input dense outlined v-model="negocio.descripcionactividad" label="Descripcion" :rules="[ val => val.length > 3 || 'Ingrese Datos' ]"/></div>
             <div class="col-3"><q-input dense outlined v-model="negocio.mts2" label="Sup mts2" /></div>
           </div>
           <hr>
