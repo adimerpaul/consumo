@@ -16,7 +16,6 @@ class Tramite extends Model
         "tipo",
         "padron",
         "estado",
-        "estado2",
         "infraestructura",
         "seguridad",
         "medio",
