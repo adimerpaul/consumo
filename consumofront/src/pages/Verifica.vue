@@ -38,8 +38,8 @@
                   {{ props.row.clasificacion }}
                 </q-badge>
               </q-td>
-              <q-td key="tramite" :props="props">
-                {{ props.row.tramite }}
+              <q-td key="nrotramite" :props="props">
+                {{ props.row.nrotramite }}
               </q-td>
               <q-td key="fecha" :props="props">
                 {{ props.row.fecha }}
@@ -126,8 +126,8 @@
                     <div class="row">
 <!--                      <div class="col-6"><q-select dense filled v-model="act" @update:model-value="listadosector(act)" :options="actividades" label="Actividad"/></div>-->
 <!--                      <div class="col-6"><q-input dense outlined v-model="sectores" label="Sector" readonly /></div>-->
-                      <div class="col-6"><q-input dense outlined v-model="tramite.negocio.razon" label="Nombre" /></div>
-                      <div class="col-6"><q-input dense outlined v-model="tramite.negocio.horario" label="Horario" /></div>
+<!--                      <div class="col-6"><q-input dense outlined v-model="tramite.negocio.razon" label="Nombre" /></div>-->
+<!--                      <div class="col-6"><q-input dense outlined v-model="tramite.negocio.horario" label="Horario" /></div>-->
                     </div>
                     <div class="row">
 
@@ -300,7 +300,7 @@ export default {
         { name: 'tramitador', label: 'tramitador', field: 'tramitador'},
         { name: 'tipo', label: 'tipo', field: 'tipo'},
         { name: 'clasificacion', label: 'clasificacion', field: 'clasificacion'},
-        { name: 'tramite', label: 'tramite', field: 'tramite'},
+        { name: 'nrotramite', label: 'nrotramite', field: 'nrotramite'},
         { name: 'dias', label: 'dias', field: 'dias'},
         { name: 'estado', label: 'estado', field: 'estado'},
         { name: 'unidad', label: 'unidad', field: 'unidad'},
@@ -321,6 +321,15 @@ export default {
   },
   methods:{
     asignar(){
+      console.log(this.user)
+      if (this.user==undefined){
+        this.$q.notify({
+          message:'Debes seleccionar un tecnico',
+          color:'red',
+          icon:'error'
+        })
+        return false
+      }
       this.$q.loading.show()
       this.$axios.post(process.env.API+'/asignar',{
         user_id:this.user.id,

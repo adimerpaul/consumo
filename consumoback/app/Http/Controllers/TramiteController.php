@@ -59,11 +59,11 @@ class TramiteController extends Controller
          $tramite->fechalimite=date('Y-m-d', strtotime(' + 21 days'));
          $tramite->user_id=$request->user()->id;
          //$tramite->estado="DIRECCION TRIBUTARIA";
-         $tramite->estado="VENTANILLA UNICA";
+//         $tramite->estado="VENTANILLA UNICA";
           $tramite->estado="INICIO";
           $tramite->tipo=$request->caso['tipo'];
           $tramite->caso_id=$request->caso['id'];
-        
+
          $tramite->save();
 
         $seguim= new Seguimiento;
@@ -77,7 +77,7 @@ class TramiteController extends Controller
             $cadena="
         <style>
         .textn{
-            
+
             font-weight:bold;
         }
         *{text-size:4px}
@@ -99,7 +99,7 @@ class TramiteController extends Controller
         <tr><td></td><td></td></tr>
         <tr><td></td><td></td></tr><br><br><br>
         <tr><td class='textn'>RESP. VETANILLA UNICA</td><td class='textn'>RESP. VETANILLA UNICA</td></tr>
-        
+
         </table>
         </div>
         ";

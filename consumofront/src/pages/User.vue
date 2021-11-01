@@ -140,6 +140,9 @@
               <li style="padding: 0px;margin: 0px;border: 0px;font-size: 10px;list-style: none" v-for="p in props.row.permisos" :key="p.i">{{p.nombre}}</li>
             </ul>
           </q-td>
+          <q-td key="tipo" :props="props">
+            {{props.row.tipo}}
+          </q-td>
           <q-td key="opcion" :props="props">
             <q-btn
               dense
@@ -375,6 +378,7 @@ export default {
         {name: "email", align: "left", label: "Email", field: "email", sortable: true,},
         {name: "fechalimite", align: "left", label: "Fecha limite", field: "fechalimite", sortable: true,},
         {name: "permisos", align: "left", label: "Permisos", field: "permisos", sortable: true,},
+        {name: "tipo", align: "left", label: "Tipo", field: "tipo", sortable: true,},
         { name: "opcion", label: "Opcion", field: "action", sortable: false },
       ],
       data: [],

@@ -22,7 +22,7 @@ class CreateTramitesTable extends Migration
             $table->string("tipo"); // A  o  B
             $table->string("licencia")->nullable(); // nuemro licencia
             $table->string("estado"); //unidad q se encuentra
-            //$table->string("estado2"); // Procedo anulado terminado
+            $table->string("estado2")->default('INICIADO'); // Procedo anulado terminado
             $table->boolean("infraestructura")->default(false);
             $table->boolean("seguridad")->default(false);
             $table->boolean("medio")->default(false);

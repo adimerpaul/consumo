@@ -358,7 +358,7 @@ export default {
         res.data.forEach(r=>{
           console.log(r)
           let dato=r
-          dato.label=r.padron +' T:'+r.tramitador+' C:'+r.caso.clasificacion+' T:'+r.tipo+' nro:'+r.nrotramite
+          dato.label=' T:'+r.tramitador+' C:'+r.caso.clasificacion+' T:'+r.tipo+' nro:'+r.nrotramite
           this.tramites.push(dato)
           this.tramites2.push(dato)
         })
