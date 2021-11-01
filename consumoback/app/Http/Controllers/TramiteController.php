@@ -38,7 +38,7 @@ class TramiteController extends Controller
     }
 
     public function listregistro(){
-        return Tramite::where('estado2','INICIO')->with('caso')->with('requisitos')->get();
+        return Tramite::where('estado','INICIO')->with('caso')->with('requisitos')->get();
     }
     /**
      * Store a newly created resource in storage.
@@ -60,8 +60,7 @@ class TramiteController extends Controller
          $tramite->user_id=$request->user()->id;
          //$tramite->estado="DIRECCION TRIBUTARIA";
          $tramite->estado="VENTANILLA UNICA";
-          //$tramite->estado2="EN PROCESO";
-          $tramite->estado2="INICIO";
+          $tramite->estado="INICIO";
           $tramite->tipo=$request->caso['tipo'];
           $tramite->caso_id=$request->caso['id'];
         

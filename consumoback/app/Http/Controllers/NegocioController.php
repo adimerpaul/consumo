@@ -91,8 +91,7 @@ class NegocioController extends Controller
         $tramite = Tramite::find($request->tramite['id']);
         $tramite->negocio_id=$negocio->id;
         $tramite->contribuyente_id=$cid;
-        $tramite->estado='ACTIVIDAD ECONOMICA';
-        $tramite->estado2='REGISTRADO';
+        $tramite->estado='REGISTRADO';
         $tramite->save();
         return $tramite;
 

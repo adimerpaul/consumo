@@ -91,7 +91,6 @@ class DireccionController extends Controller
     public function aprobarterminar(Request $request){
         $tramite=Tramite::find($request->tramite_id);
         $tramite->estado='TERMINADO';
-        $tramite->estado2='TERMINADO';
         $tramite->save();
         $seguimiento= new Seguimiento();
         $seguimiento->nombre="El Usuario ".$request->user()->name." entrego el tramite ";
