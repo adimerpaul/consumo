@@ -59,8 +59,8 @@ class NegocioController extends Controller
         }
 
         $negocio= new Negocio;
-        $negocio->actividad=$request->negocio['actividad']!=""?$request->negocio['actividad']:'';
-        $negocio->sector=$request->negocio['sector']!=""?$request->negocio['sector']:'';
+        $negocio->actividad_id=$request->negocio['actividad']!=""?$request->negocio['actividad']:'';
+        $negocio->sector_id=$request->negocio['sector']!=""?$request->negocio['sector']:'';
         $negocio->razon=$request->negocio['razon']!=""?$request->negocio['razon']:'';
         $negocio->descripcionactividad=$request->negocio['descripcionactividad']!=""?$request->negocio['descripcionactividad']:'';
         $negocio->telefono=$request->negocio['telefono']!=""?$request->negocio['telefono']:'';
