@@ -93,6 +93,16 @@ class NegocioController extends Controller
         $tramite->contribuyente_id=$cid;
         $tramite->estado='REGISTRADO';
         $tramite->save();
+
+        $seguim= new Seguimiento;
+        $seguim->nombre="REGISTRO DATOS";
+        $seguim->observacion="REGISTRADO";
+        $seguim->fecha=date("Y-m-d");
+        $seguim->hora=date('H:i:s');
+        $seguim->tramite_id=$tramite->id;
+        $seguim->user_id=$request->user()->id;
+        $seguim->save();
+
         return $tramite;
 
     }

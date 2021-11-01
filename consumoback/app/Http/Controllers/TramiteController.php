@@ -59,7 +59,7 @@ class TramiteController extends Controller
          $tramite->fechalimite=date('Y-m-d', strtotime(' + 21 days'));
          $tramite->user_id=$request->user()->id;
          //$tramite->estado="DIRECCION TRIBUTARIA";
-//         $tramite->estado="VENTANILLA UNICA";
+          $tramite->estado2="VENTANILLA UNICA";
           $tramite->estado="INICIO";
           $tramite->tipo=$request->caso['tipo'];
           $tramite->caso_id=$request->caso['id'];
