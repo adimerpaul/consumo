@@ -16,8 +16,7 @@ class CreateNegociosTable extends Migration
         Schema::create('negocios', function (Blueprint $table) {
             $table->id();
             
-            $table->string("actividad")->nullable()->default("");
-            $table->string("sector")->nullable()->default("");
+            
             $table->string("licencia")->nullable()->unique();
             $table->string("razon")->nullable()->default("");
             $table->string("descripcionactividad")->nullable()->default("");
@@ -49,6 +48,10 @@ class CreateNegociosTable extends Migration
 
             $table->string("cargo")->nullable()->default("");
             $table->string("estado")->default("ACTIVO");
+            $table->unsignedBigInteger('actividad_id');
+            $table->foreign('actividad_id')->references('id')->on('actividades');
+            $table->unsignedBigInteger('sector_id');
+            $table->foreign('sector_id')->references('id')->on('sectors');
             $table->unsignedBigInteger('contribuyente_id');
             $table->foreign('contribuyente_id')->references('id')->on('contribuyentes');
             $table->timestamps();
