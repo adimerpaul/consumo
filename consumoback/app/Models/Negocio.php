@@ -9,7 +9,7 @@ class Negocio extends Model
 {
     use HasFactory;
     protected $fillable=[
-        
+
         "actividad_id",
         "sector_id",
         "licencia",
@@ -45,4 +45,10 @@ class Negocio extends Model
         "estado",
         'contribuyente_id'
     ];
+    public function actividad(){
+        return $this->belongsTo(Actividad::class);
+    }
+    public function sector(){
+        return $this->belongsTo(Sector::class);
+    }
 }

@@ -124,8 +124,12 @@
                     </div>
                     <div class="text-h6 text-center">DATOS Y UBICACION DE LA ACTIVIDAD</div>
                     <div class="row">
-<!--                      <div class="col-6"><q-select dense filled v-model="act" @update:model-value="listadosector(act)" :options="actividades" label="Actividad"/></div>-->
-<!--                      <div class="col-6"><q-input dense outlined v-model="sectores" label="Sector" readonly /></div>-->
+                      <div class="col-6">
+                        <q-select dense filled v-model="tramite.negocio.actividad" :options="actividades" label="Actividad"/>
+<!--                        <pre>{{ tramite.negocio.actividad }}</pre>-->
+<!--                        <pre>{{a}}</pre>-->
+                      </div>
+                      <div class="col-6"><q-input dense outlined v-model="tramite.negocio.sector.detalle" label="Sector" readonly /></div>
 <!--                      <div class="col-6"><q-input dense outlined v-model="tramite.negocio.razon" label="Nombre" /></div>-->
 <!--                      <div class="col-6"><q-input dense outlined v-model="tramite.negocio.horario" label="Horario" /></div>-->
                     </div>
@@ -295,6 +299,7 @@ import {date} from "quasar";
 export default {
   data(){
     return{
+      a:'',
       exp:['OR','LP','PT','PD','SC','CB','CH','TJ','BE','EX'],
       columns:[
         { name: 'tramitador', label: 'tramitador', field: 'tramitador'},
@@ -311,10 +316,21 @@ export default {
       tramite:{},
       dialogtramite:false,
       users:[],
-      user:{}
+      user:{},
+      actividades:[]
     }
   },
   created(){
+
+    this.$axios.get(process.env.API+'/listactividad').then(res=>{
+      // console.log(res.data);
+      this.actividades=[];
+      res.data.forEach(element => {
+        this.actividades.push({label:element.detalle,value:element});
+      });
+    })
+
+
     this.mistramites()
     this.misusuarios()
 
@@ -380,6 +396,10 @@ export default {
       // console.log(tramite)
       // return false
       this.tramite=tramite
+      this.tramite.negocio.actividad={
+        label:this.tramite.negocio.actividad.detalle,
+        value:this.tramite.negocio.actividad
+      }
       this.tramite.negocio.fachada=this.tramite.negocio.fachada=='1'?true:false
       this.tramite.negocio.acera=this.tramite.negocio.acera=='1'?true:false
       this.tramite.negocio.iluminacion=this.tramite.negocio.iluminacion=='1'?true:false
