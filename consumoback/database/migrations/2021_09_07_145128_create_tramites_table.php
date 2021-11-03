@@ -23,10 +23,10 @@ class CreateTramitesTable extends Migration
             $table->string("licencia")->nullable(); // nuemro licencia
             $table->string("estado"); //unidad q se encuentra
             $table->string("estado2")->default('INICIADO'); // Procedo anulado terminado
-            $table->boolean("infraestructura")->default(false);
-            $table->boolean("seguridad")->default(false);
-            $table->boolean("medio")->default(false);
-            $table->boolean("salubridad")->default(false);
+            $table->boolean("infraestructura")->default(true);
+            $table->boolean("seguridad")->default(true);
+            $table->boolean("medio")->default(true);
+            $table->boolean("salubridad")->default(true);
             $table->string("tramitador");
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');

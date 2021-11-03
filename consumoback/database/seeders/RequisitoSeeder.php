@@ -27,6 +27,11 @@ class RequisitoSeeder extends Seeder
             ['nombre'=>'CERTIFICADO DE ANTECEDENTES FELCC Y FELCN DEL TITTULAR','tipo'=>'A'],
             ['nombre'=>'FOTOC. DEL NIT','tipo'=>'A'],
             ['nombre'=>'FOTOC. DEL ROE','tipo'=>'A'],
+            ['nombre'=>'INFRAESTRUCTURA','tipo'=>'A'],
+            ['nombre'=>'SEGURIDAD','tipo'=>'A'],
+            ['nombre'=>'MEDIO AMBIENTE','tipo'=>'A'],
+            ['nombre'=>'SALUBRIDAD','tipo'=>'A'],
+
             ['nombre'=>'FOTOC. LEGALIZADA REGISTRO DE COMERCIO FUNDEMPRESA','tipo'=>'B'],
             ['nombre'=>'FOTOC. LEGALIZADA DE LA CONSTITUCION DE LA SOCIEDAD','tipo'=>'B'],
             ['nombre'=>'FOTOC. LEGALIZADA DEL PODER DEL REPRESENTANTE','tipo'=>'B'],
@@ -36,7 +41,8 @@ class RequisitoSeeder extends Seeder
             ['nombre'=>'FOTOC. LEGALIZADA DEL INFORME DE ENSAYOS DE LABORATORIOS','tipo'=>'C'],
             ['nombre'=>'FOTOC. LEGALIZADA DEL INFORME DE RESULTADOS DEL LABORATORIOS','tipo'=>'C'],
             ['nombre'=>'FICHA DE INSPECCION POR DEFENSA AL CONSUMIDOR','tipo'=>'C'],
-            ['nombre'=>'REGISTRO AMBIENTAL DE DIRECCION DE SALUD AMBIENTAL','tipo'=>'C'],     
-        ]);        
+            ['nombre'=>'REGISTRO AMBIENTAL DE DIRECCION DE SALUD AMBIENTAL','tipo'=>'C'],
+
+        ]);
     }
 }
