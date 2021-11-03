@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Negocio;
 use App\Models\Contribuyente;
 use App\Models\Tramite;
+use App\Models\Seguimiento;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
