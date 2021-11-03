@@ -295,7 +295,7 @@
 </template>
 <script>
 import {date} from "quasar";
-
+import { jsPDF } from "jspdf";
 export default {
   data(){
     return{
@@ -337,6 +337,9 @@ export default {
   },
   methods:{
     asignar(){
+        //this.daraltae();
+        //return false;
+
       console.log(this.user)
       if (this.user==undefined){
         this.$q.notify({
@@ -352,6 +355,7 @@ export default {
         name:this.user.name,
         tramite_id:this.tramite.id
       }).then(res=>{
+        this.daraltae();
         this.$q.loading.hide()
         // console.log(res.data)
         // return false
@@ -381,6 +385,41 @@ export default {
 
       })
     },
+       daraltae(){
+        // console.log(this.tramite)
+          var img= new Image()
+          img.src='logo.jpg'
+
+          var doc = new jsPDF('p','cm','letter')
+          doc.setFont("courier","bold");
+          doc.setFontSize(10);
+          doc.addImage(img,'jpg',0.5,0.5,2,2)
+          let x=0,y=0;
+          doc.text(x+11.5, y+1, 'GOBIERNO MUNICIPAL DE ORURO','center');
+          doc.text(x+11.5, y+1.5, 'VENTANILLA ÚNICA DA TRÁMITES TRIBUTARIOS','center');
+          doc.text(x+11.5, y+2, 'ORDEN DE INSPECCIÓN ','center');
+
+          doc.text('Nº tramite:'+this.tramite.nrotramite+' Tipo de trámite:'+this.tramite.caso.clasificacion+' Operador:'+this.user.name, x+2, y+4);
+          doc.setFont("courier","normal");
+          let textLines=doc.splitTextToSize('Señor: '+ this.user.name,17)//+' impetrando a la H. comuna autorización para la apertura de: '+i.caso.clasificacion+'; los informes elevados por la unidad de Actividades Económicas',17)
+          doc.text(textLines, x+2, y+5);
+
+          textLines=doc.splitTextToSize('Se le instruye realizar la inspección de la actividad económica: '+this.tramite.caso.clasificacion+' '+this.tramite.negocio.razon+' cuya dirección es: '+this.tramite.negocio.calle +' ' +this.tramite.negocio.entrecalles+', De la propiedad de:  '+  this.tramite.contribuyente.nombres +' '+this.tramite.contribuyente.paterno+' '+ this.tramite.contribuyente.materno,17)
+          doc.text(textLines, x+2, y+6);
+          doc.text('Informar a esta jefatura de acuerdo al siguiente detalle:', x+2, y+8);
+          doc.text('Dirección exacta superficie (m2) en la que desarrolla la actividad', x+3, y+9);
+          doc.text('Servicios básicos', x+3, y+10);
+          doc.text('Condiciones del local ', x+3, y+11);
+          doc.text('Área de influencia (servicios específicos)', x+3, y+12);
+          // textLines=doc.splitTextToSize('ES CONFORME.',17)
+          doc.setFont("courier","bold");
+          doc.text('Oruro , ' +date.formatDate(new Date(),'DD')+' de '+date.formatDate(new Date(),'MM')+ ' del '+date.formatDate(new Date(),'YYYY'), x+2, y+14);
+          doc.text('SECRETARIA MUNICIPAL DE ECONOMÍA Y HACIENDA.', x+10, y+15);
+          doc.setFont("courier","normal");
+          window.open(doc.output('bloburl'), '_blank');
+
+
+    },
     misusuarios(){
       this.$axios.get(process.env.API+'/user').then(res=>{
         // console.log(res.data)
@@ -409,7 +448,7 @@ export default {
     mistramites(){
       this.$q.loading.show()
       this.$axios.post(process.env.API+'/mistramites').then(res=>{
-        // console.log(res.data)
+         console.log(res.data)
         this.tramites=[]
         res.data.forEach(r=>{
           const date1 = new Date()
