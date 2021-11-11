@@ -221,8 +221,8 @@
                     <div class="row">
                       <!--                      <div class="col-6"><q-select dense filled v-model="act" @update:model-value="listadosector(act)" :options="actividades" label="Actividad"/></div>-->
                       <!--                      <div class="col-6"><q-input dense outlined v-model="sectores" label="Sector" readonly /></div>-->
-                      <div class="col-6"><q-input dense outlined v-model="tramite.negocio.razon" label="Nombre" /></div>
-                      <div class="col-6"><q-input dense outlined v-model="tramite.negocio.horario" label="Horario" /></div>
+                      <!--<div class="col-6"><q-input dense outlined v-model="tramite.negocio.razon" label="Nombre" /></div>
+                      <div class="col-6"><q-input dense outlined v-model="tramite.negocio.horario" label="Horario" /></div>-->
                     </div>
                     <div class="row">
 
@@ -320,12 +320,27 @@ export default {
 
   },
   methods:{
+        listadoactividad(){
+      this.$axios.get(process.env.API+'/listactividad').then(res=>{
+        console.log(res.data);
+        this.actividades=[];
+        res.data.forEach(element => {
+          this.actividades.push({label:element.detalle,value:element});
+        });
+      })
+    },
+    listadosector(actividad){
+      this.$axios.get(process.env.API+'/lsector/'+actividad.value.sector_id).then(res=>{
+        this.sectores=res.data.detalle;
+      })
+    },
     asignar(){
       this.$q.loading.show()
       this.$axios.post(process.env.API+'/aprobartecnico',{
         // user_id:this.user.id,
         // name:this.user.name,
-        tramite_id:this.tramite.id
+        tramite_id:this.tramite.id,
+        negocio:this.tramite.negocio
       }).then(res=>{
 
 

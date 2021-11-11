@@ -33,6 +33,7 @@ class DireccionController extends Controller
     }
     public function aprobar(Request $request){
         $tramite=Tramite::find($request->tramite_id);
+        
         $tramite->user_id=5;
         $tramite->save();
 
@@ -47,6 +48,33 @@ class DireccionController extends Controller
 
     }
     public function aprobartecnico(Request $request){
+        $negocio=Negocio::find($request->negocio['id']);
+        $negocio->actividad_id=$request->negocio['actividad']!=""?$request->negocio['actividad']:'';
+        $negocio->sector_id=$request->negocio['sector']!=""?$request->negocio['sector']:'';
+        $negocio->razon=$request->negocio['razon']!=""?$request->negocio['razon']:'';
+        $negocio->descripcionactividad=$request->negocio['descripcionactividad']!=""?$request->negocio['descripcionactividad']:'';
+        $negocio->telefono=$request->negocio['telefono']!=""?$request->negocio['telefono']:'';
+        $negocio->numpiso=$request->negocio['numpiso']!=""?$request->negocio['numpiso']:'';
+        $negocio->horario=$request->negocio['horario']!=""?$request->negocio['horario']:'';
+        $negocio->mts2=$request->negocio['mts2']!=""?$request->negocio['mts2']:'';
+        $negocio->zona=$request->negocio['zona']!=""?$request->negocio['zona']:'';
+        $negocio->barrio=$request->negocio['barrio']!=""?$request->negocio['barrio']:'';
+        $negocio->calle=$request->negocio['calle']!=""?$request->negocio['calle']:'';
+        $negocio->entrecalles=$request->negocio['entrecalles']!=""?$request->negocio['entrecalles']:'';
+        $negocio->numeroagua=$request->negocio['numeroagua']!=""?$request->negocio['numeroagua']:'';
+        $negocio->numeroelectrico=$request->negocio['numeroelectrico']!=null?$request->negocio['numeroelectrico']:'';
+        $negocio->observacion=$request->negocio['observacion']!=""?$request->negocio['observacion']:'';
+        $negocio->fachada=$request->negocio['fachada']!=null?$request->negocio['fachada']:false;
+        $negocio->acera=$request->negocio['acera']!=null?$request->negocio['acera']:false;
+        $negocio->iluminacion=$request->negocio['iluminacion']!=null?$request->negocio['iluminacion']:false;
+        $negocio->letrero=$request->negocio['letrero']!=null?$request->negocio['letrero']:false;
+
+        $negocio->datoestablecimiento=$request->negocio['establecimiento']!=""?$request->negocio['establecimiento']:'';
+        $negocio->tipo=$request->negocio['tipo']!=""?$request->negocio['tipo']:'';
+
+        $negocio->contribuyente_id=$cid;
+        $negocio->save();
+
         $tramite=Tramite::find($request->tramite_id);
         $tramite->estado='REVISADO';
         $tramite->save();
