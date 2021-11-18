@@ -304,6 +304,12 @@
               type="date"
               v-model="dato2.fechalimite"
             />
+            <q-select
+              filled
+              :options="['USUARIO','TECNICO']"
+              label="Tipo"
+              v-model="dato2.tipo"
+            />
             <div>
               <q-btn label="Modificar" type="submit" color="positive" icon="add_circle" />
               <q-btn label="Cancelar" icon="delete" color="negative" v-close-popup />
@@ -500,11 +506,13 @@ export default {
         // password:this.dato2.password,
         // name:this.dato2.name,
         email:this.dato2.email,
+        tipo:this.dato2.tipo,
         carnet:this.dato2.carnet,
         celular:this.dato2.celular,
         fechalimite:this.dato2.fechalimite,
         // codigo:this.dato2.codigo,
       }).then((res) => {
+        // console.log(res.data)
         this.$q.notify({
           color: "green-4",
           textColor: "white",

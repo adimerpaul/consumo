@@ -10,10 +10,19 @@
           aria-label="Menu"
           @click="leftDrawerOpen = !leftDrawerOpen"
         />
-        
+
         <q-toolbar-title>
-          <div style="text-align:center"><b style="font-size:16px; ;">RULEC</b> <span style="font-size:14px"> Registro Unico de Liencia de Expendio y Consumo</span></div>
-          {{$store.state.login.user.name}}
+          <div class="row">
+            <div class="col-3">
+              {{$store.state.login.user.name}}
+            </div>
+            <div class="col-6">
+              <div style="text-align:center"><b style="font-size:16px; ;">RULEC</b> <span style="font-size:14px"> Registro Unico de Liencia de Expendio y Consumo</span></div>
+            </div>
+            <div class="col-3"></div>
+          </div>
+
+
         </q-toolbar-title>
         <div><div><q-btn @click="logout" label="Salir" icon="logout" size="xs"/></div></div>
       </q-toolbar>

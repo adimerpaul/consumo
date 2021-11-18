@@ -19,7 +19,7 @@ class CreateContribuyentesTable extends Migration
             $table->string("paterno")->nullable()->default("");
             $table->string("materno")->nullable()->default("");
             $table->string("esposo")->nullable()->default("");
-            $table->string("cedula")->nullable()->default("");
+            $table->string("cedula")->nullable()->default("")->unique();
             $table->string("expedido")->nullable()->default("");
             $table->string("telefono")->nullable()->default("");
             $table->string("telofi")->nullable()->default("");

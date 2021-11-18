@@ -25,7 +25,7 @@
                 <div class="row">
                   <div class="col-12">
                     <!--                    color="purple-12"-->
-                    <q-input outlined v-model="email" label="Celular*" hint="Porfavor ingresar email">
+                    <q-input outlined v-model="email" label="Email*" hint="Porfavor ingresar email">
                       <template v-slot:prepend>
                         <q-icon name="email" />
                       </template>
@@ -66,8 +66,8 @@
 export default {
   data(){
     return{
-      email:'admin@test.com',
-      password:'admin',
+      email:'',
+      password:'',
       tab:'login',
       user:{},
       isPwd:true,

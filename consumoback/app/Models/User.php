@@ -24,6 +24,7 @@ class User extends Authenticatable
         'celular',
         'carnet',
         "fechalimite",
+        'tipo'
     ];
 
     /**
