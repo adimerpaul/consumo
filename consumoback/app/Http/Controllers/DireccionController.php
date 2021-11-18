@@ -74,8 +74,11 @@ class DireccionController extends Controller
         $negocio->save();
 
         $tramite=Tramite::find($request->tramite_id);
+        $tramite->tipo=$request->caso['tipo'];
+        $tramite->caso_id=$request->caso['id'];
         $tramite->estado='REVISADO';
         $tramite->save();
+
         $seguimiento= new Seguimiento();
         $seguimiento->nombre="El tecnico ".$request->user()->name." Aprobo ";
         $seguimiento->observacion="INICIADO";

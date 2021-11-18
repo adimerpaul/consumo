@@ -228,7 +228,6 @@
                     <div class="row">
 
                       <div class="col-9"><q-input dense outlined v-model="tramite.negocio.razon" label="Nombre" /></div>
-                      <div class="col-3"><q-input dense outlined v-model="tramite.negocio.horario" label="Horario" /></div>
                     </div>
                     <div class="row">
 

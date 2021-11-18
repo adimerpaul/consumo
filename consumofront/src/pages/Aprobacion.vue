@@ -99,6 +99,7 @@
                       <div class="col-6">
                         <q-select dense filled v-model="tramite.contribuyente.expedido" :options="exp" label="Expedido" />
                       </div>
+                    </div>
                       <div class="row">
                         <div class="col-3"><q-input dense outlined v-model="tramite.contribuyente.paterno" label="Paterno" /></div>
                         <div class="col-3"><q-input dense outlined v-model="tramite.contribuyente.materno" label="Materno" /></div>
@@ -122,7 +123,6 @@
                         <div class="col-4"><q-input dense outlined v-model="tramite.contribuyente.numeroextrangero" label="Nro Extrang" /></div>
                         <div class="col-4"><q-input dense outlined v-model="tramite.contribuyente.numerodni" label="Nro DNI" /></div>
                       </div>
-                    </div>
                     <div class="text-h6 text-center">DATOS Y UBICACION DE LA ACTIVIDAD</div>
                     <div class="row">
                       <!--                      <div class="col-6"><q-select dense filled v-model="act" @update:model-value="listadosector(act)" :options="actividades" label="Actividad"/></div>-->
