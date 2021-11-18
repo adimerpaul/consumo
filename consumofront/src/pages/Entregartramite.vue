@@ -127,8 +127,8 @@
                     <div class="row">
                       <!--                      <div class="col-6"><q-select dense filled v-model="act" @update:model-value="listadosector(act)" :options="actividades" label="Actividad"/></div>-->
                       <!--                      <div class="col-6"><q-input dense outlined v-model="sectores" label="Sector" readonly /></div>-->
-                      <div class="col-6"><q-input dense outlined v-model="tramite.negocio.razon" label="Nombre" /></div>
-                      <div class="col-6"><q-input dense outlined v-model="tramite.negocio.horario" label="Horario" /></div>
+                      <div class="col-6"><q-input dense outlined v-model="tramite.caso.clasificacion" label="Nombre" /></div>
+                      <div class="col-6"><q-input dense outlined v-model="tramite.caso.inicio" label="Horario" /></div>
                     </div>
                     <div class="row">
 

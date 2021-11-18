@@ -60,13 +60,13 @@ class NegocioController extends Controller
         }
 
         $negocio= new Negocio;
-        $negocio->actividad_id=$request->negocio['actividad']!=""?$request->negocio['actividad']:'';
-        $negocio->sector_id=$request->negocio['sector']!=""?$request->negocio['sector']:'';
+        //$negocio->actividad_id=$request->negocio['actividad']!=""?$request->negocio['actividad']:'';
+        //$negocio->sector_id=$request->negocio['sector']!=""?$request->negocio['sector']:'';
         $negocio->razon=$request->negocio['razon']!=""?$request->negocio['razon']:'';
         $negocio->descripcionactividad=$request->negocio['descripcionactividad']!=""?$request->negocio['descripcionactividad']:'';
         $negocio->telefono=$request->negocio['telefono']!=""?$request->negocio['telefono']:'';
         $negocio->numpiso=$request->negocio['numpiso']!=""?$request->negocio['numpiso']:'';
-        $negocio->horario=$request->negocio['horario']!=""?$request->negocio['horario']:'';
+        //$negocio->horario=$request->negocio['horario']!=""?$request->negocio['horario']:'';
         $negocio->mts2=$request->negocio['mts2']!=""?$request->negocio['mts2']:'';
 
         $negocio->zona=$request->negocio['zona']!=""?$request->negocio['zona']:'';

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Licencia;
 use App\Models\Seguimiento;
 use App\Models\Tramite;
+use App\Models\Negocio;
 use Illuminate\Http\Request;
 
 class DireccionController extends Controller
@@ -18,6 +19,7 @@ class DireccionController extends Controller
 //        return $request;
         $tramite=Tramite::find($request->tramite_id);
         $tramite->user_id=$request->user_id;
+        $tramite->tecnico_id=$request->user_id;
         $tramite->estado="VERIFICADO";
         $tramite->save();
 
@@ -49,13 +51,10 @@ class DireccionController extends Controller
     }
     public function aprobartecnico(Request $request){
         $negocio=Negocio::find($request->negocio['id']);
-        $negocio->actividad_id=$request->negocio['actividad']!=""?$request->negocio['actividad']:'';
-        $negocio->sector_id=$request->negocio['sector']!=""?$request->negocio['sector']:'';
         $negocio->razon=$request->negocio['razon']!=""?$request->negocio['razon']:'';
         $negocio->descripcionactividad=$request->negocio['descripcionactividad']!=""?$request->negocio['descripcionactividad']:'';
         $negocio->telefono=$request->negocio['telefono']!=""?$request->negocio['telefono']:'';
         $negocio->numpiso=$request->negocio['numpiso']!=""?$request->negocio['numpiso']:'';
-        $negocio->horario=$request->negocio['horario']!=""?$request->negocio['horario']:'';
         $negocio->mts2=$request->negocio['mts2']!=""?$request->negocio['mts2']:'';
         $negocio->zona=$request->negocio['zona']!=""?$request->negocio['zona']:'';
         $negocio->barrio=$request->negocio['barrio']!=""?$request->negocio['barrio']:'';
@@ -69,10 +68,9 @@ class DireccionController extends Controller
         $negocio->iluminacion=$request->negocio['iluminacion']!=null?$request->negocio['iluminacion']:false;
         $negocio->letrero=$request->negocio['letrero']!=null?$request->negocio['letrero']:false;
 
-        $negocio->datoestablecimiento=$request->negocio['establecimiento']!=""?$request->negocio['establecimiento']:'';
+        $negocio->datoestablecimiento=$request->negocio['datoestablecimiento']!=""?$request->negocio['datoestablecimiento']:'';
         $negocio->tipo=$request->negocio['tipo']!=""?$request->negocio['tipo']:'';
 
-        $negocio->contribuyente_id=$cid;
         $negocio->save();
 
         $tramite=Tramite::find($request->tramite_id);

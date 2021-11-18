@@ -86,14 +86,13 @@
           </div>
                     <div class="text-h6 text-center" >DATOS Y UBICACION DE LA ACTIVIDAD</div>
           <div class="row">
-            <div class="col-6"><q-select dense filled v-model="act" @update:model-value="listadosector(act)" :options="actividades" label="Actividad " /></div>
-            <div class="col-6"><q-input dense outlined v-model="sectores" label="Sector" readonly /></div>
+            <div class="col-9"><q-input dense outlined v-model="negact" label="Actividad" readonly /></div>
+            <div class="col-3"><q-input dense outlined v-model="neghora" label="Horario" readonly/></div>
 
           </div>
           <div class="row">
 
             <div class="col-9"><q-input dense outlined v-model="negocio.razon" label="Nombre" :rules="[ val => val.length > 3 || 'Ingrese Datos' ]"/></div>
-            <div class="col-3"><q-input dense outlined v-model="negocio.horario" label="Horario" /></div>
           </div>
           <div class="row">
 
@@ -165,6 +164,8 @@ export default {
       actividades:[],
       sectores:[],
       act:{label:''},
+      negact:'',
+      neghora:'',
       sect:'',
       caso:'',
       filer:'',
@@ -252,6 +253,9 @@ export default {
        this.negocio.acera=false;
        this.negocio.fachada=false;
        this.contrib.extrangero=false;
+       this.negact=caso.caso.clasificacion + ' ' +caso.caso.caso;
+       this.neghora= caso.caso.inicio + ' - ' + caso.caso.fin;
+       this.contrib.expedido=this.exp[0];
 
       this.requisitos=[]
         this.$axios.post(process.env.API+'/listrequisito',caso).then(res=>{
@@ -354,8 +358,6 @@ export default {
 
   registrar(){
       this.negocio.tipo=this.tab;
-      this.negocio.actividad=this.act.value.id;
-      this.negocio.sector=this.act.value.sector_id;
       this.$axios.post(process.env.API+'/regnegocio',{
         contribuyente:this.contrib,
         tramite:this.tram.value,

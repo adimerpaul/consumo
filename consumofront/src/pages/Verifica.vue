@@ -124,19 +124,13 @@
                     </div>
                     <div class="text-h6 text-center">DATOS Y UBICACION DE LA ACTIVIDAD</div>
                     <div class="row">
-                      <div class="col-6">
-                        <q-select dense filled v-model="tramite.negocio.actividad" :options="actividades" label="Actividad"/>
-<!--                        <pre>{{ tramite.negocio.actividad }}</pre>-->
-<!--                        <pre>{{a}}</pre>-->
-                      </div>
-                      <div class="col-6"><q-input dense outlined v-model="tramite.negocio.sector.detalle" label="Sector" readonly /></div>
-<!--                      <div class="col-6"><q-input dense outlined v-model="tramite.negocio.razon" label="Nombre" /></div>-->
-<!--                      <div class="col-6"><q-input dense outlined v-model="tramite.negocio.horario" label="Horario" /></div>-->
+                             <div class="col-9"><q-input dense outlined v-model="tramite.caso.clasificacion" label="Actividad" /></div>
+                            <div class="col-3"><q-input dense outlined v-model="tramite.caso.inicio" label="Horario" /></div>
+  
                     </div>
                     <div class="row">
 
                       <div class="col-9"><q-input dense outlined v-model="tramite.negocio.razon" label="Nombre" /></div>
-                      <div class="col-3"><q-input dense outlined v-model="tramite.negocio.horario" label="Horario" /></div>
                     </div>
                     <div class="row">
 
@@ -432,17 +426,16 @@ export default {
       })
     },
     ver(tramite){
-      // console.log(tramite)
+       console.log(tramite)
       // return false
       this.tramite=tramite
-      this.tramite.negocio.actividad={
-        label:this.tramite.negocio.actividad.detalle,
-        value:this.tramite.negocio.actividad
-      }
       this.tramite.negocio.fachada=this.tramite.negocio.fachada=='1'?true:false
       this.tramite.negocio.acera=this.tramite.negocio.acera=='1'?true:false
       this.tramite.negocio.iluminacion=this.tramite.negocio.iluminacion=='1'?true:false
       this.tramite.negocio.letrero=this.tramite.negocio.letrero=='1'?true:false
+      this.tramite.requisitos.forEach(element => {
+        element.estado=true;
+      });
       this.dialogtramite=true
     },
     mistramites(){

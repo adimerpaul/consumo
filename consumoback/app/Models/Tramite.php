@@ -22,6 +22,7 @@ class Tramite extends Model
         "salubridad",
         "nro",
         "tramitador",
+        'tecnico_id',
         'user_id',
         'caso_id',
     ];

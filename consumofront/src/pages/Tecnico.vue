@@ -221,8 +221,9 @@
                     <div class="row">
                       <!--                      <div class="col-6"><q-select dense filled v-model="act" @update:model-value="listadosector(act)" :options="actividades" label="Actividad"/></div>-->
                       <!--                      <div class="col-6"><q-input dense outlined v-model="sectores" label="Sector" readonly /></div>-->
-                      <!--<div class="col-6"><q-input dense outlined v-model="tramite.negocio.razon" label="Nombre" /></div>
-                      <div class="col-6"><q-input dense outlined v-model="tramite.negocio.horario" label="Horario" /></div>-->
+                                  <div class="col-9"><q-select label="Selecionar Actividad" v-model="negact" required outlined :options="actividad" /></div>
+                                  <div class="col-3"><q-input dense outlined  label="Horario" readonly v-model="negact.value.inicio"/></div>
+
                     </div>
                     <div class="row">
 
@@ -233,6 +234,7 @@
 
                       <div class="col-9"><q-input dense outlined v-model="tramite.negocio.descripcionactividad" label="Descripcion" /></div>
                       <div class="col-3"><q-input dense outlined v-model="tramite.negocio.mts2" label="Sup mts2" /></div>
+                      
                     </div>
                     <hr>
                     <div class="row">
@@ -309,6 +311,8 @@ export default {
       tramites:[],
       filter:'',
       tramite:{},
+      actividad:[],
+      negact:{},
       dialogtramite:false,
       // users:[],
       // user:{}
@@ -317,6 +321,7 @@ export default {
   created(){
     this.mistramites()
     // this.misusuarios()
+    this.miscasos();
 
   },
   methods:{
@@ -340,6 +345,7 @@ export default {
         // user_id:this.user.id,
         // name:this.user.name,
         tramite_id:this.tramite.id,
+        caso:this.negact.value,
         negocio:this.tramite.negocio
       }).then(res=>{
 
@@ -392,7 +398,7 @@ export default {
       this.tramite.negocio.acera=this.tramite.negocio.acera=='1'?true:false
       this.tramite.negocio.iluminacion=this.tramite.negocio.iluminacion=='1'?true:false
       this.tramite.negocio.letrero=this.tramite.negocio.letrero=='1'?true:false
-
+      this.negact={label:this.tramite.caso.clasificacion+' '+this.tramite.caso.caso,value:this.tramite.caso};
       this.dialogtramite=true
     },
     mistramites(){
@@ -434,7 +440,18 @@ export default {
           icon:'error'
         })
       })
-    }
+    },
+        miscasos(){
+      this.actividad=[];
+      this.$axios.get(process.env.API+'/caso').then(res=>{
+
+        res.data.forEach(element => {
+          this.actividad.push({label:element.clasificacion + ' ' + element.caso,value:element});
+        });
+        console.log(this.actividad);
+      })
+
+    },
   }
 }
 </script>

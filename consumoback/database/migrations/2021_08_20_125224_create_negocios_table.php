@@ -48,10 +48,6 @@ class CreateNegociosTable extends Migration
 
             $table->string("cargo")->nullable()->default("");
             $table->string("estado")->default("ACTIVO");
-            $table->unsignedBigInteger('actividad_id');
-            $table->foreign('actividad_id')->references('id')->on('actividades');
-            $table->unsignedBigInteger('sector_id');
-            $table->foreign('sector_id')->references('id')->on('sectors');
             $table->unsignedBigInteger('contribuyente_id');
             $table->foreign('contribuyente_id')->references('id')->on('contribuyentes');
             $table->timestamps();

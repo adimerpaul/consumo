@@ -30,6 +30,8 @@ class CreateTramitesTable extends Migration
             $table->string("tramitador");
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedBigInteger('tecnico_id')->nullable();
+            $table->foreign('tecnico_id')->references('id')->on('users');
             $table->unsignedBigInteger('caso_id');
             $table->foreign('caso_id')->references('id')->on('casos');
             $table->unsignedBigInteger('negocio_id')->nullable();

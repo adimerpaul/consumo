@@ -10,8 +10,6 @@ class Negocio extends Model
     use HasFactory;
     protected $fillable=[
 
-        "actividad_id",
-        "sector_id",
         "licencia",
         "razon",
         "descripcionactividad",

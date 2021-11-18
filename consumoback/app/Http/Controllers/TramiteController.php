@@ -80,14 +80,19 @@ class TramiteController extends Controller
 
             font-weight:bold;
         }
-        *{text-size:4px}
+        *{text-size:6px;
+        }
         table,tr,td{
-            font-size: x-small; text-align: center;
+            font-size: small; text-align: center;
             margin:0;
             border-solid:0;}
         td{width:50%;}
+        .contenedor {
+            display: flex;
+            justify-content: center;
+          }
         </style>
-        <div>
+        <div class='contenedor'>
         <table>
         <tr><td class='textn'>GOBIERNO AUTONOMO MUNICIPAL DE ORURO</td><td class='textn'>GOBIERNO AUTONOMO MUNICIPAL DE ORURO</td></tr>
         <tr><td class='textn'>VENTANILLA UNICA DE TRAMITES TRIBUTARIOS</td><td class='textn'>VENTANILLA UNICA DE TRAMITES TRIBUTARIOS</td></tr>
