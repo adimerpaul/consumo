@@ -60,6 +60,7 @@
           <div class="col-6">
             <q-select dense filled v-model="contrib.expedido" :options="exp" label="Expedido" required />
           </div>
+          </div>
           <div class="row">
             <div class="col-3"><q-input dense outlined v-model="contrib.paterno" label="Paterno" /></div>
             <div class="col-3"><q-input dense outlined v-model="contrib.materno" label="Materno" /></div>
@@ -82,7 +83,6 @@
             <div class="col-4"><q-checkbox dense v-model="contrib.extrangero" label="Extrangero" /></div>
             <div class="col-4"><q-input dense outlined v-model="contrib.numeroextrangero" label="Nro Extrang" /></div>
             <div class="col-4"><q-input dense outlined v-model="contrib.numerodni" label="Nro DNI" /></div>
-          </div>
           </div>
                     <div class="text-h6 text-center" >DATOS Y UBICACION DE LA ACTIVIDAD</div>
           <div class="row">
