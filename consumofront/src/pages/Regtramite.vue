@@ -189,7 +189,6 @@ export default {
     this.mifecha()
     this.minum()
     this.miscasos()
-    this.listadoactividad()
     this.reset()
   },
   methods:{
@@ -206,20 +205,7 @@ export default {
       })
 
     },
-    listadoactividad(){
-      this.$axios.get(process.env.API+'/listactividad').then(res=>{
-        console.log(res.data);
-        this.actividades=[];
-        res.data.forEach(element => {
-          this.actividades.push({label:element.detalle,value:element});
-        });
-      })
-    },
-    listadosector(actividad){
-      this.$axios.get(process.env.API+'/lsector/'+actividad.value.sector_id).then(res=>{
-        this.sectores=res.data.detalle;
-      })
-    },
+
     regini(){
       this.$axios.get(process.env.API+'/listregistro').then(res=>{
         this.tramites=[];

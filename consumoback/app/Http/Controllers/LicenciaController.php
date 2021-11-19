@@ -23,7 +23,7 @@ class LicenciaController extends Controller
     }
 
     public function listlicencia(){
-        return Licencia::with('contribuyente')->with('caso')->with('historialmultas')
+        return Licencia::with('contribuyente')->with('negocio')->with('caso')->with('historialmultas')
         ->get();
     }
 

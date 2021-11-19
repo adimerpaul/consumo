@@ -32,13 +32,13 @@
         <div class="col-12" v-if="licencia!=''">
           <q-badge v-if="licencia!=''" color="primary" :label="'Numero '+licencia.num"/>
           <q-badge v-if="licencia.num!=undefined" color="secondary" :label="'Num licencia '+licencia.numlicencia"/>
-          <q-badge v-if="licencia.contribuyente!=undefined" color="teal" :label="'contribuyente '+licencia.contribuyente.representante"/>
-          <q-badge v-if="licencia.contribuyente!=undefined" color="accent" :label="'razon '+licencia.contribuyente.razon"/>
-          <q-badge v-if="licencia.contribuyente!=undefined" color="primary" :label="'direccion '+licencia.contribuyente.direccionrazon"/>
-          <q-badge v-if="licencia.fechaautorizacion!=undefined" color="secondary" :label="'fecha emicion '+licencia.fechaautorizacion"/>
+          <q-badge color="teal" :label="'contribuyente '+contribuyente.nombres+' '+ contribuyente.paterno+' '+contribuyente.materno"/>
+          <q-badge  color="accent" :label="'razon '+negocio.razon"/>
+          <q-badge color="primary" :label="'direccion '+negocio.calle"/>
+          <q-badge  color="secondary" :label="'fecha emicion '+licencia.fechaautorizacion"/>
           <q-badge v-if="licencia.fechafin!=undefined" color="teal" :label="'fecha fin '+licencia.fechafin"/>
           <q-badge v-if="licencia.caso!=undefined" color="teal" :label="'horario '+licencia.caso.inicio+'-'+licencia.caso.fin"/>
-          <q-badge v-if="licencia.contribuyente!=undefined" color="accent" :label="'Actividad autorizada '+licencia.contribuyente.descripcion"/>
+          <q-badge color="accent" :label="'Actividad autorizada '+negocio.descripcionactividad"/>
           <q-badge v-if="licencia.caso!=undefined" color="teal" :label="'obligacion '+licencia.caso.clasificacion"/>
 <!--          <pre>{{licencia}}</pre>-->
         </div>
@@ -187,16 +187,21 @@ export default {
       licencias:[],
       licencias2:[],
       licencia:'',
+      contribuyente:{},
+      negocio:{}
     }
   },
   created(){
     this.mislicencias()
+    console.log(this.licencias)
   },
   methods:{
     vertramite(i){
       // console.log(i)
       this.seguimientos=i.seguimientos
       this.licencia=''
+      this.contribuyente=i.contribuyente
+      this.negocio=i.negocio
       if (i.licencia!=null){
         this.licencia=i.licencia
       }
@@ -236,14 +241,14 @@ export default {
       doc.setFontSize(10);
       var x=0,y=0;
       doc.text(x+15, y+6.5, this.licencia.num);
-      doc.text(x+2, y+8, this.licencia.contribuyente.representante);
-      doc.text(x+2, y+9.5, this.licencia.contribuyente.razon);
-      doc.text(x+2, y+11, this.licencia.contribuyente.direccionrazon);
+      doc.text(x+2, y+8, this.contribuyente.nombres + ' ' +this.contribuyente.paterno+ ' '+ this.contribuyente.materno);
+      doc.text(x+2, y+9.5, this.negocio.razon);
+      doc.text(x+2, y+11, this.negocio.calle+' '+ this.negocio.entrecalles);
       doc.text(x+2, y+12.5, this.licencia.fechaautorizacion);
       doc.text(x+6, y+12.5, this.licencia.fechafin);
       doc.text(x+11, y+12.5, this.licencia.caso.inicio+'-'+this.licencia.caso.fin);
       doc.text(x+16, y+12.5, this.licencia.numlicencia);
-      doc.text(x+2, y+15, this.licencia.contribuyente.descripcion);
+      doc.text(x+2, y+15, this.negocio.descripcionactividad);
       doc.text(x+2, y+17, this.licencia.caso.clasificacion);
       console.log(this.licencia)
       let miPrimeraPromise = new Promise((resolve, reject) => {
@@ -279,9 +284,9 @@ export default {
       doc.setFont("courier");
       doc.setFontSize(10);
       var x=0,y=0;
-      doc.text(x+2, y+13.5, this.licencia.contribuyente.representante);
-      doc.text(x+2, y+15.5, this.licencia.contribuyente.razon);
-      doc.text(x+2, y+17, this.licencia.contribuyente.direccionrazon);
+      doc.text(x+2, y+13.5, this.contribuyente.nombres+' '+ this.contribuyente.paterno+' '+ this.contribuyente.materno );
+      doc.text(x+2, y+15.5, this.negocio.razon);
+      doc.text(x+2, y+17, this.negocio.calle+' '+ this.negocio.entrecalles);
 
       doc.text(x+2, y+19, this.licencia.caso.tipo);
       doc.text(x+6, y+19, this.licencia.caso.inicio+'-'+this.licencia.caso.fin);

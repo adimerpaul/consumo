@@ -48,7 +48,6 @@ Route::group(['middleware'=>'auth:sanctum'],function (){
     Route::post('/mistramitesrevisado',[\App\Http\Controllers\DireccionController::class,'mistramitesrevisado']);
     Route::post('/mistramitesaprobacion',[\App\Http\Controllers\DireccionController::class,'mistramitesaprobacion']);
     Route::post('/mistramitesterminar',[\App\Http\Controllers\DireccionController::class,'mistramitesterminar']);
-    Route::get('/listactividad',[\App\Http\Controllers\NegocioController::class,'listactividad']);
     Route::get('/lsector/{id}',[\App\Http\Controllers\NegocioController::class,'lsector']);
     Route::post('/asignar',[\App\Http\Controllers\DireccionController::class,'asignar']);
     Route::post('/aprobar',[\App\Http\Controllers\DireccionController::class,'aprobar']);

@@ -43,10 +43,7 @@ class Negocio extends Model
         "estado",
         'contribuyente_id'
     ];
-    public function actividad(){
-        return $this->belongsTo(Actividad::class);
-    }
-    public function sector(){
-        return $this->belongsTo(Sector::class);
+    public function contribuyente(){
+            return $this->belongsTo(Contribuyente::class);
     }
 }

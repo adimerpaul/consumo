@@ -29,13 +29,13 @@
                 <h6>DATO DE PROPIETARIO</h6>
                 <div class="row">
                     <div class="col-6">Cedula de Identidad: {{contribuyente.cedula}}</div>
-                    <div class="col-6">Nombre Completo: {{contribuyente.representante}}</div>
+                    <div class="col-6">Nombre Completo: {{contribuyente.nombres}} {{contribuyente.paterno}} {{contribuyente.materno}}</div>
                 </div>
                 <h6>UBICACION DE LA ACTIVIDAD ECONOMICA</h6>
                 <div class="row">
-                    <div class="col-6">Razon Social: {{contribuyente.razon}}</div>
-                    <div class="col-6">Direccion: {{contribuyente.direccionrazon}}</div>
-                    <div class="col-6">Piso: {{contribuyente.numpiso}}</div>
+                    <div class="col-6">Razon Social: {{negocio.razon}}</div>
+                    <div class="col-6">Direccion: {{negocio.calle}}, {{negocio.entrecalles}}</div>
+                    <div class="col-6">Piso: {{negocio.numpiso}}</div>
                 </div>
                 <h6>Datos de Licencia</h6>
                 <div class="row">
@@ -53,7 +53,7 @@
         </q-card-section>
 
         <q-card-section class="q-pt-none">
-            Representante {{contribuyente.representante}}
+            Representante {{contribuyente.nombres}} {{contribuyente.paterno}} {{contribuyente.materno}}
           <div>
               <q-select :options="multas" label="Tipo de Infraccion" v-model="sancion" @update:model-value="verificar"/>
               <q-select :options="detallemultas" label="Infraccion" v-model="detalle" @update:model-value="llenar"/>
@@ -107,6 +107,7 @@ export default {
     detallemultas:[],
     sector:{},
     contribuyente:{},
+    negocio:{},
     sancion:{},
     caso:{},
     licencia:{},
@@ -152,9 +153,11 @@ export default {
               let dat={
                 contribuyente: r.contribuyente,
                 caso:r.caso,
+                negocio:r.negocio,
+                
                 licencia:r,                
                 historialmultas:r.historialmultas,
-                label: r.contribuyente.padron + '' + r.contribuyente.representante + ' TIPO:' + r.caso.tipo,
+                label: 'Lic: '+r.numlicencia + ' ' + r.contribuyente.nombres+' '+r.contribuyente.paterno+' '+r.contribuyente.materno + ' TIPO:' + r.caso.tipo,
               }
               this.options.push(dat)
               this.options2.push(dat)
@@ -213,8 +216,7 @@ export default {
           this.regmulta=this.detalle.detallemulta;
       },
       onReg(){
-          console.log(this.contribuyente.representante!=undefined)
-          if(this.contribuyente.representante!=undefined && (this.licencia.estado=='ACTIVO' || this.licencia.estado=='SUSPENCION'))
+          if(this.licencia.estado=='ACTIVO' || this.licencia.estado=='SUSPENCION')
           this.dialog_multa=true;
 
       },
@@ -232,6 +234,7 @@ export default {
           console.log(this.model)
           this.contribuyente=this.model.contribuyente;
           this.caso=this.model.caso;
+          this.negocio=this.model.negocio;
           this.licencia=this.model.licencia;
           this.historialmultas=this.model.historialmultas;
           console.log(this.historialmultas);

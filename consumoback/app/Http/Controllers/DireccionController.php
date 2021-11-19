@@ -31,6 +31,7 @@ class DireccionController extends Controller
         $seguimiento->tramite_id=$request->tramite_id;
         $seguimiento->user_id=$request->user()->id;
         $seguimiento->save();
+      
 
     }
     public function aprobar(Request $request){
@@ -76,7 +77,7 @@ class DireccionController extends Controller
         $tramite=Tramite::find($request->tramite_id);
         $tramite->tipo=$request->caso['tipo'];
         $tramite->caso_id=$request->caso['id'];
-        $tramite->estado='REVISADO';
+        $tramite->estado='FINALIZADO';
         $tramite->save();
 
         $seguimiento= new Seguimiento();
@@ -87,6 +88,34 @@ class DireccionController extends Controller
         $seguimiento->tramite_id=$request->tramite_id;
         $seguimiento->user_id=$request->user()->id;
         $seguimiento->save();
+
+        $seguimiento= new Seguimiento();
+        $seguimiento->nombre="TRAMITE FINALIZADO";
+        $seguimiento->observacion="TERMINADO";
+        $seguimiento->fecha=date('Y-m-d');
+        $seguimiento->hora=date('H:i:s');
+        $seguimiento->tramite_id=$tramite->id;
+        $seguimiento->user_id=$request->user()->id;
+        $seguimiento->save();
+
+        $licencia=new Licencia();
+        $licencia->num=$request->licencia['num'];
+        $licencia->numlicencia=$request->licencia['numlicencia'];
+        $licencia->fecha=$tramite->fecha;
+        $licencia->fechaautorizacion=date('Y-m-d');
+        $licencia->fechafin=date('Y-m-d', strtotime('+2 year'));
+        $licencia->foto='';
+        $licencia->hora=date('H:i:s');
+        $licencia->fechalimite=$tramite->fechalimite;
+        $licencia->tipo=$tramite->tipo;
+        $licencia->estado='ACTIVO';
+//        $licencia->entramite=$request->entramite;
+        $licencia->user_id=$request->user()->id;
+        $licencia->contribuyente_id=$negocio->contribuyente_id;
+        $licencia->negocio_id=$tramite->negocio_id;
+        $licencia->caso_id=$tramite->caso_id;
+        $licencia->tramite_id=$tramite->id;
+        $licencia->save();
 
     }
     public function aprobarrevisado(Request $request){
@@ -310,6 +339,7 @@ class DireccionController extends Controller
                 with('user')
                 ->with('caso')
                 ->with('requisitos')
+                ->with('negocio')
                 ->with('contribuyente')
                 ->with('seguimientos')
                 ->with('licencia')

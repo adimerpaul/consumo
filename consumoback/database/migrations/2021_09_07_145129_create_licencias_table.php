@@ -29,6 +29,8 @@ class CreateLicenciasTable extends Migration
             $table->string("entramite")->default('')->nullable();
             $table->unsignedBigInteger("user_id");
             $table->foreign("user_id")->references('id')->on('users');
+            $table->unsignedBigInteger("negocio_id");
+            $table->foreign("negocio_id")->references('id')->on('negocios');
             $table->unsignedBigInteger("contribuyente_id");
             $table->foreign("contribuyente_id")->references('id')->on('contribuyentes');
             $table->unsignedBigInteger("caso_id");

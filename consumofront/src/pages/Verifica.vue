@@ -311,18 +311,9 @@ export default {
       dialogtramite:false,
       users:[],
       user:{},
-      actividades:[]
     }
   },
   created(){
-
-    this.$axios.get(process.env.API+'/listactividad').then(res=>{
-      // console.log(res.data);
-      this.actividades=[];
-      res.data.forEach(element => {
-        this.actividades.push({label:element.detalle,value:element});
-      });
-    })
 
 
     this.mistramites()

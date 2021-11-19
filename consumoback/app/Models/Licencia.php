@@ -21,6 +21,7 @@ class Licencia extends Model
         "estado",
         "entramite",
         "user_id",
+        "negocio_id",
         "contribuyente_id",
         "caso_id",
         "tramite_id",
@@ -28,8 +29,11 @@ class Licencia extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+    public function negocio(){
+        return $this->belongsTo(Negocio::class)->with('contribuyente');
+    }
     public function contribuyente(){
-        return $this->belongsTo(Contribuyente::class);
+        return $this->belongsTo(contribuyente::class);
     }
     public function caso(){
         return $this->belongsTo(Caso::class);

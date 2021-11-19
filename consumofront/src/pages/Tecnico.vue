@@ -266,8 +266,18 @@
                       <div class="col-12">
                         <q-form @submit.prevent="asignar">
                           <div class="row">
-                            <div class="col-6">
+                            <div class="col-6"></div>
+                          </div>
+                          <div class="row">
+                            <div class="col-6"><div class="row">
 <!--                              <q-select dense label="Asignar Tecnico" :options="users" v-model="user" option-label="name" outlined  />-->
+                                <div class="col-6"><q-input outlined dense v-model="lic.num" type="text" label="Numero" 
+                                lazy-rules
+                  :rules="[(val) => (val && val.length > 0) || 'Por favor ingresa datos']"/></div>
+                                <div class="col-6"><q-input outlined dense v-model="lic.numlicencia" type="text" label="N Licencia" 
+                                lazy-rules
+                  :rules="[(val) => (val && val.length > 0) || 'Por favor ingresa datos']"/></div>
+                                </div>
                             </div>
                             <div class="col-3 flex flex-center" >
                               <q-btn type="submit" label="Aprobar " icon="send" color="positive"/>
@@ -297,6 +307,7 @@ export default {
   data(){
     return{
       exp:['OR','LP','PT','PD','SC','CB','CH','TJ','BE','EX'],
+      lic:{},
       columns:[
         { name: 'tramitador', label: 'tramitador', field: 'tramitador'},
         { name: 'tipo', label: 'tipo', field: 'tipo'},
@@ -345,7 +356,8 @@ export default {
         // name:this.user.name,
         tramite_id:this.tramite.id,
         caso:this.negact.value,
-        negocio:this.tramite.negocio
+        negocio:this.tramite.negocio,
+        licencia:this.lic
       }).then(res=>{
 
 
